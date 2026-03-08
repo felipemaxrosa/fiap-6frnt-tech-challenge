@@ -19,6 +19,46 @@ Before starting, confirm the following items from Days 3-4 are ready:
 
 ---
 
+## Setup — `lib/utils.ts`
+
+Every component in this phase imports `cn` from `@/lib/utils`. This utility merges Tailwind class names safely, resolving conflicts (e.g. two `border-*` classes) by keeping the last one. It combines `clsx` for conditional logic and `tailwind-merge` for conflict resolution.
+
+### Install dependencies
+
+```bash
+npm install clsx tailwind-merge
+```
+
+### Create the file
+
+```ts
+// lib/utils.ts
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs))
+}
+```
+
+### Usage
+
+```tsx
+// Conditionals
+cn('px-3 py-2', isActive && 'bg-primary', className)
+
+// Conflict resolution — twMerge keeps 'p-4', drops 'p-2'
+cn('p-2', 'p-4') // → 'p-4'
+```
+
+> If the project was bootstrapped with **shadcn/ui**, `lib/utils.ts` is already created automatically. Verify it exists before reinstalling.
+
+- [ ] `clsx` and `tailwind-merge` installed
+- [ ] `lib/utils.ts` created and exporting `cn`
+- [ ] `@/lib/utils` path alias resolving correctly (check `tsconfig.json` paths)
+
+---
+
 ## Expected folder structure at the end
 
 ```
