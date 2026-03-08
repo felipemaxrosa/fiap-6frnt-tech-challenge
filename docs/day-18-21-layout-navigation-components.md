@@ -150,6 +150,18 @@ export function Header({ appName = 'FinTrack' }: HeaderProps) {
 }
 ```
 
+### Responsive behavior
+
+`Header` is the primary example of breakpoint-driven show/hide in this project. The desktop nav and mobile hamburger are mutually exclusive:
+
+| Element              | Mobile (default)  | sm+ (640px+)   |
+| -------------------- | ----------------- | -------------- |
+| Desktop `<nav>`      | `hidden`          | `flex`         |
+| Hamburger `<button>` | visible           | `hidden`       |
+| Mobile `<nav>`       | toggled via state | never rendered |
+
+The inner content is constrained by `max-w-5xl mx-auto` so it doesn't stretch on very wide screens.
+
 ### Storybook stories
 
 ```tsx
@@ -275,6 +287,24 @@ export function Modal({ isOpen, onClose, title, size = 'md', children }: ModalPr
     document.body
   )
 }
+```
+
+### Responsive behavior
+
+`Modal` adapts to screen size via the combination of `w-full` on the panel and a `max-w-*` size variant. On mobile the `p-4` outer wrapper provides breathing room so the panel doesn't touch screen edges. Action buttons inside modals should stack vertically on small screens:
+
+```tsx
+{
+  /* Stack on mobile, side by side on sm+ */
+}
+;<div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-end">
+  <Button variant="secondary" fullWidth onClick={onClose}>
+    Cancel
+  </Button>
+  <Button fullWidth onClick={onClose}>
+    Confirm
+  </Button>
+</div>
 ```
 
 ### Storybook stories
@@ -443,6 +473,10 @@ export function EmptyState({ icon, title, description, action, className }: Empt
   )
 }
 ```
+
+### Responsive behavior
+
+`EmptyState` is a centered flex column. It is responsive by default — the `py-16` vertical padding and `text-center` alignment work on all screen sizes. No breakpoint overrides needed.
 
 ### Storybook stories
 
@@ -639,6 +673,12 @@ export const Sizes: Story = {
 
 ---
 
+### Responsive behavior
+
+`LoadingSpinner` is a centered inline element. No breakpoint changes needed.
+
+---
+
 ## Component 5 — `Skeleton`
 
 Animated placeholder that matches the shape of real content while data is loading. `SkeletonList` renders multiple rows shaped like a `TransactionItem`.
@@ -692,6 +732,10 @@ export function SkeletonList({ lines = 3 }: SkeletonListProps) {
   )
 }
 ```
+
+### Responsive behavior
+
+`Skeleton` and `SkeletonList` fill their parent width by default. `SkeletonList` uses `w-3/4` and `w-1/4` fractional widths so the placeholder proportions look correct on any screen size.
 
 ### Storybook stories
 
@@ -828,3 +872,4 @@ export * from './LoadingSpinner'
 - [ ] Each component has its own `index.ts`
 - [ ] Basic accessibility: `aria-*` attributes, keyboard support, focus visible ring
 - [ ] Storybook running with `autodocs` enabled on all components
+- [ ] Mobile-first: `Header` uses `hidden sm:flex` / `sm:hidden` for nav vs. hamburger; `Modal` actions use `flex-col sm:flex-row` to stack on mobile (see `docs/responsiveness.md`)

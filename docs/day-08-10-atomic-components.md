@@ -167,6 +167,20 @@ export function Button({
 }
 ```
 
+### Responsive behavior
+
+`Button` is an inline element by default and has no built-in breakpoint logic. Use the `fullWidth` prop in mobile form layouts so the button spans the full container width, and remove it on wider screens by wrapping the button in a flex/grid parent.
+
+```tsx
+// Full-width on mobile, auto-width on sm+
+<div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+  <Button variant="secondary" fullWidth>
+    Cancel
+  </Button>
+  <Button fullWidth>Save</Button>
+</div>
+```
+
 ### Storybook stories
 
 ```tsx
@@ -296,6 +310,10 @@ export function Input({
 }
 ```
 
+### Responsive behavior
+
+`Input` renders `w-full` by default, so it fills its container on all screen sizes. No breakpoint overrides are needed on the component itself — control width from the parent layout (e.g. a form grid).
+
 ### Storybook stories
 
 ```tsx
@@ -402,6 +420,10 @@ export function Badge({
 }
 ```
 
+### Responsive behavior
+
+`Badge` is an inline-flex element. No breakpoint overrides are needed — it adapts naturally to its parent's flow. The `size="sm"` variant works well inside compact mobile rows.
+
 ### Storybook stories
 
 ```tsx
@@ -503,6 +525,10 @@ export function Card({
   )
 }
 ```
+
+### Responsive behavior
+
+`Card` fills the width of its parent by default. Control layout from the outside — for example, a `grid grid-cols-1 sm:grid-cols-3` parent makes cards go from stacked to side-by-side. The `padding` prop lets you use tighter padding on mobile (`sm`) and larger on desktop (`lg`).
 
 ### Storybook stories
 
@@ -620,3 +646,4 @@ export * from './Card'
 - [ ] Each component has its own `index.ts`
 - [ ] Basic accessibility: `aria-*` attributes, visible focus ring, keyboard support
 - [ ] Storybook running with `autodocs` enabled on all components
+- [ ] Mobile-first: all base styles written without breakpoint prefix; `sm:` / `md:` used to enhance upward (see `docs/responsiveness.md`)

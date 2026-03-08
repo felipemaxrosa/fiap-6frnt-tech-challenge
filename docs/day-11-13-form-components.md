@@ -147,6 +147,10 @@ export function Select({
 }
 ```
 
+### Responsive behavior
+
+`Select` renders `w-full` by default. No breakpoint overrides needed on the component; control column width from the parent form grid.
+
 ### Storybook stories
 
 ```tsx
@@ -304,6 +308,10 @@ export function CurrencyInput({
 }
 ```
 
+### Responsive behavior
+
+`CurrencyInput` renders `w-full` by default. The `inputMode="decimal"` attribute already ensures the numeric keypad appears on iOS and Android. No layout breakpoints are needed on the component itself.
+
 ### Storybook stories
 
 ```tsx
@@ -427,6 +435,10 @@ export function DatePicker({
   )
 }
 ```
+
+### Responsive behavior
+
+`DatePicker` renders `w-full` by default. The native `<input type="date">` automatically opens the system date picker on mobile (especially iOS), providing a touch-friendly experience with no extra work.
 
 ### Storybook stories
 
@@ -570,6 +582,24 @@ export function FormField({
   />
 </FormField>
 ```
+
+### Responsive behavior
+
+`FormField` uses a vertical flex column by default, making it naturally mobile-friendly. When placing multiple `FormField`s side by side on larger screens, wrap them in a responsive grid at the page level:
+
+```tsx
+// Two-column form layout on md+
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+  <FormField label="Amount" htmlFor="amount" required>
+    <CurrencyInput id="amount" value={0} />
+  </FormField>
+  <FormField label="Date" htmlFor="date" required>
+    <DatePicker id="date" />
+  </FormField>
+</div>
+```
+
+The `FullTransactionForm` story uses a hardcoded `w-96` wrapper for Storybook preview. In a real page, replace it with `w-full max-w-lg`.
 
 ### Storybook stories
 
@@ -743,3 +773,4 @@ export * from './FormField' // ← new
 - [ ] Each component has its own `index.ts`
 - [ ] Basic accessibility: labels, `aria-describedby`, keyboard support
 - [ ] Storybook running with `autodocs` enabled on all components
+- [ ] Mobile-first: all base styles written without breakpoint prefix; form fields use `w-full` by default; multi-column layouts applied at page level via `md:grid-cols-2` (see `docs/responsiveness.md`)

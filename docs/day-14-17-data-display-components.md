@@ -164,6 +164,10 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
 }
 ```
 
+### Responsive behavior
+
+`TransactionItem` is a `flex` row with `min-w-0` on the text area and `shrink-0` on the actions. This keeps the amount and action buttons from being squeezed on small screens while letting the description truncate gracefully. No breakpoint overrides are needed on the component itself.
+
 ### Storybook stories
 
 ```tsx
@@ -297,6 +301,10 @@ export function TransactionList({
 }
 ```
 
+### Responsive behavior
+
+`TransactionList` is a vertical flex stack. It is full-width by default and adapts naturally to any screen size since each row handles its own internal layout. No breakpoint overrides needed.
+
 ### Storybook stories
 
 ```tsx
@@ -426,6 +434,18 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
 }
 ```
 
+### Responsive behavior
+
+`BalanceCard` fills its parent by default. On mobile the balance amount can be `text-2xl` and grow to `text-3xl` on `md+` for better visual hierarchy:
+
+```tsx
+<span
+  className={cn('text-2xl font-bold tracking-tight md:text-3xl', !isPositive && 'text-red-200')}
+>
+  {balance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+</span>
+```
+
 ### Storybook stories
 
 ```tsx
@@ -546,6 +566,18 @@ export function TransactionSummary({ transactions }: TransactionSummaryProps) {
   )
 }
 ```
+
+### Responsive behavior
+
+`TransactionSummary` is the primary example of responsive grid layout in this project. The implementation already follows mobile-first:
+
+```tsx
+<div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+  {/* 1 column on mobile → 3 columns from 640px onward */}
+</div>
+```
+
+This is the canonical pattern to reuse for any multi-stat grid in the app.
 
 ### Storybook stories
 
@@ -706,3 +738,4 @@ export * from './TransactionSummary'
 - [ ] Storybook stories use hardcoded mock arrays (no json-server dependency in Storybook)
 - [ ] When wiring `onEdit`/`onDelete` in pages, use `async` handlers from `useTransactions()` (e.g. `onDelete={async (id) => { await deleteTransaction(id) }}`)
 - [ ] Storybook running with `autodocs` enabled on all components
+- [ ] Mobile-first: `TransactionSummary` uses `grid-cols-1 sm:grid-cols-3`; `BalanceCard` uses `text-2xl md:text-3xl` for the balance amount (see `docs/responsiveness.md`)
