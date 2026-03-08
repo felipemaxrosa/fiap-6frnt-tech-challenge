@@ -7,7 +7,8 @@
 - Set up `json-server` to serve `data/transactions.json` as a REST API
 - Create `data/transactions.json` with 20+ mock entries (serves as the database)
 - Implement pure computation helpers (`lib/transactions.ts`)
-- Set up global state management with React Context API (async fetch-based CRUD)
+- Create `services/TransactionService.ts` to encapsulate all API calls
+- Set up global state management with React Context API (delegates to `TransactionService`)
 
 ---
 
@@ -279,7 +280,57 @@ Create `data/transactions.json` with at least 20 varied entries. This file is bo
 
 ---
 
-## Step 5 — Computation Helpers (`lib/transactions.ts`)
+## Step 5 — API Service (`services/TransactionService.ts`)
+
+Create `services/TransactionService.ts` to own every `fetch` call. This keeps the Context free of raw HTTP details, and makes the service independently mockable in tests.
+
+```ts
+// services/TransactionService.ts
+
+import type { Transaction, NewTransaction, UpdateTransaction } from '@/types'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'
+
+export const TransactionService = {
+  async getAll(): Promise<Transaction[]> {
+    const res = await fetch(`${API_URL}/transactions`)
+    return res.json()
+  },
+
+  async getById(id: string): Promise<Transaction> {
+    const res = await fetch(`${API_URL}/transactions/${id}`)
+    return res.json()
+  },
+
+  async create(data: NewTransaction): Promise<Transaction> {
+    const res = await fetch(`${API_URL}/transactions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    return res.json()
+  },
+
+  async update(id: string, data: UpdateTransaction): Promise<Transaction> {
+    const res = await fetch(`${API_URL}/transactions/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    return res.json()
+  },
+
+  async remove(id: string): Promise<void> {
+    await fetch(`${API_URL}/transactions/${id}`, { method: 'DELETE' })
+  },
+}
+```
+
+> **Design decision:** `TransactionService` is a plain object of async functions — no class, no constructor. It holds the `API_URL` via module-level scope and stays simple to import and mock.
+
+---
+
+## Step 6 — Computation Helpers (`lib/transactions.ts`)
 
 CRUD operations are now handled by the Context via `fetch` calls to json-server. `lib/transactions.ts` only contains **pure, synchronous helpers** used to derive computed values from the array already held in state — keeping them easy to test.
 
@@ -310,9 +361,9 @@ export function getRecent(transactions: Transaction[], limit = 5): Transaction[]
 
 ---
 
-## Step 6 — Set Up React Context (`context/TransactionsContext.tsx`)
+## Step 7 — Set Up React Context (`context/TransactionsContext.tsx`)
 
-Create `context/TransactionsContext.tsx`. All CRUD operations are async — they call json-server, then update local state with the response so the UI stays in sync without a full refetch.
+Create `context/TransactionsContext.tsx`. The Context delegates all API calls to `TransactionService` and only manages state — it never calls `fetch` directly.
 
 ```tsx
 // context/TransactionsContext.tsx
@@ -321,8 +372,7 @@ Create `context/TransactionsContext.tsx`. All CRUD operations are async — they
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
 import type { Transaction, NewTransaction, UpdateTransaction } from '@/types'
 import { calculateBalance, getRecent, getAll } from '@/lib/transactions'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'
+import { TransactionService } from '@/services/TransactionService'
 
 interface TransactionsContextValue {
   transactions: Transaction[]
@@ -341,34 +391,23 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${API_URL}/transactions`)
-      .then((res) => res.json())
-      .then((data: Transaction[]) => setTransactions(data))
+    TransactionService.getAll()
+      .then(setTransactions)
       .finally(() => setIsLoading(false))
   }, [])
 
   const addTransaction = async (data: NewTransaction) => {
-    const res = await fetch(`${API_URL}/transactions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    const created: Transaction = await res.json()
+    const created = await TransactionService.create(data)
     setTransactions((prev) => [...prev, created])
   }
 
   const updateTransaction = async (id: string, data: UpdateTransaction) => {
-    const res = await fetch(`${API_URL}/transactions/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    const updated: Transaction = await res.json()
+    const updated = await TransactionService.update(id, data)
     setTransactions((prev) => prev.map((t) => (t.id === id ? updated : t)))
   }
 
   const deleteTransaction = async (id: string) => {
-    await fetch(`${API_URL}/transactions/${id}`, { method: 'DELETE' })
+    await TransactionService.remove(id)
     setTransactions((prev) => prev.filter((t) => t.id !== id))
   }
 
@@ -396,11 +435,11 @@ export function useTransactions(): TransactionsContextValue {
 }
 ```
 
-> **Design decision — optimistic-like updates:** each mutation awaits the json-server response and uses the returned object to update state. This ensures the local state always reflects what the server persisted, without a full refetch.
+> **Design decision — layered responsibilities:** `TransactionService` owns HTTP, `lib/transactions` owns computation, and the Context owns state. Each layer is independently testable — mock `TransactionService` to test the Context without a real server.
 
 ---
 
-## Step 7 — Register the Provider in the Root Layout (`app/layout.tsx`)
+## Step 8 — Register the Provider in the Root Layout (`app/layout.tsx`)
 
 Wrap the app with `TransactionsProvider` so all pages and components can consume the context.
 
@@ -428,7 +467,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## Step 8 — How to consume the context in components
+## Step 9 — How to consume the context in components
 
 ```tsx
 // Example: display balance and recent transactions
@@ -491,7 +530,8 @@ export function QuickAdd() {
 - [ ] Created `data/transactions.json` with 20+ entries (mix of deposit, withdrawal, transfer)
 - [ ] `npm run api` serves `GET /transactions` and returns the mock data
 - [ ] Created `lib/transactions.ts` with `getAll`, `calculateBalance`, `getRecent` (pure helpers only)
-- [ ] Created `context/TransactionsContext.tsx` with async `addTransaction`, `updateTransaction`, `deleteTransaction` and `isLoading`
+- [ ] Created `services/TransactionService.ts` with `getAll`, `getById`, `create`, `update`, `remove`
+- [ ] Created `context/TransactionsContext.tsx` delegating to `TransactionService`, with async `addTransaction`, `updateTransaction`, `deleteTransaction` and `isLoading`
 - [ ] Registered `TransactionsProvider` in `app/layout.tsx`
 - [ ] Verified that `useTransactions()` fetches transactions from json-server on mount
 - [ ] Verified that add/update/delete operations call the API and update local state
