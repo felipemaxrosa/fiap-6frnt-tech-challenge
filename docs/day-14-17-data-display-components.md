@@ -2,8 +2,8 @@
 
 ## Goals
 
-- Build the data display feature components that connect real transaction data to the UI
-- Reuse atomic components from `components/ui/` (`Card`, `Badge`, `Button`)
+- Build the feature components: data display and transaction creation
+- Reuse atomic components from `components/ui/` (`Card`, `Badge`, `Button`, `Select`, `CurrencyInput`)
 - Consume `useTransactions()` and `TRANSACTION_TYPE` where needed
 - Document all components in Storybook with all variants
 
@@ -13,7 +13,7 @@
 
 Before starting, confirm the following are ready:
 
-- [ ] `components/ui/Card`, `Badge`, `Button` implemented (Days 8-10)
+- [ ] `components/ui/Card`, `Badge`, `Button`, `Select`, `CurrencyInput` implemented (Days 8-13)
 - [ ] `types/index.ts` with `Transaction`, `TransactionType` defined (Days 5-7)
 - [ ] `shared/constants/transaction.ts` with `TRANSACTION_TYPE` (Days 5-7)
 - [ ] `context/TransactionsContext.tsx` with `useTransactions()` hook (Days 5-7)
@@ -42,9 +42,9 @@ components/
     │   ├── BalanceCard.tsx
     │   ├── BalanceCard.stories.tsx
     │   └── index.ts
-    └── TransactionSummary/
-        ├── TransactionSummary.tsx
-        ├── TransactionSummary.stories.tsx
+    └── NewTransaction/
+        ├── NewTransaction.tsx
+        ├── NewTransaction.stories.tsx
         └── index.ts
 ```
 
@@ -487,167 +487,148 @@ export const CustomLabel: Story = {
 
 ---
 
-## Component 4 — `TransactionSummary`
+## Component 4 — `NewTransaction`
 
-Shows the totals broken down by transaction type: total deposited, total withdrawn, and total transferred.
+Form card that lets the user add a new transaction. Composed from the atomic `Select`, `CurrencyInput`, and `Button` components. Matches the design shown in the app mockup: title "Nova transação", type dropdown, amount field, and a full-width submit button.
 
 ### Props
 
-| Prop           | Type            | Default | Description                            |
-| -------------- | --------------- | ------- | -------------------------------------- |
-| `transactions` | `Transaction[]` | —       | Full list used to calculate each total |
+| Prop       | Type                                                  | Default | Description                                     |
+| ---------- | ----------------------------------------------------- | ------- | ----------------------------------------------- |
+| `onSubmit` | `(data: NewTransactionData) => void \| Promise<void>` | —       | Called with `{ type, amount }` on submission    |
+| `loading`  | `boolean`                                             | `false` | Shows spinner on the submit button while saving |
 
 ### TypeScript interface
 
 ```ts
-export interface TransactionSummaryProps {
-  transactions: Transaction[]
+// components/features/NewTransaction/NewTransaction.tsx
+import type { TransactionType } from '@/types'
+
+export interface NewTransactionData {
+  type: TransactionType
+  amount: number
+}
+
+export interface NewTransactionProps {
+  onSubmit: (data: NewTransactionData) => void | Promise<void>
+  loading?: boolean
 }
 ```
 
 ### Suggested implementation
 
 ```tsx
-// components/features/TransactionSummary/TransactionSummary.tsx
-import { ArrowDownCircle, ArrowUpCircle, ArrowRightLeft } from 'lucide-react'
+// components/features/NewTransaction/NewTransaction.tsx
+'use client'
+
+import { useState } from 'react'
 import { Card } from '@/components/ui/Card'
+import { Select } from '@/components/ui/Select'
+import { CurrencyInput } from '@/components/ui/CurrencyInput'
+import { Button } from '@/components/ui/Button'
 import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import type { Transaction } from '@/types'
+import type { TransactionType } from '@/types'
 
-export interface TransactionSummaryProps {
-  transactions: Transaction[]
+export interface NewTransactionData {
+  type: TransactionType
+  amount: number
 }
 
-function sumByType(transactions: Transaction[], type: string): number {
-  return transactions.filter((t) => t.type === type).reduce((acc, t) => acc + t.amount, 0)
+export interface NewTransactionProps {
+  onSubmit: (data: NewTransactionData) => void | Promise<void>
+  loading?: boolean
 }
 
-function formatCurrency(value: number): string {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-}
+const TRANSACTION_TYPE_OPTIONS = [
+  { label: 'Depósito', value: TRANSACTION_TYPE.DEPOSIT },
+  { label: 'Saque', value: TRANSACTION_TYPE.WITHDRAWAL },
+  { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
+]
 
-export function TransactionSummary({ transactions }: TransactionSummaryProps) {
-  const totalDeposited = sumByType(transactions, TRANSACTION_TYPE.DEPOSIT)
-  const totalWithdrawn = sumByType(transactions, TRANSACTION_TYPE.WITHDRAWAL)
-  const totalTransferred = sumByType(transactions, TRANSACTION_TYPE.TRANSFER)
+export function NewTransaction({ onSubmit, loading = false }: NewTransactionProps) {
+  const [type, setType] = useState<TransactionType | ''>('')
+  const [amount, setAmount] = useState(0)
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!type || amount <= 0) return
+    await onSubmit({ type: type as TransactionType, amount })
+  }
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-      <Card padding="md" className="flex items-center gap-3">
-        <ArrowUpCircle size={32} className="shrink-0 text-income" />
-        <div>
-          <p className="text-xs font-medium text-text-secondary uppercase tracking-wide">
-            Deposited
-          </p>
-          <p className="text-lg font-bold text-income">{formatCurrency(totalDeposited)}</p>
+    <Card padding="lg">
+      <h2 className="mb-6 text-xl font-semibold text-text-primary">Nova transação</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Select
+          placeholder="Selecione o tipo de transação"
+          options={TRANSACTION_TYPE_OPTIONS}
+          value={type}
+          onChange={(e) => setType(e.target.value as TransactionType)}
+        />
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="new-tx-amount" className="text-sm font-medium text-text-primary">
+            Valor
+          </label>
+          <CurrencyInput
+            id="new-tx-amount"
+            currency="R$"
+            value={amount}
+            onValueChange={setAmount}
+          />
         </div>
-      </Card>
-
-      <Card padding="md" className="flex items-center gap-3">
-        <ArrowDownCircle size={32} className="shrink-0 text-expense" />
-        <div>
-          <p className="text-xs font-medium text-text-secondary uppercase tracking-wide">
-            Withdrawn
-          </p>
-          <p className="text-lg font-bold text-expense">{formatCurrency(totalWithdrawn)}</p>
-        </div>
-      </Card>
-
-      <Card padding="md" className="flex items-center gap-3">
-        <ArrowRightLeft size={32} className="shrink-0 text-transfer" />
-        <div>
-          <p className="text-xs font-medium text-text-secondary uppercase tracking-wide">
-            Transferred
-          </p>
-          <p className="text-lg font-bold text-transfer">{formatCurrency(totalTransferred)}</p>
-        </div>
-      </Card>
-    </div>
+        <Button type="submit" fullWidth loading={loading} disabled={!type || amount <= 0}>
+          Concluir transação
+        </Button>
+      </form>
+    </Card>
   )
 }
 ```
 
 ### Responsive behavior
 
-`TransactionSummary` is the primary example of responsive grid layout in this project. The implementation already follows mobile-first:
+`NewTransaction` is a single-column form by default, which works perfectly on mobile. On wider screens it can be placed in a sidebar or a constrained column (e.g. `max-w-sm`) alongside the transaction list.
 
 ```tsx
-<div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-  {/* 1 column on mobile → 3 columns from 640px onward */}
+// Page-level placement example
+<div className="flex flex-col gap-6 md:flex-row md:items-start">
+  <aside className="w-full md:w-80 shrink-0">
+    <NewTransaction onSubmit={handleCreate} loading={isCreating} />
+  </aside>
+  <main className="flex-1 min-w-0">
+    <TransactionList transactions={transactions} onEdit={handleEdit} onDelete={handleDelete} />
+  </main>
 </div>
 ```
-
-This is the canonical pattern to reuse for any multi-stat grid in the app.
 
 ### Storybook stories
 
 ```tsx
-// components/features/TransactionSummary/TransactionSummary.stories.tsx
+// components/features/NewTransaction/NewTransaction.stories.tsx
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { TransactionSummary } from './TransactionSummary'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import type { Transaction } from '@/types'
+import { NewTransaction } from './NewTransaction'
 
-const meta: Meta<typeof TransactionSummary> = {
-  title: 'Features/TransactionSummary',
-  component: TransactionSummary,
+const meta: Meta<typeof NewTransaction> = {
+  title: 'Features/NewTransaction',
+  component: NewTransaction,
   tags: ['autodocs'],
   parameters: {
-    backgrounds: { default: 'page' },
+    layout: 'centered',
   },
 }
 export default meta
-type Story = StoryObj<typeof TransactionSummary>
-
-const mockTransactions: Transaction[] = [
-  {
-    id: 'txn-001',
-    type: TRANSACTION_TYPE.DEPOSIT,
-    amount: 5000,
-    date: '2025-03-05',
-    description: 'March salary',
-  },
-  {
-    id: 'txn-002',
-    type: TRANSACTION_TYPE.DEPOSIT,
-    amount: 350,
-    date: '2025-03-15',
-    description: 'Freelance',
-  },
-  {
-    id: 'txn-003',
-    type: TRANSACTION_TYPE.WITHDRAWAL,
-    amount: 120.5,
-    date: '2025-03-07',
-    description: 'Supermarket',
-  },
-  {
-    id: 'txn-004',
-    type: TRANSACTION_TYPE.WITHDRAWAL,
-    amount: 45,
-    date: '2025-03-12',
-    description: 'Streaming',
-  },
-  {
-    id: 'txn-005',
-    type: TRANSACTION_TYPE.TRANSFER,
-    amount: 800,
-    date: '2025-03-10',
-    description: 'Rent',
-  },
-]
+type Story = StoryObj<typeof NewTransaction>
 
 export const Default: Story = {
-  args: { transactions: mockTransactions },
-}
-
-export const AllZero: Story = {
-  args: { transactions: [] },
-}
-
-export const OnlyDeposits: Story = {
   args: {
-    transactions: mockTransactions.filter((t) => t.type === TRANSACTION_TYPE.DEPOSIT),
+    onSubmit: (data) => console.log('submit', data),
+  },
+}
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    onSubmit: (data) => console.log('submit', data),
   },
 }
 ```
@@ -677,9 +658,9 @@ export type { BalanceCardProps } from './BalanceCard'
 ```
 
 ```ts
-// components/features/TransactionSummary/index.ts
-export { TransactionSummary } from './TransactionSummary'
-export type { TransactionSummaryProps } from './TransactionSummary'
+// components/features/NewTransaction/index.ts
+export { NewTransaction } from './NewTransaction'
+export type { NewTransactionProps, NewTransactionData } from './NewTransaction'
 ```
 
 And a global barrel at `components/features/index.ts`:
@@ -689,7 +670,7 @@ And a global barrel at `components/features/index.ts`:
 export * from './TransactionItem'
 export * from './TransactionList'
 export * from './BalanceCard'
-export * from './TransactionSummary'
+export * from './NewTransaction'
 ```
 
 ---
@@ -721,13 +702,14 @@ export * from './TransactionSummary'
 - [ ] Optional `owner` name renders a welcome message
 - [ ] Stories documented in Storybook (Positive, Negative, Zero, WithoutOwner, CustomLabel)
 
-### TransactionSummary
+### NewTransaction
 
-- [ ] Calculates totals per type using `TRANSACTION_TYPE` constants
-- [ ] Three cards: Deposited, Withdrawn, Transferred
-- [ ] Each card shows correct color and icon per type
-- [ ] Responsive grid: 1 column on mobile, 3 columns on `sm` and up
-- [ ] Stories documented in Storybook (Default, AllZero, OnlyDeposits)
+- [ ] Select renders all three transaction type options using `TRANSACTION_TYPE` constants
+- [ ] Submit button is disabled when no type is selected or amount is zero
+- [ ] `loading` prop shows spinner on the submit button
+- [ ] `onSubmit` receives `{ type, amount }` with the correct `TransactionType`
+- [ ] Form resets or delegates state reset to the parent after successful submission
+- [ ] Stories documented in Storybook (Default, Loading)
 
 ### General
 
@@ -738,4 +720,4 @@ export * from './TransactionSummary'
 - [ ] Storybook stories use hardcoded mock arrays (no json-server dependency in Storybook)
 - [ ] When wiring `onEdit`/`onDelete` in pages, use `async` handlers from `useTransactions()` (e.g. `onDelete={async (id) => { await deleteTransaction(id) }}`)
 - [ ] Storybook running with `autodocs` enabled on all components
-- [ ] Mobile-first: `TransactionSummary` uses `grid-cols-1 sm:grid-cols-3`; `BalanceCard` uses `text-2xl md:text-3xl` for the balance amount (see `docs/responsiveness.md`)
+- [ ] Mobile-first: `NewTransaction` is full-width by default; on `md+` it sits in a `w-80` sidebar; `BalanceCard` uses `text-2xl md:text-3xl` for the balance amount (see `docs/responsiveness.md`)
