@@ -42,10 +42,10 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 5-7: Data Layer & Types**
 
-- [ ] Define TypeScript types: `Transaction`, `TransactionType`, `Account`
-- [ ] Create `transactions.json` mock data file (20+ entries)
-- [ ] Implement data access layer (CRUD functions in `lib/transactions.ts`)
-- [ ] Set up local state management (Context API or Zustand)
+- [x] Define TypeScript types: `Transaction`, `TransactionType`, `Account`
+- [x] Create `transactions.json` mock data file (20+ entries)
+- [x] Implement data access layer (CRUD functions in `lib/transactions.ts`)
+- [x] Set up local state management (Context API or Zustand)
 
 ---
 
