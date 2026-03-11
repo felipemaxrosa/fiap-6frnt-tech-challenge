@@ -22,3 +22,18 @@ export function formatCurrency(value: number): string {
 
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+
+export function formatDate(dateStr: string | Date): string {
+  if (typeof dateStr === 'string') {
+    dateStr = `${dateStr}T00:00:00Z`;
+  }
+
+  return new Date(dateStr).toLocaleDateString('pt-BR');
+}
+
+export function formatTodayDate(): string {
+  const now = new Date();
+  const weekday = now.toLocaleDateString('pt-BR', { weekday: 'long' });
+  const date = formatDate(now);
+  return `${weekday.charAt(0).toUpperCase() + weekday.slice(1)}, ${date}`;
+}

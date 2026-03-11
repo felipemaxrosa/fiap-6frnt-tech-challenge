@@ -2,19 +2,12 @@
 
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
-import { formatCurrency } from '@/lib/format';
+import { formatCurrency, formatTodayDate } from '@/lib/format';
 
 export interface BalanceCardProps {
   balance: number;
   owner?: string;
   label?: string;
-}
-
-function formatTodayDate(): string {
-  const now = new Date();
-  const weekday = now.toLocaleDateString('pt-BR', { weekday: 'long' });
-  const date = now.toLocaleDateString('pt-BR');
-  return `${weekday.charAt(0).toUpperCase() + weekday.slice(1)}, ${date}`;
 }
 
 export function BalanceCard({ balance, owner, label = 'Current balance' }: BalanceCardProps) {
