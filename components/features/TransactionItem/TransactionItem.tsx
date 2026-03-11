@@ -2,6 +2,7 @@
 
 import { Pencil, Trash2 } from 'lucide-react';
 import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
+import { formatCurrency } from '@/lib/format';
 import type { Transaction, TransactionType } from '@/types';
 
 export interface TransactionItemProps {
@@ -33,10 +34,6 @@ const badgeColorMap: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.WITHDRAWAL]: 'bg-red-100 text-red-700',
   [TRANSACTION_TYPE.TRANSFER]: 'bg-amber-100 text-amber-700',
 };
-
-function formatCurrency(value: number): string {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
 
 function formatDate(dateStr: string): string {
   return new Date(`${dateStr}T00:00:00`).toLocaleDateString('pt-BR');
