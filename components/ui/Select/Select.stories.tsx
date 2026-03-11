@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Select } from './Select';
 
 const TRANSACTION_TYPE_OPTIONS = [
-  { label: 'Depósito', value: 'deposit' },
-  { label: 'Saque', value: 'withdrawal' },
-  { label: 'Transferência', value: 'transfer' },
+  { label: 'Deposit', value: 'deposit' },
+  { label: 'Withdrawal', value: 'withdrawal' },
+  { label: 'Transfer', value: 'transfer' },
 ];
 
 const meta: Meta<typeof Select> = {
@@ -52,7 +52,7 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   name: 'Default',
-  args: { label: 'Transaction type', placeholder: 'Select the transaction type.' },
+  args: { label: 'Transaction type', placeholder: 'Select the transaction type' },
   parameters: {
     docs: {
       description: { story: 'Default state with label and placeholder.' },
@@ -64,8 +64,8 @@ export const WithHelperText: Story = {
   name: 'With Helper Text',
   args: {
     label: 'Transaction type',
-    placeholder: 'Select the transaction type.',
-    helperText: 'Choose between deposit, withdrawal, or transfer.',
+    placeholder: 'Select the transaction type',
+    helperText: 'Choose between deposit, withdrawal, or transfer',
   },
   parameters: {
     docs: {
@@ -79,8 +79,8 @@ export const WithError: Story = {
   args: {
     label: 'Transaction type',
     error: true,
-    helperText: 'Por favor, selecione um tipo',
-    placeholder: 'Select the transaction type.',
+    helperText: 'Please select the transaction type',
+    placeholder: 'Select the transaction type',
   },
   parameters: {
     docs: {
@@ -101,7 +101,7 @@ export const Disabled: Story = {
 
 export const NoLabel: Story = {
   name: 'No Label',
-  args: { placeholder: 'Select the transaction type.' },
+  args: { placeholder: 'Select the transaction type' },
   parameters: {
     docs: {
       description: { story: 'No visible label.' },
