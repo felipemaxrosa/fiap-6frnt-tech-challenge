@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '../../../lib/classes';
 import { useEffect, useState } from 'react';
 
 export interface CurrencyInputProps extends Omit<
@@ -12,10 +13,6 @@ export interface CurrencyInputProps extends Omit<
   label?: string;
   helperText?: string;
   error?: boolean;
-}
-
-function cn(...classes: (string | undefined | false | null)[]) {
-  return classes.filter(Boolean).join(' ');
 }
 
 function formatCurrency(value: number) {

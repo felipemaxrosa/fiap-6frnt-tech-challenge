@@ -1,3 +1,5 @@
+import { cn } from '../../../lib/classes';
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -9,10 +11,6 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   label?: string;
   helperText?: string;
   error?: boolean;
-}
-
-function cn(...classes: (string | undefined | false | null)[]): string {
-  return classes.filter(Boolean).join(' ');
 }
 
 export function Select({

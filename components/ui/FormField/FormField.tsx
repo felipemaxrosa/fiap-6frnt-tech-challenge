@@ -1,3 +1,5 @@
+import { cn } from '../../../lib/classes';
+
 export interface FormFieldProps {
   label: string;
   htmlFor: string;
@@ -6,10 +8,6 @@ export interface FormFieldProps {
   required?: boolean;
   className?: string;
   children: React.ReactNode;
-}
-
-function cn(...classes: (string | undefined | false | null)[]): string {
-  return classes.filter(Boolean).join(' ');
 }
 
 export function FormField({
