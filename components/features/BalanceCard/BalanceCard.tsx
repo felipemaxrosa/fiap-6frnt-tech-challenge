@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
+import { formatCurrency } from '@/lib/format';
 
 export interface BalanceCardProps {
   balance: number;
@@ -22,14 +23,14 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
 
   return (
     // TODO: replace outer div with <Card padding="lg" /> from components/ui/Card
-    <div className="rounded-xl flex justify-between bg-teal-800 p-6 text-white shadow-lg">
+    <div className="rounded-xl flex flex-col md:flex-row justify-between bg-teal-800 p-6 text-white shadow-lg">
       <div className="flex flex-col">
         {owner && <h1 className="mb-1 text-lg font-medium opacity-75">Olá, {owner}! :)</h1>}
         <p className="mb-4 text-sm opacity-60">{formatTodayDate()}</p>
       </div>
 
-      <div className="flex flex-col min-w-56 gap-2 justify-center">
-        <h2 className="flex items-center gap-2 text-lg border-b pb-3 mb-3 border-white/20">
+      <div className="flex flex-col items-center md:items-end min-w-56 gap-2 justify-center">
+        <h2 className="w-full flex justify-center md:justify-end items-center gap-2 text-lg border-b pb-3 mb-3 border-white/20">
           Saldo
           {/* TODO: replace with <Button variant="ghost" size="sm" /> from components/ui/Button */}
           <button
@@ -48,11 +49,9 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
             <TrendingDown size={28} className="opacity-80" />
           )}
           <span
-            className={`text-2xl tracking-tight md:text-3xl ${!isPositive ? 'text-red-300' : ''}`}
+            className={`text-2xl sm:text-3xl tracking-tight ${!isPositive ? 'text-red-300' : ''}`}
           >
-            {visible
-              ? balance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-              : 'R$ ••••••'}
+            {visible ? formatCurrency(balance) : 'R$ ••••••'}
           </span>
         </div>
       </div>
