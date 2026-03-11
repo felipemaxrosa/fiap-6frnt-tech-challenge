@@ -6,8 +6,6 @@ import { formatCurrency, formatDate } from '@/lib/format';
 import type { TransactionType } from '@/types';
 import type { TransactionItemProps } from './ITransactionItem';
 
-export type { TransactionItemProps } from './ITransactionItem';
-
 const amountColorMap: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: 'text-green-600',
   [TRANSACTION_TYPE.WITHDRAWAL]: 'text-red-600',

@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { TRANSACTION_TYPE_OPTIONS } from '@/shared/constants/transaction';
 import type { NewTransactionData, NewTransactionProps } from './INewTransaction';
 
-export type { NewTransactionData, NewTransactionProps } from './INewTransaction';
-
 export function NewTransaction({ onSubmit, loading = false }: NewTransactionProps) {
   const [type, setType] = useState<NewTransactionData['type'] | ''>('');
   const [amount, setAmount] = useState('');

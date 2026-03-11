@@ -2,8 +2,6 @@ import { ReceiptText } from 'lucide-react';
 import { TransactionItem } from '@/components/features/TransactionItem';
 import type { TransactionListProps } from './ITransactionList';
 
-export type { TransactionListProps } from './ITransactionList';
-
 export function TransactionList({
   transactions,
   onEdit,
