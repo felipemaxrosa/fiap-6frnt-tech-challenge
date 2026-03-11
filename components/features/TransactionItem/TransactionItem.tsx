@@ -53,7 +53,7 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
           >
             {badgeLabelMap[type]}
           </span>
-          <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-48">
+          <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-40">
             {description}
           </p>
           <p className="text-xs text-gray-500">{formatDate(date)}</p>
