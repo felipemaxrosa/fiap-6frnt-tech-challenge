@@ -1,34 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
-import type { TransactionType } from '@/types';
+import { TRANSACTION_TYPE_OPTIONS } from '@/shared/constants/transaction';
+import type { NewTransactionData, NewTransactionProps } from './INewTransaction';
 
-export interface NewTransactionData {
-  type: TransactionType;
-  amount: number;
-}
-
-export interface NewTransactionProps {
-  onSubmit: (data: NewTransactionData) => void | Promise<void>;
-  loading?: boolean;
-}
-
-const TRANSACTION_TYPE_OPTIONS = [
-  { label: 'Depósito', value: TRANSACTION_TYPE.DEPOSIT },
-  { label: 'Saque', value: TRANSACTION_TYPE.WITHDRAWAL },
-  { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
-];
+export type { NewTransactionData, NewTransactionProps } from './INewTransaction';
 
 export function NewTransaction({ onSubmit, loading = false }: NewTransactionProps) {
-  const [type, setType] = useState<TransactionType | ''>('');
+  const [type, setType] = useState<NewTransactionData['type'] | ''>('');
   const [amount, setAmount] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = parseFloat(amount.replace(',', '.'));
     if (!type || !parsed || parsed <= 0) return;
-    await onSubmit({ type: type as TransactionType, amount: parsed });
+    await onSubmit({ type: type as NewTransactionData['type'], amount: parsed });
     setType('');
     setAmount('');
   }
@@ -49,7 +35,7 @@ export function NewTransaction({ onSubmit, loading = false }: NewTransactionProp
           <select
             id="new-tx-type"
             value={type}
-            onChange={(e) => setType(e.target.value as TransactionType)}
+            onChange={(e) => setType(e.target.value as NewTransactionData['type'])}
             className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-600/50 focus:border-teal-600"
           >
             <option value="" disabled>

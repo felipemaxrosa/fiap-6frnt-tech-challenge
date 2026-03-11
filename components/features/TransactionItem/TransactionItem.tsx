@@ -3,13 +3,10 @@
 import { Pencil, Trash2 } from 'lucide-react';
 import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
 import { formatCurrency, formatDate } from '@/lib/format';
-import type { Transaction, TransactionType } from '@/types';
+import type { TransactionType } from '@/types';
+import type { TransactionItemProps } from './ITransactionItem';
 
-export interface TransactionItemProps {
-  transaction: Transaction;
-  onEdit?: (id: string) => void;
-  onDelete?: (id: string) => void;
-}
+export type { TransactionItemProps } from './ITransactionItem';
 
 const amountColorMap: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: 'text-green-600',

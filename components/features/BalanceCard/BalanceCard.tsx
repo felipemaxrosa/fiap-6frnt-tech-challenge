@@ -3,12 +3,9 @@
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
 import { formatCurrency, formatTodayDate } from '@/lib/format';
+import type { BalanceCardProps } from './IBalanceCard';
 
-export interface BalanceCardProps {
-  balance: number;
-  owner?: string;
-  label?: string;
-}
+export type { BalanceCardProps } from './IBalanceCard';
 
 export function BalanceCard({ balance, owner, label = 'Current balance' }: BalanceCardProps) {
   const isPositive = balance >= 0;
