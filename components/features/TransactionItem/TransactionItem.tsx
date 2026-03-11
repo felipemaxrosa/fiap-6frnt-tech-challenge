@@ -44,7 +44,7 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
 
   return (
     <li className="flex items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex items-center gap-3 min-w-0">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
         {/* TODO: replace with <Badge variant={badgeVariant} dot size="sm" /> from components/ui/Badge */}
 
         <div className="min-w-0">
@@ -53,12 +53,14 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
           >
             {badgeLabelMap[type]}
           </span>
-          <p className="truncate text-sm font-medium text-gray-900">{description}</p>
+          <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-48">
+            {description}
+          </p>
           <p className="text-xs text-gray-500">{formatDate(date)}</p>
         </div>
       </div>
 
-      <div className="flex flex-col h-full items-end justify-between gap-2 shrink-0">
+      <div className="flex flex-col h-[-webkit-fill-available] items-end justify-between gap-2 shrink-0">
         <div className="flex">
           {onEdit && (
             // TODO: replace with <Button variant="ghost" size="sm" leftIcon={<Pencil />} /> from components/ui/Button
