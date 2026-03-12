@@ -76,7 +76,7 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
           )}
         </div>
         <span className={`text-sm font-semibold ${amountColorMap[type]}`}>
-          {amountPrefixMap[type]} {formatCurrency(amount)}
+          {amountPrefixMap[type]} {formatCurrency(amount, true)}
         </span>
       </div>
     </li>

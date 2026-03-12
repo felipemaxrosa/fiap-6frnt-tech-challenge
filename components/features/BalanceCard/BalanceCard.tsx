@@ -39,7 +39,7 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
           <span
             className={`text-2xl sm:text-3xl tracking-tight ${!isPositive ? 'text-red-300' : ''}`}
           >
-            {visible ? formatCurrency(balance) : 'R$ ••••••'}
+            {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
           </span>
         </div>
       </div>
