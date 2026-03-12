@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import 'tokens.css';
+@import './tokens.css';
 
 @layer utilities {
   /* 31px /  */
