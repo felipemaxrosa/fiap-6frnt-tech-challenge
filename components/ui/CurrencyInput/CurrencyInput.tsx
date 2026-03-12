@@ -1,20 +1,9 @@
 'use client';
 
 import { cn } from '../../../lib/classes';
+import type { CurrencyInputProps } from './ICurrencyInput';
 import { formatCurrency } from '../../../lib/format';
 import { useEffect, useState } from 'react';
-
-export interface CurrencyInputProps extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange' | 'value'
-> {
-  value?: number;
-  onValueChange?: (value: number) => void;
-  currency?: string;
-  label?: string;
-  helperText?: string;
-  error?: boolean;
-}
 
 export function CurrencyInput({
   value = 0,

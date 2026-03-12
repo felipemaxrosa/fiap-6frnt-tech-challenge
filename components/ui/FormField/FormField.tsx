@@ -1,14 +1,5 @@
 import { cn } from '../../../lib/classes';
-
-export interface FormFieldProps {
-  label: string;
-  htmlFor: string;
-  helperText?: string;
-  error?: string;
-  required?: boolean;
-  className?: string;
-  children: React.ReactNode;
-}
+import type { FormFieldProps } from './IFormField';
 
 export function FormField({
   label,
