@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '../../../lib/classes';
+import { formatCurrency } from '../../../lib/format';
 import { useEffect, useState } from 'react';
 
 export interface CurrencyInputProps extends Omit<
@@ -13,13 +14,6 @@ export interface CurrencyInputProps extends Omit<
   label?: string;
   helperText?: string;
   error?: boolean;
-}
-
-function formatCurrency(value: number) {
-  return value.toLocaleString('pt-BR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
 }
 
 export function CurrencyInput({

@@ -5,22 +5,27 @@ const ABBREVIATIONS = [
   { threshold: 1e4, suffix: ' mil' },
 ];
 
-export function formatCurrency(value: number): string {
+export function formatCurrency(value: number, showSuffix = false): string {
   const abs = Math.abs(value);
   const sign = value < 0 ? '-' : '';
 
-  for (const { threshold, suffix } of ABBREVIATIONS) {
-    if (abs >= threshold) {
-      const shortened = abs / threshold;
-      const formatted = shortened.toLocaleString('pt-BR', {
-        minimumFractionDigits: shortened % 1 === 0 ? 0 : 1,
-        maximumFractionDigits: 1,
-      });
-      return `${sign}R$ ${formatted}${suffix}`;
+  if (showSuffix) {
+    for (const { threshold, suffix } of ABBREVIATIONS) {
+      if (abs >= threshold) {
+        const shortened = abs / threshold;
+        const formatted = shortened.toLocaleString('pt-BR', {
+          minimumFractionDigits: shortened % 1 === 0 ? 0 : 1,
+          maximumFractionDigits: 1,
+        });
+        return `${sign}R$ ${formatted}${suffix}`;
+      }
     }
   }
 
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  return value.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 export function formatDate(dateStr: string | Date): string {
