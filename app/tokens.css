@@ -1,30 +1,28 @@
-@import "tailwindcss";
-
 @theme {
   /* ============================================
   IDENTITY COLORS (Brand)
   ============================================ */
-  --color-brand-dark: #000B34;
-  --color-brand-primary: #6841F2;
-  
+  --color-brand-dark: #000b34;
+  --color-brand-primary: #6841f2;
+
   /* ============================================
   SURFACE COLORS (Backgrounds & Cards)
   ============================================ */
-  --color-background: #FFFFFF;
-  --color-surface: #F3F3F3;
+  --color-background: #ffffff;
+  --color-surface: #f3f3f3;
 
   /* ============================================
   CONTENT COLORS (Typography)
   ============================================ */
-  --color-content-primary: #000B34;
-  --color-content-secondary: #969BAF;
-  --color-content-inverse: #FFFFFF;  
-  
+  --color-content-primary: #000b34;
+  --color-content-secondary: #969baf;
+  --color-content-inverse: #ffffff;
+
   /* ============================================
   FEEDBACK COLORS (Semantic)
   ============================================ */
-  --color-feedback-danger: #F24822;
-  --color-feedback-success: #1CC060;
+  --color-feedback-danger: #f24822;
+  --color-feedback-success: #1cc060;
 
   /* ============================================
   FONT FAMILIES (Typography)
@@ -35,8 +33,8 @@
   FONT SIZES (Typography)
   ============================================ */
   --text-2xl: 1.9375rem; /* 31px */
-  --text-xl: 1.5625rem;  /* 25px */
-  --text-lg: 1.25rem;    /* 20px */
-  --text-base: 1rem;     /* 16px */
-  --text-sm: 0.8125rem;  /* 13px */
+  --text-xl: 1.5625rem; /* 25px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-base: 1rem; /* 16px */
+  --text-sm: 0.8125rem; /* 13px */
 }
