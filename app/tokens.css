@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================
+  IDENTITY COLORS (Brand)
+  ============================================ */
+  --color-brand-dark: #000B34;
+  --color-brand-primary: #6841F2;
+  
+  /* ============================================
+  SURFACE COLORS (Backgrounds & Cards)
+  ============================================ */
+  --color-background: #FFFFFF;
+  --color-surface: #F3F3F3;
+
+  /* ============================================
+  CONTENT COLORS (Typography)
+  ============================================ */
+  --color-content-primary: #000B34;
+  --color-content-secondary: #969BAF;
+  --color-content-inverse: #FFFFFF;  
+  
+  /* ============================================
+  FEEDBACK COLORS (Semantic)
+  ============================================ */
+  --color-feedback-danger: #F24822;
+  --color-feedback-success: #1CC060;
+
+  /* ============================================
+  FONT FAMILIES (Typography)
+  ============================================ */
+  --font-sans: 'Inter', sans-serif;
+
+  /* ============================================
+  FONT SIZES (Typography)
+  ============================================ */
+  --text-2xl: 1.9375rem; /* 31px */
+  --text-xl: 1.5625rem;  /* 25px */
+  --text-lg: 1.25rem;    /* 20px */
+  --text-base: 1rem;     /* 16px */
+  --text-sm: 0.8125rem;  /* 13px */
+}
