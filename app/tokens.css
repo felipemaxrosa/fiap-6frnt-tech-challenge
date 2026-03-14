@@ -8,8 +8,8 @@
   /* ============================================
   SURFACE COLORS (Backgrounds & Cards)
   ============================================ */
-  --color-background: #ffffff;
-  --color-surface: #f3f3f3;
+  --color-background: #f3f3f3; /* página/canvas — corrigido (estava invertido) */
+  --color-surface: #ffffff; /* cards e painéis — corrigido (estava invertido) */
 
   /* ============================================
   CONTENT COLORS (Typography)
@@ -25,6 +25,35 @@
   --color-feedback-success: #1cc060;
 
   /* ============================================
+  BADGE COLORS
+  ============================================ */
+  --color-badge-transfer-bg: rgba(104, 65, 242, 0.1); /* #6841F2 a 10% */
+  --color-badge-transfer-text: #6841f2;
+  --color-badge-withdraw-bg: rgba(242, 72, 34, 0.1); /* #F24822 a 10% */
+  --color-badge-withdraw-text: #f24822;
+  --color-badge-deposit-bg: rgba(31, 228, 113, 0.1); /* #1FE471 a 10% */
+  --color-badge-deposit-text: #1cc060; /* reutiliza --color-feedback-success */
+
+  /* ============================================
+  BORDER COLORS
+  ============================================ */
+  --color-border: #c2c2c2;
+
+  /* ============================================
+  ICON COLORS
+  ============================================ */
+  --color-icon-default: var(--color-content-primary); /* ícones de ação (lápis, lixeira) */
+  --color-icon-secondary: var(
+    --color-content-secondary
+  ); /* ícones decorativos / menos proeminentes */
+  --color-icon-accent: var(--color-feedback-danger); /* ícone do olho (Saldo) e separador */
+
+  /* ============================================
+  FORM COLORS
+  ============================================ */
+  --color-placeholder: var(--color-content-secondary); /* texto placeholder nos inputs */
+
+  /* ============================================
   FONT FAMILIES (Typography)
   ============================================ */
   --font-sans: 'Inter', sans-serif;
@@ -32,18 +61,35 @@
   /* ============================================
   FONT SIZES (Typography)
   ============================================ */
-  --text-2xl: 1.9375rem; /* 31px */
   --text-xl: 1.5625rem; /* 25px */
   --text-lg: 1.25rem; /* 20px */
   --text-base: 1rem; /* 16px */
   --text-sm: 0.8125rem; /* 13px */
 
   /* ============================================
-  SPACING (Layout)
+  SPACING (Layout) — convertido de px para rem
   ============================================ */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 0.75rem; /* 12px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+
+  /* ============================================
+  BORDER RADIUS
+  ============================================ */
+  --radius-default: 0.5rem; /* 8px - cards, badges, inputs, botões */
+
+  /* ============================================
+  SHADOWS
+  ============================================ */
+  --shadow-card: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* conforme Figma */
+
+  /* ============================================
+  FOCUS / INTERACTION
+  ============================================ */
+  --color-focus-ring: var(--color-brand-primary);
+  --color-focus-ring-offset: var(
+    --color-surface
+  ); /* auto-adapta no dark mode via --color-surface */
 }

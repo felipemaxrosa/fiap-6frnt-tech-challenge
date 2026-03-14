@@ -36,9 +36,10 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 **Day 3-4: Design System Foundation**
 
 - [x] Install and configure Storybook
-- [ ] Define design tokens: colors, typography, spacing, shadows
-- [ ] Create base theme file
-- [ ] Study Figma reference: [Projeto Financeiro](https://www.figma.com/design/ns5TC3X5Xr8V7I3LYKg9KA/Projeto-Financeiro?node-id=503-4264&t=gZy56WDAUfXtS23Y-1)
+- [x] Define design tokens: colors, typography, spacing, shadows
+- [x] Create base theme file
+- [x] Study Figma reference: [Projeto Financeiro - Original](https://www.figma.com/design/ns5TC3X5Xr8V7I3LYKg9KA/Projeto-Financeiro?node-id=503-4264&t=gZy56WDAUfXtS23Y-1)
+- [x] Study Figma reference: [Projeto Financeiro - Custom](https://www.figma.com/design/DBtYhdd97gkBoQ8Eu58aDA/Original?t=TbPEsp73W8FRbHC6-1)
 
 **Day 5-7: Data Layer & Types**
 
@@ -61,18 +62,18 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 11-13: Form Components**
 
-- [ ] `Select` / `Dropdown` for transaction type
-- [ ] `CurrencyInput` with masking
-- [ ] `DatePicker`
-- [ ] `FormField` wrapper (label + input + error)
-- [ ] Document in Storybook
+- [x] `Select` / `Dropdown` for transaction type
+- [x] `CurrencyInput` with masking
+- [x] `DatePicker`
+- [x] `FormField` wrapper (label + input + error)
+- [x] Document in Storybook
 
 **Day 14-17: Data Display Components**
 
-- [ ] `TransactionItem` (single row/card)
-- [ ] `TransactionList`
-- [ ] `BalanceCard` (current balance display)
-- [ ] `TransactionSummary` (totals by type)
+- [x] `TransactionItem` (single row/card)
+- [x] `TransactionList`
+- [x] `BalanceCard` (current balance display)
+- [x] `NewTransaction` (new transaction card)
 - [ ] Document in Storybook
 
 **Day 18-21: Layout & Navigation Components**
