@@ -13,11 +13,14 @@ export function FormField({
   const message = error ?? helperText;
 
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
-      <label htmlFor={htmlFor} className="text-sm font-medium text-gray-700">
+    <div className={cn('flex flex-col gap-[var(--spacing-sm)]', className)}>
+      <label htmlFor={htmlFor} className="label-semibold text-[var(--color-content-secondary)]">
         {label}
         {required && (
-          <span className="ml-1 text-red-500" aria-hidden="true">
+          <span
+            className="ml-[var(--spacing-xs)] text-[var(--color-feedback-danger)]"
+            aria-hidden="true"
+          >
             *
           </span>
         )}
@@ -28,7 +31,10 @@ export function FormField({
       {message && (
         <p
           id={`${htmlFor}-description`}
-          className={cn('text-xs', error ? 'text-red-600' : 'text-gray-500')}
+          className={cn(
+            'label-default',
+            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
+          )}
           role={error ? 'alert' : undefined}
         >
           {message}

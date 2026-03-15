@@ -32,7 +32,7 @@
   --color-badge-withdraw-bg: rgba(242, 72, 34, 0.1); /* #F24822 a 10% */
   --color-badge-withdraw-text: #f24822;
   --color-badge-deposit-bg: rgba(31, 228, 113, 0.1); /* #1FE471 a 10% */
-  --color-badge-deposit-text: #1cc060; /* reutiliza --color-feedback-success */
+  --color-badge-deposit-text: var(--color-feedback-success);
 
   /* ============================================
   BORDER COLORS
@@ -72,8 +72,9 @@
   --spacing-xs: 0.25rem; /* 4px */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 0.75rem; /* 12px */
-  --spacing-lg: 1.5rem; /* 24px */
-  --spacing-xl: 2rem; /* 32px */
+  --spacing-lg: 1rem; /* 16px */
+  --spacing-xl: 1.5rem; /* 24px */
+  --spacing-2xl: 2rem; /* 32px */
 
   /* ============================================
   BORDER RADIUS
