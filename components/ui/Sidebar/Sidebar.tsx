@@ -12,8 +12,9 @@ const navLinks = [
   { href: '/outros-servicos', label: 'Outros Serviços' },
 ];
 
-export function Sidebar({ onLinkClick }: SidebarProps) {
-  const pathname = usePathname();
+export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
+  const routerPathname = usePathname();
+  const pathname = activePath ?? routerPathname;
 
   return (
     <nav aria-label="Navegação principal">
