@@ -1,5 +1,7 @@
 import { cn } from '../../../lib/classes';
 import type { SelectProps } from './ISelect';
+import { ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect, useId } from 'react';
 
 export function Select({
   options,
@@ -10,45 +12,132 @@ export function Select({
   disabled,
   className,
   id,
+  value,
+  onChange,
   ...props
 }: SelectProps) {
-  const selectId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
+  const generatedId = useId();
+  const selectId = id ?? generatedId;
+
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(value ?? '');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const selectedLabel = options.find((o) => o.value === selected)?.label;
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSelect = (optValue: string) => {
+    setSelected(optValue);
+    setOpen(false);
+    onChange?.(optValue);
+  };
+
+  const borderColor = error
+    ? 'border-[var(--color-feedback-danger)]'
+    : 'border-[var(--color-brand-primary)]';
+
+  const iconColor = error ? 'var(--color-feedback-danger)' : 'var(--color-brand-primary)';
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--spacing-sm)]">
       {label && (
-        <label htmlFor={selectId} className="text-sm font-medium text-gray-700">
+        <label htmlFor={selectId} className="label-semibold text-[var(--color-content-secondary)]">
           {label}
         </label>
       )}
-      <div className="relative">
-        <select
+
+      <div ref={containerRef} className="relative">
+        <button
           id={selectId}
+          type="button"
           disabled={disabled}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
           className={cn(
-            'w-full appearance-none rounded-lg border bg-white px-3 py-2',
-            'text-sm text-gray-900 transition-colors',
-            'focus:outline-none focus:ring-2 focus:ring-teal-600/50 focus:border-teal-600',
+            'w-full flex items-center justify-between',
+            'bg-[var(--color-surface)]',
+            'rounded-[var(--radius-default)] border',
+            borderColor,
+            'px-[var(--spacing-lg)] py-[var(--spacing-md)]',
+            'body-default',
             'disabled:opacity-50 disabled:cursor-not-allowed',
-            error ? 'border-red-400 focus:ring-red-400/50 focus:border-red-400' : 'border-gray-300',
             className
           )}
           {...props}
         >
-          {placeholder && (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          )}
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <span
+            className={cn(
+              selected ? 'text-[var(--color-content-primary)]' : 'text-[var(--color-placeholder)]'
+            )}
+          >
+            {selectedLabel ?? placeholder ?? ''}
+          </span>
+
+          <ChevronDown
+            style={{
+              width: 24,
+              height: 24,
+              color: iconColor,
+              strokeWidth: 2,
+              transition: 'transform 0.2s',
+              transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            }}
+          />
+        </button>
+
+        {open && (
+          <ul
+            role="listbox"
+            className={cn(
+              'absolute z-50 w-full mt-1',
+              'bg-[var(--color-surface)]',
+              'rounded-[var(--radius-default)] border',
+              borderColor,
+              'overflow-hidden',
+              'shadow-[var(--shadow-card)]'
+            )}
+          >
+            {options.map((opt) => (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={selected === opt.value}
+                onClick={() => handleSelect(opt.value)}
+                className={cn(
+                  'flex items-center px-[var(--spacing-lg)] py-[var(--spacing-md)]',
+                  'body-default text-[var(--color-content-primary)]',
+                  'cursor-pointer transition-colors',
+                  selected === opt.value
+                    ? 'bg-[var(--color-badge-transfer-bg)] text-[var(--color-brand-primary)]'
+                    : 'hover:bg-[var(--color-badge-transfer-bg)]'
+                )}
+              >
+                {opt.label}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
       {helperText && (
-        <p className={cn('text-xs', error ? 'text-red-600' : 'text-gray-500')}>{helperText}</p>
+        <p
+          className={cn(
+            'label-default',
+            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
+          )}
+        >
+          {helperText}
+        </p>
       )}
     </div>
   );

@@ -3,7 +3,7 @@
 import { cn } from '../../../lib/classes';
 import type { CurrencyInputProps } from './ICurrencyInput';
 import { formatCurrency } from '../../../lib/format';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 export function CurrencyInput({
   value = 0,
@@ -17,9 +17,10 @@ export function CurrencyInput({
   id,
   ...props
 }: CurrencyInputProps) {
-  const [cents, setCents] = useState(Math.round(value * 100));
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
 
-  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
+  const [cents, setCents] = useState(Math.round(value * 100));
 
   useEffect(() => {
     setCents(Math.round(value * 100));
@@ -27,34 +28,41 @@ export function CurrencyInput({
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const digits = e.target.value.replace(/\D/g, '');
-
     const newCents = Number(digits || '0');
-
     setCents(newCents);
     onValueChange?.(newCents / 100);
   }
 
   const formatted = formatCurrency(cents / 100);
 
+  const borderColor = error
+    ? 'border-[var(--color-feedback-danger)]'
+    : 'border-[var(--color-brand-primary)]';
+
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--spacing-sm)]">
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
+        <label htmlFor={inputId} className="label-semibold text-[var(--color-content-secondary)]">
           {label}
         </label>
       )}
 
       <div
         className={cn(
-          'flex rounded-lg border overflow-hidden transition-colors',
-          'focus-within:ring-2 focus-within:ring-teal-600/50 focus-within:border-teal-600',
-          error
-            ? 'border-red-400 focus-within:ring-red-400/50 focus-within:border-red-400'
-            : 'border-gray-300',
+          'flex rounded-[var(--radius-default)] border overflow-hidden',
+          borderColor,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
       >
-        <span className="flex items-center bg-gray-50 px-3 text-sm text-gray-500 border-r border-gray-300 select-none">
+        <span
+          className={cn(
+            'flex items-center px-[var(--spacing-lg)] py-[var(--spacing-md)]',
+            'body-default text-[var(--color-content-secondary)]',
+            'bg-[var(--color-background)] border-r',
+            borderColor,
+            'select-none'
+          )}
+        >
           {currency}
         </span>
 
@@ -64,9 +72,12 @@ export function CurrencyInput({
           disabled={disabled}
           value={formatted}
           onChange={handleChange}
+          style={{ outline: 'none' }}
           className={cn(
-            'flex-1 px-3 py-2 text-sm text-gray-900 bg-white',
-            'focus:outline-none',
+            'flex-1 px-[var(--spacing-lg)] py-[var(--spacing-md)]',
+            'body-default text-[var(--color-content-primary)]',
+            'bg-[var(--color-surface)]',
+            'focus:ring-0',
             'disabled:cursor-not-allowed',
             className
           )}
@@ -75,7 +86,14 @@ export function CurrencyInput({
       </div>
 
       {helperText && (
-        <p className={cn('text-xs', error ? 'text-red-600' : 'text-gray-500')}>{helperText}</p>
+        <p
+          className={cn(
+            'label-default',
+            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
+          )}
+        >
+          {helperText}
+        </p>
       )}
     </div>
   );

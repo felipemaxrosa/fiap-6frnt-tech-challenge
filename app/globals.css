@@ -41,3 +41,29 @@ body {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
+
+:root {
+  --color-brand-dark: #000b34;
+  --color-brand-primary: #6841f2;
+  --color-background: #f3f3f3;
+  --color-surface: #ffffff;
+  --color-content-primary: #000b34;
+  --color-content-secondary: #969baf;
+  --color-content-inverse: #ffffff;
+  --color-feedback-danger: #f24822;
+  --color-feedback-success: #1cc060;
+  --color-badge-transfer-bg: rgba(104, 65, 242, 0.1);
+  --color-badge-transfer-text: #6841f2;
+  --color-badge-withdraw-bg: rgba(242, 72, 34, 0.1);
+  --color-badge-withdraw-text: #f24822;
+  --color-badge-deposit-bg: rgba(31, 228, 113, 0.1);
+  --color-badge-deposit-text: #1cc060;
+  --color-border: #c2c2c2;
+  --color-icon-default: #000b34;
+  --color-icon-secondary: #969baf;
+  --color-icon-accent: #f24822;
+  --color-placeholder: #969baf;
+  --color-focus-ring: #6841f2;
+  --color-focus-ring-offset: #ffffff;
+  --font-sans: 'Inter', sans-serif;
+}
