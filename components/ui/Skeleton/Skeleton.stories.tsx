@@ -21,18 +21,34 @@ export const Single: Story = {
 };
 
 export const TransactionList: Story = {
+  parameters: { layout: 'padded' },
   render: () => (
-    <div className="w-full max-w-lg">
-      <SkeletonList lines={4} />
+    <div className="w-80">
+      <SkeletonList lines={3} />
     </div>
   ),
 };
 
 export const BalanceCardSkeleton: Story = {
+  parameters: { layout: 'padded' },
   render: () => (
-    <div className="w-72 rounded-default border border-border bg-surface p-lg shadow-card">
-      <Skeleton className="h-3 w-24 mb-sm" />
-      <Skeleton className="h-8 w-40" />
+    <div className="rounded-default flex flex-col md:flex-row justify-between bg-brand-dark p-lg shadow-card gap-lg">
+      {/* Left: greeting + date */}
+      <div className="flex flex-col gap-lg">
+        <Skeleton className="h-4 w-36 bg-content-inverse/20" />
+        <Skeleton className="h-3 w-24 bg-content-inverse/10" />
+      </div>
+      {/* Right: Saldo + label + balance */}
+      <div className="flex flex-col gap-lg min-w-56">
+        <div className="flex items-center gap-md border-b border-icon-accent pb-lg">
+          <Skeleton className="h-4 w-12 bg-content-inverse/20" />
+          <Skeleton className="h-4 w-4 rounded-full bg-content-inverse/20" />
+        </div>
+        <div className="flex flex-col gap-md">
+          <Skeleton className="h-3 w-24 bg-content-inverse/10" />
+          <Skeleton className="h-6 w-32 bg-content-inverse/20" />
+        </div>
+      </div>
     </div>
   ),
 };

@@ -13,14 +13,23 @@ export function SkeletonList({ lines = 3 }: SkeletonListProps) {
       {Array.from({ length: lines }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-sm rounded-default border border-border bg-surface px-md py-sm"
+          className="flex flex-col gap-xs rounded-default border border-border bg-surface px-md py-sm shadow-card"
         >
-          <Skeleton className="h-6 w-20 rounded-full" />
-          <div className="flex flex-1 flex-col gap-xs">
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/4" />
+          {/* Row 1: badge + icons */}
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-5 w-20 rounded-default" />
+            <div className="flex gap-xs">
+              <Skeleton className="h-5 w-5 rounded-default" />
+              <Skeleton className="h-5 w-5 rounded-default" />
+            </div>
           </div>
-          <Skeleton className="h-4 w-16" />
+          {/* Row 2: description */}
+          <Skeleton className="h-4 w-3/4" />
+          {/* Row 3: date + amount */}
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-16" />
+          </div>
         </div>
       ))}
     </div>
