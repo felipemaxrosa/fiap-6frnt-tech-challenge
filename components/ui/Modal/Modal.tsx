@@ -6,7 +6,14 @@ import { X } from 'lucide-react';
 import { cn } from '@/lib/classes';
 import type { ModalProps } from './IModal';
 
-export function Modal({ isOpen, onClose, title, children, className }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+  showCloseButton = true,
+}: ModalProps) {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -53,13 +60,15 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
               {title}
             </h2>
           )}
-          <button
-            onClick={onClose}
-            aria-label="Fechar modal"
-            className="ml-auto rounded-default p-xs text-icon-default hover:bg-background transition-colors"
-          >
-            <X size={20} />
-          </button>
+          {showCloseButton && (
+            <button
+              onClick={onClose}
+              aria-label="Fechar modal"
+              className="ml-auto rounded-default p-xs text-icon-default hover:bg-background transition-colors"
+            >
+              <X size={20} />
+            </button>
+          )}
         </div>
 
         {children}

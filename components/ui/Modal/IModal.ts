@@ -4,4 +4,5 @@ export interface ModalProps {
   title?: string;
   children: React.ReactNode;
   className?: string;
+  showCloseButton?: boolean;
 }

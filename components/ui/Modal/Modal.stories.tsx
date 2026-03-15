@@ -11,37 +11,78 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
+const openButton = (onClick: () => void) => (
+  <button
+    onClick={onClick}
+    className="rounded-default bg-brand-primary px-md py-sm body-semibold text-content-inverse"
+  >
+    Abrir modal
+  </button>
+);
+
+const confirmContent = (onClose: () => void) => (
+  <>
+    <p className="body-default text-content-secondary">
+      Tem certeza que deseja continuar? Esta ação não pode ser desfeita.
+    </p>
+    <div className="flex justify-end gap-sm mt-lg">
+      <button
+        onClick={onClose}
+        className="rounded-default border border-border px-md py-sm label-default text-content-primary hover:bg-background transition-colors"
+      >
+        Cancelar
+      </button>
+      <button
+        onClick={onClose}
+        className="rounded-default bg-brand-primary px-md py-sm label-default text-content-inverse hover:opacity-90 transition-opacity"
+      >
+        Confirmar
+      </button>
+    </div>
+  </>
+);
+
 export const WithTitle: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded-default bg-brand-primary px-md py-sm body-semibold text-content-inverse"
-        >
-          Abrir modal
-        </button>
+        {openButton(() => setOpen(true))}
         <Modal isOpen={open} onClose={() => setOpen(false)} title="Confirmar ação">
-          <p className="body-default text-content-secondary">
-            Tem certeza que deseja continuar? Esta ação não pode ser desfeita.
-          </p>
-          <div className="flex justify-end gap-sm mt-lg">
-            {/* TODO - Replace it to the <Button /> component once it's done */}
-            <button
-              onClick={() => setOpen(false)}
-              className="rounded-default border border-border px-md py-sm label-default text-content-primary hover:bg-background transition-colors"
-            >
-              Cancelar
-            </button>
-            {/* TODO - Replace it to the <Button /> component once it's done */}
-            <button
-              onClick={() => setOpen(false)}
-              className="rounded-default bg-brand-primary px-md py-sm label-default text-content-inverse hover:opacity-90 transition-opacity"
-            >
-              Confirmar
-            </button>
-          </div>
+          {confirmContent(() => setOpen(false))}
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithoutTitle: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        {openButton(() => setOpen(true))}
+        <Modal isOpen={open} onClose={() => setOpen(false)}>
+          {confirmContent(() => setOpen(false))}
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithoutCloseButton: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        {openButton(() => setOpen(true))}
+        <Modal
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          title="Confirmar ação"
+          showCloseButton={false}
+        >
+          {confirmContent(() => setOpen(false))}
         </Modal>
       </>
     );
