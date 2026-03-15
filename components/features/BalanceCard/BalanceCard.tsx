@@ -1,48 +1,66 @@
 'use client';
 
 import { useState } from 'react';
-import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 import { formatCurrency, formatTodayDate } from '@/lib/format';
 import type { BalanceCardProps } from './IBalanceCard';
 
-export function BalanceCard({ balance, owner, label = 'Current balance' }: BalanceCardProps) {
-  const isPositive = balance >= 0;
+export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: BalanceCardProps) {
   const [visible, setVisible] = useState(true);
 
   return (
-    // TODO: replace outer div with <Card padding="lg" /> from components/ui/Card
-    <div className="rounded-xl flex flex-col md:flex-row justify-between bg-teal-800 p-6 text-white shadow-lg">
-      <div className="flex flex-col">
-        {owner && <h1 className="mb-1 text-lg font-medium opacity-75">Olá, {owner}! :)</h1>}
-        <p className="mb-4 text-sm opacity-60">{formatTodayDate()}</p>
+    <div className="relative overflow-hidden rounded-default flex flex-col sm:flex-row sm:justify-between bg-brand-dark p-lg text-content-inverse shadow-card">
+      {/* Left section: greeting + date (+ illustration on desktop) */}
+      <div className="relative z-10 flex flex-col items-center sm:items-start">
+        {owner && <h1 className="mb-xs text-xl font-semibold">Olá, {owner}! :)</h1>}
+        <p className="mb-lg text-sm opacity-60">{formatTodayDate()}</p>
+        {/* Desktop: illustration */}
+        <Image
+          src="/images/balance-card-illustration.png"
+          alt=""
+          width={280}
+          height={200}
+          className="mt-auto hidden sm:block"
+          aria-hidden="true"
+        />
       </div>
 
-      <div className="flex flex-col items-center md:items-end min-w-56 gap-2 justify-center">
-        <h2 className="w-full flex justify-center md:justify-end items-center gap-2 text-lg border-b pb-3 mb-3 border-white/20">
+      {/* Right section: balance info */}
+      <div className="relative z-10 min-w-44 mx-auto flex flex-col items-start sm:items-end sm:min-w-56 gap-sm sm:justify-center">
+        <h2 className="flex items-center gap-sm text-lg font-normal">
           Saldo
-          {/* TODO: replace with <Button variant="ghost" size="sm" /> from components/ui/Button */}
           <button
             onClick={() => setVisible((v) => !v)}
-            aria-label={visible ? 'Hide balance' : 'Show balance'}
-            className="rounded p-0.5 opacity-70 hover:opacity-100 transition-opacity"
+            aria-label={visible ? 'Esconder saldo' : 'Mostrar saldo'}
+            className="rounded p-0.5 transition-opacity hover:opacity-80"
           >
-            {visible ? <Eye size={18} /> : <EyeOff size={18} />}
+            {visible ? (
+              <Eye size={18} className="text-icon-accent" />
+            ) : (
+              <EyeOff size={18} className="text-icon-accent" />
+            )}
           </button>
         </h2>
-        <p className="text-sm font-medium opacity-75">{label}</p>
-        <div className="mt-1 flex items-center gap-2">
-          {isPositive ? (
-            <TrendingUp size={28} className="opacity-80" />
-          ) : (
-            <TrendingDown size={28} className="opacity-80" />
-          )}
-          <span
-            className={`text-2xl sm:text-3xl tracking-tight ${!isPositive ? 'text-red-300' : ''}`}
-          >
-            {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
-          </span>
-        </div>
+
+        {/* Red separator line */}
+        <hr className="w-full border-t-2 border-feedback-danger" />
+
+        <p className="text-base font-normal">{label}</p>
+        <span className="text-xl font-bold tracking-tight">
+          {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
+        </span>
       </div>
+
+      {/* Mobile: illustration */}
+      <Image
+        src="/images/balance-card-illustration.png"
+        alt=""
+        width={280}
+        height={200}
+        className="relative z-10 mt-lg self-center sm:hidden"
+        aria-hidden="true"
+      />
     </div>
   );
 }
