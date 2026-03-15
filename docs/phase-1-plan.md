@@ -78,12 +78,12 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 18-21: Layout & Navigation Components**
 
-- [ ] `Header` / `Navbar`
-- [ ] `Sidebar` (optional)
-- [ ] `Modal` / `Dialog` component
-- [ ] `EmptyState`
-- [ ] `LoadingSpinner` / `Skeleton`
-- [ ] Document in Storybook
+- [x] `Header` / `Navbar`
+- [x] `Sidebar` (optional)
+- [x] `Modal` / `Dialog` component
+- [x] `EmptyState`
+- [x] `Skeleton`
+- [x] Document in Storybook
 
 ---
 
