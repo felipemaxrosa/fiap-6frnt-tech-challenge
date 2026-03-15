@@ -28,9 +28,9 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
               href={link.href}
               onClick={onLinkClick}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold'
+                  ? 'bg-surface text-brand-primary shadow-card'
                   : 'text-content-inverse hover:text-content-inverse/80'
               )}
             >
@@ -47,10 +47,10 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
             <Link
               href={link.href}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold shadow-card'
-                  : 'text-content-secondary hover:text-content-primary'
+                  ? 'bg-surface text-brand-primary shadow-card'
+                  : 'text-content-primary hover:text-brand-primary'
               )}
             >
               {link.label}
@@ -66,10 +66,10 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
             <Link
               href={link.href}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold shadow-card'
-                  : 'text-content-secondary hover:text-content-primary'
+                  ? 'bg-surface text-brand-primary shadow-card'
+                  : 'text-content-primary hover:text-brand-primary'
               )}
             >
               {link.label}
