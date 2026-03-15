@@ -1,12 +1,5 @@
 import { cn } from '@/lib/classes';
-
-export interface SkeletonProps {
-  className?: string;
-}
-
-export interface SkeletonListProps {
-  lines?: number;
-}
+import type { SkeletonProps, SkeletonListProps } from './ISkeleton';
 
 export function Skeleton({ className }: SkeletonProps) {
   return (

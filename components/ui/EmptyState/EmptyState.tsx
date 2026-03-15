@@ -1,12 +1,5 @@
 import { cn } from '@/lib/classes';
-
-export interface EmptyStateProps {
-  icon?: React.ReactNode;
-  title: string;
-  description?: string;
-  action?: React.ReactNode;
-  className?: string;
-}
+import type { EmptyStateProps } from './IEmptyState';
 
 export function EmptyState({ icon, title, description, action, className }: EmptyStateProps) {
   return (

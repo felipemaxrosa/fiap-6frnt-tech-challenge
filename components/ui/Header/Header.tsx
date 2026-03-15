@@ -5,10 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, UserCircle } from 'lucide-react';
 import { Sidebar } from '@/components/ui/Sidebar';
-
-export interface HeaderProps {
-  userName?: string;
-}
+import type { HeaderProps } from './IHeader';
 
 export function Header({ userName = 'Joana da Silva Oliveira' }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
