@@ -1,6 +1,12 @@
-export default {
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
+const meta: Meta = {
   title: 'Foundations/Colors',
+  tags: ['autodocs'],
+  parameters: { layout: 'padded' },
 };
+export default meta;
+type Story = StoryObj;
 
 const colorGroups = [
   {
@@ -68,24 +74,26 @@ const colorGroups = [
   },
 ];
 
-export const Palette = () => (
-  <div className="flex flex-col gap-8 p-6">
-    {colorGroups.map((group) => (
-      <div key={group.category}>
-        <h3 className="text-lg font-semibold mb-4">{group.category}</h3>
-        <div className="grid grid-cols-3 gap-6">
-          {group.colors.map((color) => (
-            <div key={color.token}>
-              <div
-                className="h-20 rounded-lg border"
-                style={{ background: `var(${color.token})` }}
-              />
-              <p className="text-sm mt-2 font-medium">{color.name}</p>
-              <p className="text-xs text-gray-500">{color.token}</p>
-            </div>
-          ))}
+export const Palette: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8 p-6">
+      {colorGroups.map((group) => (
+        <div key={group.category}>
+          <h3 className="text-lg font-semibold mb-4">{group.category}</h3>
+          <div className="grid grid-cols-3 gap-6">
+            {group.colors.map((color) => (
+              <div key={color.token}>
+                <div
+                  className="h-20 rounded-lg border"
+                  style={{ background: `var(${color.token})` }}
+                />
+                <p className="text-sm mt-2 font-medium">{color.name}</p>
+                <p className="text-xs text-gray-500">{color.token}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  ),
+};
