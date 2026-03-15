@@ -13,7 +13,7 @@
 Before starting, confirm the following items from previous phases are ready:
 
 - [ ] Design tokens (`tokens.css`) applied and working in Storybook (Days 3-4)
-- [ ] `lib/utils.ts` with `cn` helper (Days 8-10)
+- [ ] `lib/classes.ts` with `cn` helper (Days 8-10)
 - [ ] `Button` component implemented and exported (Days 8-10)
 - [ ] `components/ui/index.ts` barrel export in place (Days 8-10)
 - [ ] `lucide-react` installed (`npm install lucide-react`)
@@ -244,9 +244,9 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
               href={link.href}
               onClick={onLinkClick}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold'
+                  ? 'bg-surface text-brand-primary shadow-card'
                   : 'text-content-inverse hover:text-content-inverse/80'
               )}
             >
@@ -263,10 +263,10 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
             <Link
               href={link.href}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold shadow-card'
-                  : 'text-content-secondary hover:text-content-primary'
+                  ? 'bg-surface text-brand-primary shadow-card'
+                  : 'text-content-primary hover:text-brand-primary'
               )}
             >
               {link.label}
@@ -282,10 +282,10 @@ export function Sidebar({ onLinkClick }: SidebarProps) {
             <Link
               href={link.href}
               className={cn(
-                'block rounded-default px-md py-sm label-default',
+                'block rounded-default px-md py-sm body-semibold',
                 pathname === link.href
-                  ? 'bg-surface text-content-primary font-semibold shadow-card'
-                  : 'text-content-secondary hover:text-content-primary'
+                  ? 'bg-surface text-brand-primary shadow-card'
+                  : 'text-content-primary hover:text-brand-primary'
               )}
             >
               {link.label}
@@ -631,8 +631,8 @@ export * from './Skeleton';
 - [ ] Mobile: vertical list inside Header's drawer overlay
 - [ ] Tablet (`sm`–`lg`): horizontal tab bar below Header
 - [ ] Desktop (`lg+`): vertical left sidebar
-- [ ] Active link: `bg-surface text-content-primary font-semibold shadow-card`
-- [ ] Inactive link: `text-content-secondary hover:text-content-primary`
+- [ ] Active link: `bg-surface text-brand-primary shadow-card`
+- [ ] Inactive link: `text-content-primary hover:text-brand-primary`
 - [ ] Active state driven by `usePathname()`
 - [ ] Stories: TabletHorizontal, DesktopVertical
 
