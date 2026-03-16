@@ -253,7 +253,9 @@ async function handleConfirm() {
 
 ### Purpose
 
-The "Extrato" section. Reads from `useTransactions()` and renders a scrollable list of transaction cards. Handles its own loading and empty states.
+The "Extrato" section. Reads from `useTransactions()` and renders the **last 5 transactions** sorted by date descending. Handles its own loading and empty states.
+
+> The full list with filtering and sorting is out of scope here — that is covered in Days 27-31.
 
 ### `TransactionItem` props
 
@@ -261,11 +263,11 @@ The "Extrato" section. Reads from `useTransactions()` and renders a scrollable l
 | ------------- | ------------- | ------------------------------ |
 | `transaction` | `Transaction` | The transaction data to render |
 
-> Edit and delete icon buttons are rendered as visual placeholders (no `onClick`). Actions wired in Days 37-40.
+> Edit and delete icon buttons are rendered as visual placeholders (no `onClick`). Actions wired in Days 32-42.
 
 ### `TransactionList` props
 
-No props — reads directly from `useTransactions()`.
+No props — reads directly from `useTransactions()` and slices to the last 5 internally.
 
 ### TypeScript interfaces
 
@@ -278,6 +280,12 @@ export interface TransactionItemProps {
 }
 
 export interface TransactionListProps {}
+```
+
+### Last 5 transactions logic
+
+```ts
+const recentTransactions = [...transactions].sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 5);
 ```
 
 ### Badge colours per type
