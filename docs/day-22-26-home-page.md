@@ -166,25 +166,86 @@ export const PrefilledWithdrawal: Story = {
 
 ### `NewTransaction` — refactored
 
-Replaces the legacy prototype. Owns only the orchestration layer:
+Replaces the legacy prototype. Renders as a **card on the page** (above `BalanceCard` in the left column) with `TransactionForm` inline inside it. No trigger button — the form is always visible.
 
-1. Renders the "Nova transação" trigger button
-2. Controls the `Modal` open/close state via `useState`
-3. Renders `<TransactionForm>` inside the `Modal`
-4. Calls `useFeedback()` on success
+#### Layout (matches Figma)
+
+```
+Left column
+├── BalanceCard
+└── NewTransaction card  ← always visible, inline form
+```
+
+#### Multi-step flow
+
+1. User fills the form and clicks "Concluir transação"
+2. Confirmation `Modal` appears ("Deseja confirmar esta transação?")
+3. On "Confirmar" → calls `addTransaction()` → `FeedbackModal` success or error
+4. On "Cancelar" in confirmation → modal closes, form stays filled
+
+#### Step state
+
+```ts
+type Step = 'idle' | 'confirm';
+const [step, setStep] = useState<Step>('idle');
+const [pendingData, setPendingData] = useState<TransactionFormValues | null>(null);
+```
+
+#### Flow
 
 ```tsx
-function handleSuccess() {
-  setOpen(false);
-  showFeedback({
-    type: 'success',
-    title: 'Transação adicionada!',
-    message: 'Seu extrato foi atualizado.',
-  });
+// TransactionForm submits → open confirmation modal
+function handleFormSubmit(data: TransactionFormValues) {
+  setPendingData(data);
+  setStep('confirm');
+}
+
+// User confirms → call API, show feedback
+async function handleConfirm() {
+  try {
+    await addTransaction(pendingData!);
+    setStep('idle');
+    showFeedback({
+      type: 'success',
+      title: 'Transação adicionada!',
+      message: 'Seu extrato foi atualizado.',
+    });
+  } catch {
+    setStep('idle');
+    showFeedback({ type: 'error', title: 'Erro ao adicionar', message: 'Tente novamente.' });
+  }
 }
 ```
 
-**Done when:** user can open the modal, submit a transaction, see the success `FeedbackModal`, and the form resets on re-open.
+#### Structure rendered
+
+```tsx
+{
+  /* Always visible on the page — no modal wrapper */
+}
+<div className="rounded-default bg-surface p-lg shadow-card">
+  <h2 className="heading-default text-content-primary mb-lg">Nova transação</h2>
+  <TransactionForm onSubmit={handleFormSubmit} />
+</div>;
+
+{
+  /* Confirmation modal — only on submit */
+}
+<Modal
+  isOpen={step === 'confirm'}
+  onClose={() => setStep('idle')}
+  title="Confirmar transação"
+  showCloseButton={false}
+>
+  <p className="body-default text-content-secondary">Deseja confirmar a adição desta transação?</p>
+  <div className="flex justify-end gap-sm mt-lg">
+    <button onClick={() => setStep('idle')}>Cancelar</button>
+    <button onClick={handleConfirm}>Confirmar</button>
+  </div>
+</Modal>;
+```
+
+**Done when:** user fills the inline form → sees the confirmation modal → confirms → sees the success `FeedbackModal`; and on API error → sees the error `FeedbackModal`.
 
 ---
 
