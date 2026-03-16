@@ -89,41 +89,33 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 ### Phase 3 - Pages & Features (Days 22-42)
 
-**Day 22-26: Home Page**
+**Day 22-26: Home Page** — see `docs/day-22-26-home-page.md`
 
-- [ ] Implement balance display with mock data
-- [ ] Recent transactions widget (last 5)
-- [ ] Quick add transaction button/shortcut
-- [ ] Responsive layout (mobile + desktop)
+- [x] Task 1: Home page layout shell (two-column responsive grid)
+- [ ] Task 2: `BalanceCard` integration with `useTransactions()` + loading skeleton
+- [ ] Task 3: `TransactionForm` component + `NewTransaction` refactor (add only, with `FeedbackModal`)
+- [ ] Task 4: `TransactionList` + `TransactionItem` (read-only, edit/delete are visual placeholders)
 
-**Day 27-31: Transaction List Page**
+**Day 27-31: Transaction List Page** (not in scope yet)
 
 - [ ] Full transaction list with pagination or infinite scroll
 - [ ] Filter by type (deposit, transfer, withdrawal)
 - [ ] Filter by date range
 - [ ] Sort by date/amount
-- [ ] Per-row action buttons: view details, edit, delete
 
-**Day 32-36: Add Transaction**
+**Day 32-40: Edit Transaction**
 
-- [ ] Create modal or dedicated page
-- [ ] Form with: type, amount, date, description (optional)
-- [ ] Form validation with error messages
-- [ ] Success feedback (toast notification)
-- [ ] Optimistic update to state
-
-**Day 37-40: Edit Transaction**
-
-- [ ] Pre-populate form with existing data
+- [ ] Reuse `TransactionForm` with `initialValues` pre-populated
+- [ ] Wire edit icon buttons in `TransactionItem`
 - [ ] Same validation as add form
 - [ ] Update state and reflect changes immediately
 - [ ] Cancel without saving
 
 **Day 41-42: Delete Transaction**
 
-- [ ] Confirmation dialog before deletion
+- [ ] Wire delete icon buttons in `TransactionItem`
+- [ ] Confirmation via `Modal` before deletion
 - [ ] Remove from state and update balance
-- [ ] Undo option (optional, bonus)
 
 ---
 
