@@ -3,6 +3,13 @@ import type { Preview } from '@storybook/nextjs-vite';
 
 const preview: Preview = {
   parameters: {
+    viewport: {
+      options: {
+        mobile: { name: 'Mobile', styles: { width: '390px', height: '844px' } },
+        tablet: { name: 'Tablet', styles: { width: '768px', height: '1024px' } },
+        desktop: { name: 'Desktop', styles: { width: '1280px', height: '900px' } },
+      },
+    },
     backgrounds: {
       default: 'background',
       values: [
