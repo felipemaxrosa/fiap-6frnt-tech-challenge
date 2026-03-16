@@ -102,13 +102,12 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 2: `TransactionFilters` component (type, date range, sort)
 - [ ] Task 3: Wire filters to `TransactionList`
 
-**Day 32-40: Edit Transaction**
+**Day 32-40: Edit Transaction** — see `docs/day-32-40-edit-transaction.md`
 
-- [ ] Reuse `TransactionForm` with `initialValues` pre-populated
-- [ ] Wire edit icon buttons in `TransactionItem`
-- [ ] Same validation as add form
-- [ ] Update state and reflect changes immediately
-- [ ] Cancel without saving
+- [ ] Task 1: Expose `updateTransaction` in `useTransactions()` context
+- [ ] Task 2: Build `EditTransaction` orchestrator (Modal + TransactionForm with initialValues)
+- [ ] Task 3: Wire `onEdit` through `TransactionList` → `TransactionItem`
+- [ ] Task 4: Validate cancel behavior (discard changes on all close paths)
 
 **Day 41-42: Delete Transaction**
 
