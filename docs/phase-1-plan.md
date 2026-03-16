@@ -96,12 +96,11 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 3: `TransactionForm` component + `NewTransaction` refactor (add only, with `FeedbackModal`)
 - [ ] Task 4: `TransactionList` + `TransactionItem` (read-only, edit/delete are visual placeholders)
 
-**Day 27-31: Transaction List Page** (not in scope yet)
+**Day 27-31: Transaction List Page** ⏳ Aguardando confirmacao do coordenador do curso — see `docs/day-27-31-transaction-list-page.md`
 
-- [ ] Full transaction list with pagination or infinite scroll
-- [ ] Filter by type (deposit, transfer, withdrawal)
-- [ ] Filter by date range
-- [ ] Sort by date/amount
+- [ ] Task 1: `/transacoes` page shell + Sidebar nav link
+- [ ] Task 2: `TransactionFilters` component (type, date range, sort)
+- [ ] Task 3: Wire filters to `TransactionList`
 
 **Day 32-40: Edit Transaction**
 
