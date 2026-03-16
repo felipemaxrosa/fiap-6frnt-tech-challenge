@@ -109,11 +109,11 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 3: Wire `onEdit` through `TransactionList` → `TransactionItem`
 - [ ] Task 4: Validate cancel behavior (discard changes on all close paths)
 
-**Day 41-42: Delete Transaction**
+**Day 41-42: Delete Transaction** — see `docs/day-41-42-delete-transaction.md`
 
-- [ ] Wire delete icon buttons in `TransactionItem`
-- [ ] Confirmation via `Modal` before deletion
-- [ ] Remove from state and update balance
+- [ ] Task 1: Expose `deleteTransaction` in `useTransactions()` context
+- [ ] Task 2: Wire `onDelete` through `TransactionList` → `TransactionItem` + confirmation `Modal`
+- [ ] Task 3: Confirm and execute deletion with success/error `FeedbackModal`
 
 ---
 
