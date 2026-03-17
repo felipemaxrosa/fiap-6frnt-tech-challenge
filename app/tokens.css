@@ -1,5 +1,31 @@
 @theme {
   /* ============================================
+  TAILWIND COLOR MAPPINGS
+  ============================================ */
+  --color-primary: var(--color-brand-primary);
+  --color-primary-hover: #5a35d1; /* 10% darker than #6841f2 */
+
+  --color-surface: var(--color-surface);
+  --color-surface-hover: #f8f8f8; /* slightly darker than surface */
+
+  --color-text-primary: var(--color-content-primary);
+  --color-text-secondary: var(--color-content-secondary);
+  --color-text-inverse: var(--color-content-inverse);
+  --color-text-muted: var(--color-content-secondary);
+
+  --color-income: var(--color-feedback-success);
+  --color-income-bg: var(--color-badge-deposit-bg);
+
+  --color-expense: var(--color-feedback-danger);
+  --color-expense-bg: var(--color-badge-withdraw-bg);
+
+  --color-transfer: var(--color-badge-transfer-text);
+  --color-transfer-bg: var(--color-badge-transfer-bg);
+
+  --color-border: var(--color-border);
+  --color-border-focus: var(--color-focus-ring);
+
+  /* ============================================
   IDENTITY COLORS (Brand)
   ============================================ */
   --color-brand-dark: #000b34;
