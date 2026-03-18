@@ -1,15 +1,31 @@
 @theme {
   /* ============================================
+  TAILWIND COLOR ALIAS MAPPINGS
+  ============================================ */
+  --color-primary: var(--color-brand-primary);
+  --color-primary-hover: #5a35d1;
+
+  --color-text-primary: var(--color-content-primary);
+  --color-text-secondary: var(--color-content-secondary);
+
+  /* ============================================
+  ALIAS MAPPINGS (Focus / interactions)
+  ============================================ */
+  --color-border-focus: var(--color-focus-ring);
+
+  /* ============================================
   IDENTITY COLORS (Brand)
   ============================================ */
   --color-brand-dark: #000b34;
   --color-brand-primary: #6841f2;
+  --color-brand-primary-hover: #5a35d1;
 
   /* ============================================
   SURFACE COLORS (Backgrounds & Cards)
   ============================================ */
   --color-background: #f3f3f3; /* página/canvas — corrigido (estava invertido) */
   --color-surface: #ffffff; /* cards e painéis — corrigido (estava invertido) */
+  --color-surface-hover: #f8f8f8;
 
   /* ============================================
   CONTENT COLORS (Typography)
@@ -85,6 +101,7 @@
   SHADOWS
   ============================================ */
   --shadow-card: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* conforme Figma */
+  --shadow-card-hover: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
 
   /* ============================================
   FOCUS / INTERACTION

@@ -218,7 +218,7 @@ export interface SidebarProps {
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/classes';
 
 export interface SidebarProps {
   onLinkClick?: () => void;
@@ -404,7 +404,7 @@ export interface EmptyStateProps {
 
 ```tsx
 // components/ui/EmptyState/EmptyState.tsx
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/classes';
 
 export interface EmptyStateProps {
   icon?: React.ReactNode;
@@ -495,7 +495,7 @@ export interface SkeletonListProps {
 
 ```tsx
 // components/ui/Skeleton/Skeleton.tsx
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/classes';
 
 export interface SkeletonProps {
   className?: string;
