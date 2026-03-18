@@ -11,13 +11,13 @@ type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
   args: {
-    children: <p className="text-text-secondary">Card content goes here</p>,
+    children: <p className="text-content-secondary">Card content goes here</p>,
   },
 };
 export const Hoverable: Story = {
   args: {
     hoverable: true,
-    children: <p className="text-text-secondary">Hover over me</p>,
+    children: <p className="text-content-secondary">Hover over me</p>,
   },
 };
 export const Padding: Story = {
@@ -38,6 +38,6 @@ export const Padding: Story = {
 export const AsArticle: Story = {
   args: {
     as: 'article',
-    children: <p className="text-text-secondary">Semantic article tag</p>,
+    children: <p className="text-content-secondary">Semantic article tag</p>,
   },
 };

@@ -1,12 +1,11 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/classes';
 import { Loader2 } from 'lucide-react';
 import { ButtonProps } from './types';
 
 const variantStyles = {
-  primary: 'bg-primary text-text-inverse hover:bg-primary-hover',
-  secondary: 'bg-surface text-text-primary border border-border hover:bg-surface-hover',
-  danger: 'bg-expense text-text-inverse hover:bg-red-700',
-  ghost: 'text-text-primary hover:bg-surface-hover',
+  primary: 'bg-brand-primary text-content-inverse hover:bg-brand-primary-hover',
+  secondary: 'bg-surface text-content-primary border border-border hover:bg-surface-hover',
+  ghost: 'text-content-primary hover:bg-surface-hover',
 };
 
 const sizeStyles = {
@@ -33,7 +32,7 @@ export function Button({
       className={cn(
         'inline-flex items-center justify-center rounded-md font-medium',
         'transition-colors focus-visible:outline-none focus-visible:ring-2',
-        'focus-visible:ring-border-focus disabled:opacity-50 disabled:cursor-not-allowed',
+        'focus-visible:ring-brand-primary disabled:opacity-50 disabled:cursor-not-allowed',
         variantStyles[variant],
         sizeStyles[size],
         fullWidth && 'w-full',

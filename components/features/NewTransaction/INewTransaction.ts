@@ -6,6 +6,6 @@ export interface NewTransactionData {
 }
 
 export interface NewTransactionProps {
-  onSubmit?: (data: NewTransactionData) => void | Promise<void>;
+  onSubmit: (data: NewTransactionData) => void | Promise<void>;
   loading?: boolean;
 }

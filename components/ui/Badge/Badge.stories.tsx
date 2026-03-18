@@ -12,7 +12,6 @@ type Story = StoryObj<typeof Badge>;
 export const Income: Story = { args: { variant: 'income', children: 'Income', dot: true } };
 export const Expense: Story = { args: { variant: 'expense', children: 'Expense', dot: true } };
 export const Transfer: Story = { args: { variant: 'transfer', children: 'Transfer', dot: true } };
-export const Neutral: Story = { args: { variant: 'neutral', children: 'Pending' } };
 export const Small: Story = {
   args: { variant: 'income', children: 'Income', size: 'sm', dot: true },
 };
@@ -28,7 +27,6 @@ export const AllVariants: Story = {
       <Badge variant="transfer" dot>
         Transfer
       </Badge>
-      <Badge variant="neutral">Pending</Badge>
     </div>
   ),
 };

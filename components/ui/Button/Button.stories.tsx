@@ -7,7 +7,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['primary', 'secondary', 'danger', 'ghost'] },
+    variant: { control: 'select', options: ['primary', 'secondary', 'ghost'] },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -19,7 +19,6 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = { args: { children: 'Confirm', variant: 'primary' } };
 export const Secondary: Story = { args: { children: 'Cancel', variant: 'secondary' } };
-export const Danger: Story = { args: { children: 'Delete', variant: 'danger' } };
 export const Ghost: Story = { args: { children: 'View more', variant: 'ghost' } };
 export const WithIcon: Story = {
   args: { children: 'New transaction', leftIcon: <Plus size={16} /> },

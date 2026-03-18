@@ -42,27 +42,22 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
           {badgeLabelMap[type]}
         </Badge>
 
-        {/* TODO: Passar o onEdit e o onDelete para aparecer os botões */}
         <div className="mt-5 flex lg:mt-0 lg:ml-2 w-1/3 justify-end">
-          {onEdit && (
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label={`Edit transaction: ${description}`}
-              onClick={() => onEdit(id)}
-              leftIcon={<Pencil size={24} />}
-            />
-          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={`Edit transaction: ${description}`}
+            onClick={() => onEdit(id)}
+            leftIcon={<Pencil size={24} />}
+          />
 
-          {onDelete && (
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label={`Delete transaction: ${description}`}
-              onClick={() => console.log(id)}
-              leftIcon={<Trash2 size={24} />}
-            />
-          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={`Delete transaction: ${description}`}
+            onClick={() => onDelete(id)}
+            leftIcon={<Trash2 size={24} />}
+          />
         </div>
       </div>
 
