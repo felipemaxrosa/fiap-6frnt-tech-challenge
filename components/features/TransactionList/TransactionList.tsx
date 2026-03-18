@@ -18,15 +18,21 @@ export function TransactionList({
   }
 
   return (
-    <ul className="flex flex-col gap-2">
-      {transactions.map((transaction) => (
-        <TransactionItem
-          key={transaction.id}
-          transaction={transaction}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-      ))}
-    </ul>
+    <div className="lg:w-80 lg:shrink-0">
+      <h2 className="text-2xl/7 font-bold text-content-primary sm:truncate sm:text-3xl sm:tracking-tight">
+        Extrato
+      </h2>
+
+      <ul className="flex flex-col gap-2">
+        {transactions.map((transaction) => (
+          <TransactionItem
+            key={transaction.id}
+            transaction={transaction}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }

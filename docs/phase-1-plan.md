@@ -78,52 +78,42 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 18-21: Layout & Navigation Components**
 
-- [ ] `Header` / `Navbar`
-- [ ] `Sidebar` (optional)
-- [ ] `Modal` / `Dialog` component
-- [ ] `EmptyState`
-- [ ] `LoadingSpinner` / `Skeleton`
-- [ ] Document in Storybook
+- [x] `Header` / `Navbar`
+- [x] `Sidebar` (optional)
+- [x] `Modal` / `Dialog` component
+- [x] `EmptyState`
+- [x] `Skeleton`
+- [x] Document in Storybook
 
 ---
 
 ### Phase 3 - Pages & Features (Days 22-42)
 
-**Day 22-26: Home Page**
+**Day 22-26: Home Page** — see `docs/day-22-26-home-page.md`
 
-- [ ] Implement balance display with mock data
-- [ ] Recent transactions widget (last 5)
-- [ ] Quick add transaction button/shortcut
-- [ ] Responsive layout (mobile + desktop)
+- [x] Task 1: Home page layout shell (two-column responsive grid)
+- [ ] Task 2: `BalanceCard` integration with `useTransactions()` + loading skeleton
+- [ ] Task 3: `TransactionForm` component + `NewTransaction` refactor (add only, with `FeedbackModal`)
+- [ ] Task 4: `TransactionList` + `TransactionItem` (read-only, edit/delete are visual placeholders)
 
-**Day 27-31: Transaction List Page**
+**Day 27-31: Transaction List Page** ⏳ Aguardando confirmacao do coordenador do curso — see `docs/day-27-31-transaction-list-page.md`
 
-- [ ] Full transaction list with pagination or infinite scroll
-- [ ] Filter by type (deposit, transfer, withdrawal)
-- [ ] Filter by date range
-- [ ] Sort by date/amount
-- [ ] Per-row action buttons: view details, edit, delete
+- [ ] Task 1: `/transacoes` page shell + Sidebar nav link
+- [ ] Task 2: `TransactionFilters` component (type, date range, sort)
+- [ ] Task 3: Wire filters to `TransactionList`
 
-**Day 32-36: Add Transaction**
+**Day 32-40: Edit Transaction** — see `docs/day-32-40-edit-transaction.md`
 
-- [ ] Create modal or dedicated page
-- [ ] Form with: type, amount, date, description (optional)
-- [ ] Form validation with error messages
-- [ ] Success feedback (toast notification)
-- [ ] Optimistic update to state
+- [ ] Task 1: Expose `updateTransaction` in `useTransactions()` context
+- [ ] Task 2: Build `EditTransaction` orchestrator (Modal + TransactionForm with initialValues)
+- [ ] Task 3: Wire `onEdit` through `TransactionList` → `TransactionItem`
+- [ ] Task 4: Validate cancel behavior (discard changes on all close paths)
 
-**Day 37-40: Edit Transaction**
+**Day 41-42: Delete Transaction** — see `docs/day-41-42-delete-transaction.md`
 
-- [ ] Pre-populate form with existing data
-- [ ] Same validation as add form
-- [ ] Update state and reflect changes immediately
-- [ ] Cancel without saving
-
-**Day 41-42: Delete Transaction**
-
-- [ ] Confirmation dialog before deletion
-- [ ] Remove from state and update balance
-- [ ] Undo option (optional, bonus)
+- [ ] Task 1: Expose `deleteTransaction` in `useTransactions()` context
+- [ ] Task 2: Wire `onDelete` through `TransactionList` → `TransactionItem` + confirmation `Modal`
+- [ ] Task 3: Confirm and execute deletion with success/error `FeedbackModal`
 
 ---
 

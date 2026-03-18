@@ -4,8 +4,8 @@
 
 - Implement the Home page connecting real context data to the UI components built in Phase 2
 - Display the current account balance using `BalanceCard`
-- Show the 5 most recent transactions using `TransactionList`
-- Provide a quick-add shortcut that opens the `TransactionForm` modal
+- Show all transactions using `TransactionList` (the "Extrato" section from Figma)
+- Provide a quick-add shortcut via the refactored `NewTransaction` component
 - Deliver a fully responsive layout that works on mobile and desktop
 
 ---
@@ -14,16 +14,14 @@
 
 Before starting, confirm all of the following are ready:
 
-- [ ] `BalanceCard` implemented and exported (Days 14-17)
-- [ ] `TransactionList` and `TransactionItem` implemented and exported (Days 14-17)
-- [ ] `TransactionSummary` implemented and exported (Days 14-17)
-- [ ] `Header` component implemented and registered in `app/layout.tsx` (Days 18-21)
-- [ ] `Modal` component implemented and exported (Days 18-21)
-- [ ] `LoadingSpinner` and `Skeleton` / `SkeletonList` implemented (Days 18-21)
-- [ ] `EmptyState` implemented and exported (Days 18-21)
-- [ ] `TransactionsProvider` registered in `app/layout.tsx` (Days 5-7)
-- [ ] `useTransactions()` returns `{ transactions, balance, recentTransactions, isLoading, addTransaction }` (Days 5-7)
-- [ ] `json-server` running on port 3001 (`npm run api`) alongside `npm run dev`
+- [x] `BalanceCard` implemented and exported (Days 14-17)
+- [x] `Header` component implemented and registered in `app/layout.tsx` (Days 18-21)
+- [x] `Modal` and `FeedbackModal` implemented and exported (Days 18-21)
+- [x] `Skeleton` / `SkeletonList` implemented (Days 18-21)
+- [x] `EmptyState` implemented and exported (Days 18-21)
+- [x] `TransactionsProvider` registered in `app/layout.tsx` (Days 5-7)
+- [x] `useTransactions()` returns `{ transactions, balance, isLoading, addTransaction }` (Days 5-7)
+- [x] `json-server` running on port 3001 (`npm run api`) alongside `npm run dev`
 
 ---
 
@@ -31,27 +29,91 @@ Before starting, confirm all of the following are ready:
 
 ```
 app/
-└── page.tsx                          # Home page (this phase)
+└── page.tsx                                  # Home page (this phase)
 
 components/
-└── features/
-    └── TransactionForm/
-        ├── TransactionForm.tsx        # Add/edit form (built in this phase)
-        ├── TransactionForm.stories.tsx
-        └── index.ts
+├── features/
+│   ├── TransactionList/
+│   │   ├── TransactionList.tsx               # Extrato list (Task 4)
+│   │   ├── TransactionItem.tsx               # Single row with badge, name, date, amount
+│   │   ├── ITransactionList.ts
+│   │   ├── TransactionList.stories.tsx
+│   │   └── index.ts
+│   ├── TransactionForm/
+│   │   ├── TransactionForm.tsx               # Reusable form fields — add & edit (Task 3)
+│   │   ├── ITransactionForm.ts
+│   │   ├── schema.ts                         # Zod schema
+│   │   ├── TransactionForm.stories.tsx
+│   │   └── index.ts
+│   └── NewTransaction/
+│       ├── NewTransaction.tsx                # Refactored: trigger button + Modal + TransactionForm (Task 3)
+│       ├── INewTransaction.ts
+│       └── index.ts
 ```
 
-> `TransactionForm` is introduced here because the quick-add shortcut on the Home page needs it. The same component will be reused on the Edit flow in Days 37-40.
+> `NewTransaction` is refactored from the legacy prototype — form fields move to `TransactionForm` and `NewTransaction` becomes a thin orchestrator (button + `Modal` + feedback).
+>
+> Edit and delete actions in `TransactionList` are out of scope — icon buttons are visual placeholders only, wired in Days 37-40.
 
 ---
 
-## Step 1 — Build `TransactionForm`
+## Task 1 — Home page layout (`app/page.tsx`)
 
-### Purpose
+Set up the responsive shell of the page with placeholder sections. No real data yet — just the grid/flex structure with `Skeleton` placeholders so the layout can be reviewed before wiring.
 
-A controlled form that collects the three required fields for a new transaction: type, amount, and date — plus an optional description. On submit it calls `addTransaction` from the context and closes the modal. This same component will be reused with pre-populated values for the edit flow.
+### Responsive layout
 
-### Props
+| Breakpoint       | Layout                                                                  |
+| ---------------- | ----------------------------------------------------------------------- |
+| Mobile (default) | Single column: balance → new transaction → transaction list             |
+| `lg` (1024px+)   | Two columns: left = balance + new transaction, right = transaction list |
+
+```tsx
+// app/page.tsx — skeleton layout (Task 1 output)
+<div className="flex flex-col gap-lg lg:flex-row lg:items-start">
+  <div className="flex flex-col gap-lg lg:flex-1">
+    {/* Task 2: <BalanceCard /> */}
+    {/* Task 3: <NewTransaction /> */}
+  </div>
+  <div className="lg:w-80 lg:shrink-0">{/* Task 4: <TransactionList /> */}</div>
+</div>
+```
+
+**Done when:** the two-column layout renders correctly at all breakpoints (verify with Storybook viewport or browser devtools).
+
+---
+
+## Task 2 — `BalanceCard` integration
+
+Drop `<BalanceCard />` into the left column and connect it to `useTransactions()`.
+
+### Loading state
+
+While `isLoading` is `true`, render the `BalanceCardSkeleton` in its place:
+
+```tsx
+{
+  isLoading ? <BalanceCardSkeleton /> : <BalanceCard balance={balance} />;
+}
+```
+
+**Done when:** the balance loads from `json-server` and the skeleton is visible during the ~1s fetch delay (add `setTimeout` mock if needed).
+
+---
+
+## Task 3 — `NewTransaction` refactor + `TransactionForm`
+
+### `TransactionForm` — new component
+
+A controlled form with `react-hook-form` + Zod. Pure form — no modal, no button. Accepts callbacks and optional initial values for reuse in the edit flow (Days 37-40).
+
+#### Install dependencies
+
+```bash
+npm install react-hook-form zod @hookform/resolvers
+```
+
+#### Props
 
 | Prop            | Type                      | Default     | Description                                  |
 | --------------- | ------------------------- | ----------- | -------------------------------------------- |
@@ -59,422 +121,203 @@ A controlled form that collects the three required fields for a new transaction:
 | `onCancel`      | `() => void`              | —           | Called when the user cancels                 |
 | `initialValues` | `Partial<NewTransaction>` | `undefined` | Pre-populates the form for the edit use case |
 
-### TypeScript interface
+#### TypeScript interface
 
 ```ts
-// components/features/TransactionForm/types.ts
-import type { NewTransaction } from '@/types'
+// components/features/TransactionForm/ITransactionForm.ts
+import type { NewTransaction } from '@/types';
 
 export interface TransactionFormProps {
-  onSuccess: () => void
-  onCancel: () => void
-  initialValues?: Partial<NewTransaction>
+  onSuccess: () => void;
+  onCancel: () => void;
+  initialValues?: Partial<NewTransaction>;
 }
 ```
 
-### Install form dependencies
-
-```bash
-npm install react-hook-form zod @hookform/resolvers
-```
-
-### Zod schema
+#### Zod schema
 
 ```ts
 // components/features/TransactionForm/schema.ts
-import { z } from 'zod'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-
 export const transactionSchema = z.object({
   type: z.enum([TRANSACTION_TYPE.DEPOSIT, TRANSACTION_TYPE.WITHDRAWAL, TRANSACTION_TYPE.TRANSFER], {
-    required_error: 'Please select a transaction type',
+    required_error: 'Selecione um tipo de transação',
   }),
   amount: z
-    .number({ invalid_type_error: 'Please enter a valid amount' })
-    .positive({ message: 'Amount must be greater than zero' }),
-  date: z.string({ required_error: 'Please select a date' }).min(1, 'Please select a date'),
+    .number({ invalid_type_error: 'Informe um valor válido' })
+    .positive({ message: 'O valor deve ser maior que zero' }),
+  date: z.string().min(1, 'Selecione uma data'),
   description: z.string().optional(),
-})
-
-export type TransactionFormValues = z.infer<typeof transactionSchema>
+});
 ```
 
-### Suggested implementation
+#### Storybook stories
 
 ```tsx
-// components/features/TransactionForm/TransactionForm.tsx
-'use client'
+export const Empty: Story = {};
+export const PrefilledDeposit: Story = {
+  args: { initialValues: { type: 'deposit', amount: 5000, date: '2025-03-05' } },
+};
+export const PrefilledWithdrawal: Story = {
+  args: { initialValues: { type: 'withdrawal', amount: 120.5, date: '2025-03-07' } },
+};
+```
 
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/Button'
-import { FormField } from '@/components/ui/FormField'
-import { Select } from '@/components/ui/Select'
-import { CurrencyInput } from '@/components/ui/CurrencyInput'
-import { DatePicker } from '@/components/ui/DatePicker'
-import { Input } from '@/components/ui/Input'
-import { useTransactions } from '@/context/TransactionsContext'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import { transactionSchema, type TransactionFormValues } from './schema'
-import type { TransactionFormProps } from './types'
+---
 
-const TRANSACTION_TYPE_OPTIONS = [
-  { label: 'Deposit', value: TRANSACTION_TYPE.DEPOSIT },
-  { label: 'Withdrawal', value: TRANSACTION_TYPE.WITHDRAWAL },
-  { label: 'Transfer', value: TRANSACTION_TYPE.TRANSFER },
-]
+### `NewTransaction` — refactored
 
-export function TransactionForm({ onSuccess, onCancel, initialValues }: TransactionFormProps) {
-  const { addTransaction } = useTransactions()
+Replaces the legacy prototype. Renders as a **card on the page** (above `BalanceCard` in the left column) with `TransactionForm` inline inside it. No trigger button — the form is always visible.
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<TransactionFormValues>({
-    resolver: zodResolver(transactionSchema),
-    defaultValues: {
-      type: initialValues?.type ?? undefined,
-      amount: initialValues?.amount ?? 0,
-      date: initialValues?.date ?? '',
-      description: initialValues?.description ?? '',
-    },
-  })
+#### Layout (matches Figma)
 
-  async function onSubmit(values: TransactionFormValues) {
-    await addTransaction(values)
-    onSuccess()
-  }
+```
+Left column
+├── BalanceCard
+└── NewTransaction card  ← always visible, inline form
+```
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className="flex flex-col gap-4">
-        <FormField label="Transaction type" htmlFor="type" error={errors.type?.message} required>
-          <Select
-            id="type"
-            options={TRANSACTION_TYPE_OPTIONS}
-            placeholder="Select a type"
-            error={!!errors.type}
-            aria-describedby={errors.type ? 'type-description' : undefined}
-            {...register('type')}
-          />
-        </FormField>
+#### Multi-step flow
 
-        <FormField label="Amount" htmlFor="amount" error={errors.amount?.message} required>
-          <Controller
-            name="amount"
-            control={control}
-            render={({ field }) => (
-              <CurrencyInput
-                id="amount"
-                value={field.value}
-                onValueChange={field.onChange}
-                error={!!errors.amount}
-                aria-describedby={errors.amount ? 'amount-description' : undefined}
-              />
-            )}
-          />
-        </FormField>
+1. User fills the form and clicks "Concluir transação"
+2. Confirmation `Modal` appears ("Deseja confirmar esta transação?")
+3. On "Confirmar" → calls `addTransaction()` → `FeedbackModal` success or error
+4. On "Cancelar" in confirmation → modal closes, form stays filled
 
-        <FormField label="Date" htmlFor="date" error={errors.date?.message} required>
-          <DatePicker
-            id="date"
-            error={!!errors.date}
-            aria-describedby={errors.date ? 'date-description' : undefined}
-            {...register('date')}
-          />
-        </FormField>
+#### Step state
 
-        <FormField label="Description" htmlFor="description" helperText="Optional">
-          <Input
-            id="description"
-            placeholder="e.g. Grocery shopping"
-            {...register('description')}
-          />
-        </FormField>
-      </div>
+```ts
+type Step = 'idle' | 'confirm';
+const [step, setStep] = useState<Step>('idle');
+const [pendingData, setPendingData] = useState<TransactionFormValues | null>(null);
+```
 
-      {/* Actions */}
-      <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-end">
-        <Button
-          type="button"
-          variant="secondary"
-          fullWidth
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
-          Cancel
-        </Button>
-        <Button type="submit" fullWidth loading={isSubmitting}>
-          Save transaction
-        </Button>
-      </div>
-    </form>
-  )
+#### Flow
+
+```tsx
+// TransactionForm submits → open confirmation modal
+function handleFormSubmit(data: TransactionFormValues) {
+  setPendingData(data);
+  setStep('confirm');
 }
+
+// User confirms → call API, show feedback
+async function handleConfirm() {
+  try {
+    await addTransaction(pendingData!);
+    setStep('idle');
+    showFeedback({
+      type: 'success',
+      title: 'Transação adicionada!',
+      message: 'Seu extrato foi atualizado.',
+    });
+  } catch {
+    setStep('idle');
+    showFeedback({ type: 'error', title: 'Erro ao adicionar', message: 'Tente novamente.' });
+  }
+}
+```
+
+#### Structure rendered
+
+```tsx
+{
+  /* Always visible on the page — no modal wrapper */
+}
+<div className="rounded-default bg-surface p-lg shadow-card">
+  <h2 className="heading-default text-content-primary mb-lg">Nova transação</h2>
+  <TransactionForm onSubmit={handleFormSubmit} />
+</div>;
+
+{
+  /* Confirmation modal — only on submit */
+}
+<Modal
+  isOpen={step === 'confirm'}
+  onClose={() => setStep('idle')}
+  title="Confirmar transação"
+  showCloseButton={false}
+>
+  <p className="body-default text-content-secondary">Deseja confirmar a adição desta transação?</p>
+  <div className="flex justify-end gap-sm mt-lg">
+    <button onClick={() => setStep('idle')}>Cancelar</button>
+    <button onClick={handleConfirm}>Confirmar</button>
+  </div>
+</Modal>;
+```
+
+**Done when:** user fills the inline form → sees the confirmation modal → confirms → sees the success `FeedbackModal`; and on API error → sees the error `FeedbackModal`.
+
+---
+
+## Task 4 — `TransactionList` + `TransactionItem`
+
+### Purpose
+
+The "Extrato" section. Reads from `useTransactions()` and renders the **last 5 transactions** sorted by date descending. Handles its own loading and empty states.
+
+> The full list with filtering and sorting is out of scope here — that is covered in Days 27-31.
+
+### `TransactionItem` props
+
+| Prop          | Type          | Description                    |
+| ------------- | ------------- | ------------------------------ |
+| `transaction` | `Transaction` | The transaction data to render |
+
+> Edit and delete icon buttons are rendered as visual placeholders (no `onClick`). Actions wired in Days 32-42.
+
+### `TransactionList` props
+
+No props — reads directly from `useTransactions()` and slices to the last 5 internally.
+
+### TypeScript interfaces
+
+```ts
+// components/features/TransactionList/ITransactionList.ts
+import type { Transaction } from '@/types';
+
+export interface TransactionItemProps {
+  transaction: Transaction;
+}
+
+export interface TransactionListProps {}
+```
+
+### Last 5 transactions logic
+
+```ts
+const recentTransactions = [...transactions].sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 5);
+```
+
+### Badge colours per type
+
+| Type         | Token (bg)             | Token (text)               |
+| ------------ | ---------------------- | -------------------------- |
+| `deposit`    | `bg-badge-deposit-bg`  | `text-badge-deposit-text`  |
+| `withdrawal` | `bg-badge-withdraw-bg` | `text-badge-withdraw-text` |
+| `transfer`   | `bg-badge-transfer-bg` | `text-badge-transfer-text` |
+
+### Loading / empty states
+
+```tsx
+if (isLoading) return <SkeletonList lines={5} />;
+if (!transactions.length)
+  return <EmptyState title="Nenhuma transação" description="Adicione sua primeira transação." />;
 ```
 
 ### Storybook stories
 
-> Stories use a mock `TransactionsProvider` so they can be rendered in Storybook without a running json-server.
-
 ```tsx
-// components/features/TransactionForm/TransactionForm.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import { TransactionForm } from './TransactionForm'
-
-const meta: Meta<typeof TransactionForm> = {
-  title: 'Features/TransactionForm',
-  component: TransactionForm,
-  tags: ['autodocs'],
-  parameters: { layout: 'centered' },
-  args: {
-    onSuccess: () => console.log('success'),
-    onCancel: () => console.log('cancel'),
-  },
-}
-export default meta
-type Story = StoryObj<typeof TransactionForm>
-
-export const Empty: Story = {}
-
-export const PrefilledDeposit: Story = {
-  args: {
-    initialValues: {
-      type: TRANSACTION_TYPE.DEPOSIT,
-      amount: 5000,
-      date: '2025-03-05',
-      description: 'March salary',
-    },
-  },
-}
-
-export const PrefilledWithdrawal: Story = {
-  args: {
-    initialValues: {
-      type: TRANSACTION_TYPE.WITHDRAWAL,
-      amount: 120.5,
-      date: '2025-03-07',
-    },
-  },
-}
+export const WithTransactions: Story = {
+  /* mock transactions via decorator */
+};
+export const EmptyList: Story = {
+  /* no transactions → EmptyState */
+};
+export const LoadingState: Story = {
+  /* isLoading: true → SkeletonList */
+};
 ```
 
----
-
-## Step 2 — Build the Home Page (`app/page.tsx`)
-
-### Page sections
-
-| Section             | Component(s) used                       |
-| ------------------- | --------------------------------------- |
-| Balance hero        | `BalanceCard`                           |
-| Transaction totals  | `TransactionSummary`                    |
-| Quick-add shortcut  | `Button` + `Modal` + `TransactionForm`  |
-| Recent transactions | `TransactionList` (limited to last 5)   |
-| Loading state       | `SkeletonList`, `Skeleton`              |
-| Empty state         | `EmptyState` (inside `TransactionList`) |
-
-### Suggested implementation
-
-```tsx
-// app/page.tsx
-'use client'
-
-import { useState } from 'react'
-import Link from 'next/link'
-import { Plus, ArrowRight } from 'lucide-react'
-import { BalanceCard } from '@/components/features/BalanceCard'
-import { TransactionSummary } from '@/components/features/TransactionSummary'
-import { TransactionList } from '@/components/features/TransactionList'
-import { TransactionForm } from '@/components/features/TransactionForm'
-import { Modal } from '@/components/ui/Modal'
-import { Button } from '@/components/ui/Button'
-import { Skeleton, SkeletonList } from '@/components/ui/Skeleton'
-import { useTransactions } from '@/context/TransactionsContext'
-
-export default function HomePage() {
-  const { balance, recentTransactions, transactions, isLoading } = useTransactions()
-  const [addModalOpen, setAddModalOpen] = useState(false)
-
-  return (
-    <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
-      {/* ── Balance hero ───────────────────────────────────── */}
-      {isLoading ? (
-        <div className="rounded-lg bg-primary/10 p-6">
-          <Skeleton className="mb-2 h-3 w-24" />
-          <Skeleton className="h-9 w-48" />
-        </div>
-      ) : (
-        <BalanceCard balance={balance} />
-      )}
-
-      {/* ── Summary + quick-add row ────────────────────────── */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex-1">
-          {isLoading ? (
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <Skeleton className="h-20 rounded-lg" />
-              <Skeleton className="h-20 rounded-lg" />
-              <Skeleton className="h-20 rounded-lg" />
-            </div>
-          ) : (
-            <TransactionSummary transactions={transactions} />
-          )}
-        </div>
-
-        <Button
-          leftIcon={<Plus size={16} />}
-          onClick={() => setAddModalOpen(true)}
-          className="shrink-0 sm:self-start"
-        >
-          New transaction
-        </Button>
-      </div>
-
-      {/* ── Recent transactions ────────────────────────────── */}
-      <section aria-labelledby="recent-heading">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 id="recent-heading" className="text-base font-semibold text-text-primary">
-            Recent transactions
-          </h2>
-          <Link
-            href="/transactions"
-            className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-          >
-            View all <ArrowRight size={14} />
-          </Link>
-        </div>
-
-        {isLoading ? (
-          <SkeletonList lines={5} />
-        ) : (
-          <TransactionList
-            transactions={recentTransactions}
-            emptyMessage="No transactions yet. Add your first one!"
-          />
-        )}
-      </section>
-
-      {/* ── Add transaction modal ──────────────────────────── */}
-      <Modal
-        isOpen={addModalOpen}
-        onClose={() => setAddModalOpen(false)}
-        title="New transaction"
-        size="md"
-      >
-        <TransactionForm
-          onSuccess={() => setAddModalOpen(false)}
-          onCancel={() => setAddModalOpen(false)}
-        />
-      </Modal>
-    </main>
-  )
-}
-```
+**Done when:** transactions from `json-server` render in the list; adding a new transaction via `NewTransaction` updates the list in real time.
 
 ---
-
-## Step 3 — Responsive layout breakdown
-
-The Home page follows a **mobile-first** approach. Every layout decision is made at the base (mobile) level first, with overrides added upward via `sm:` and `md:` prefixes.
-
-| Section                  | Mobile (default)              | `sm` (640px+)                        |
-| ------------------------ | ----------------------------- | ------------------------------------ |
-| Page wrapper             | Single column, `px-4 py-8`    | Same, constrained by `max-w-5xl`     |
-| Balance card             | Full width                    | Full width                           |
-| Summary + quick-add row  | Stacked column (`flex-col`)   | Side-by-side row (`sm:flex-row`)     |
-| `TransactionSummary`     | 1 column grid                 | 3 column grid (`sm:grid-cols-3`)     |
-| "New transaction" button | Full row (natural block)      | `shrink-0 sm:self-start`             |
-| Recent transactions      | Full width list, stacked rows | Full width, rows expand horizontally |
-| Form action buttons      | Stacked (`flex-col`)          | Side-by-side (`sm:flex-row`)         |
-
-### Key responsive patterns used in this page
-
-```tsx
-// Summary + button: stacked on mobile, side-by-side on sm+
-<div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-
-// Form actions: stacked on mobile, right-aligned on sm+
-<div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-```
-
----
-
-## Step 4 — Wiring the quick-add shortcut
-
-The "New transaction" button and the `Modal` + `TransactionForm` are connected via a single `useState` boolean in the page:
-
-```tsx
-const [addModalOpen, setAddModalOpen] = useState(false)
-
-// Open
-<Button onClick={() => setAddModalOpen(true)}>New transaction</Button>
-
-// Close on success or cancel
-<TransactionForm
-  onSuccess={() => setAddModalOpen(false)}
-  onCancel={() => setAddModalOpen(false)}
-/>
-```
-
-After `addTransaction` resolves in the form, `onSuccess` fires → `setAddModalOpen(false)` → modal closes. The `TransactionList` re-renders automatically because `recentTransactions` is derived from the updated context state.
-
----
-
-## Step 5 — Loading states
-
-The `isLoading` flag from `useTransactions()` is truthy on the initial mount while the fetch to json-server resolves. Use it to conditionally render skeletons instead of empty or stale UI:
-
-| Element              | Loading state                | Loaded state             |
-| -------------------- | ---------------------------- | ------------------------ |
-| `BalanceCard`        | Two `Skeleton` lines         | `<BalanceCard />`        |
-| `TransactionSummary` | Three `Skeleton` blocks      | `<TransactionSummary />` |
-| `TransactionList`    | `<SkeletonList lines={5} />` | `<TransactionList />`    |
-
----
-
-## Checklist
-
-### `TransactionForm`
-
-- [ ] Zod schema validates `type`, `amount`, `date`; `description` is optional
-- [ ] React Hook Form wired with `zodResolver`
-- [ ] `CurrencyInput` controlled via `Controller`
-- [ ] Error messages displayed per field via `FormField`
-- [ ] `isSubmitting` state disables/loads the submit button
-- [ ] `onSuccess` called after `addTransaction` resolves
-- [ ] `onCancel` wired to the Cancel button
-- [ ] `initialValues` pre-populates the form (used in edit flow later)
-- [ ] Action buttons stack on mobile, align right on `sm+`
-- [ ] Stories documented in Storybook (Empty, PrefilledDeposit, PrefilledWithdrawal)
-
-### Home page (`app/page.tsx`)
-
-- [ ] `BalanceCard` displays `balance` from context
-- [ ] `TransactionSummary` receives full `transactions` array
-- [ ] `TransactionList` receives `recentTransactions` (last 5, derived in context)
-- [ ] "View all" link navigates to `/transactions`
-- [ ] "New transaction" button opens the modal
-- [ ] `TransactionForm` inside `Modal` calls `addTransaction` on submit
-- [ ] Modal closes on success and on cancel
-- [ ] New transaction appears in `TransactionList` immediately after submit (optimistic update via context state)
-- [ ] Loading skeletons shown while `isLoading` is `true`
-- [ ] Empty state renders in `TransactionList` when there are no recent transactions
-
-### Responsive
-
-- [ ] Summary + button row stacks on mobile, side-by-side on `sm+`
-- [ ] `TransactionSummary` is 1 column on mobile, 3 columns on `sm+`
-- [ ] Form action buttons stack on mobile, align right on `sm+`
-- [ ] Page tested at 375px, 768px, and 1280px breakpoints
-- [ ] No horizontal overflow at any tested breakpoint
-
-### General
-
-- [ ] `'use client'` directive present on `app/page.tsx` (uses `useState`)
-- [ ] `<main>` landmark with `max-w-5xl mx-auto` wrapper
-- [ ] `<section aria-labelledby="recent-heading">` for the recent transactions section
-- [ ] `react-hook-form` and `zod` installed and working
