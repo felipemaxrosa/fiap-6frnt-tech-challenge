@@ -26,7 +26,7 @@ export function TransactionsTable({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-y-auto max-h-[calc(100vh-300px)]">
       <ul className="flex flex-col gap-2">
         {transactions.map((transaction) => (
           <Fragment key={transaction.id}>

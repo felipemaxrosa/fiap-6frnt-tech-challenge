@@ -45,21 +45,23 @@ export function TransactionListRow({
           {formatCurrency(amount, true)}
         </span>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          aria-label={`Editar transação: ${description}`}
-          onClick={() => onEdit(id)}
-          leftIcon={<Pencil size={16} />}
-        />
+        <div>
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={`Editar transação: ${description}`}
+            onClick={() => onEdit(id)}
+            leftIcon={<Pencil size={16} />}
+          />
 
-        <Button
-          variant="ghost"
-          size="sm"
-          aria-label={`Excluir transação: ${description}`}
-          onClick={() => onDelete(id)}
-          leftIcon={<Trash2 size={16} />}
-        />
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={`Excluir transação: ${description}`}
+            onClick={() => onDelete(id)}
+            leftIcon={<Trash2 size={16} />}
+          />
+        </div>
       </div>
     </li>
   );
