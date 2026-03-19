@@ -1,4 +1,5 @@
 import { SelectOption } from '@/components/ui/Select';
+import { TransactionType } from '@/types';
 
 export const TRANSACTION_TYPE = {
   DEPOSIT: 'deposit',
@@ -11,3 +12,27 @@ export const TRANSACTION_TYPE_OPTIONS = [
   { label: 'Saque', value: TRANSACTION_TYPE.WITHDRAWAL },
   { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
 ] as SelectOption[];
+
+export const AMOUNT_COLOR_MAP: Record<TransactionType, string> = {
+  [TRANSACTION_TYPE.DEPOSIT]: 'text-badge-deposit-text',
+  [TRANSACTION_TYPE.WITHDRAWAL]: 'text-badge-withdraw-text',
+  [TRANSACTION_TYPE.TRANSFER]: 'text-badge-transfer-text',
+};
+
+export const AMOUNT_PREFIX_MAP: Record<TransactionType, string> = {
+  [TRANSACTION_TYPE.DEPOSIT]: '+',
+  [TRANSACTION_TYPE.WITHDRAWAL]: '-',
+  [TRANSACTION_TYPE.TRANSFER]: '↔',
+};
+
+export const BADGE_LABEL_MAP: Record<TransactionType, string> = {
+  [TRANSACTION_TYPE.DEPOSIT]: 'Depósito',
+  [TRANSACTION_TYPE.WITHDRAWAL]: 'Saque',
+  [TRANSACTION_TYPE.TRANSFER]: 'Transferência',
+};
+
+export const BADGE_VARIANT_MAP: Record<TransactionType, 'income' | 'expense' | 'transfer'> = {
+  [TRANSACTION_TYPE.DEPOSIT]: 'income',
+  [TRANSACTION_TYPE.WITHDRAWAL]: 'expense',
+  [TRANSACTION_TYPE.TRANSFER]: 'transfer',
+};
