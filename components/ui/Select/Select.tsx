@@ -21,9 +21,9 @@ export function Select({
   const selectId = id ?? generatedId;
 
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(value ?? '');
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const selected = value ?? '';
   const selectedLabel = options.find((o) => o.value === selected)?.label;
 
   useEffect(() => {
@@ -37,7 +37,6 @@ export function Select({
   }, []);
 
   const handleSelect = (optValue: string) => {
-    setSelected(optValue);
     setOpen(false);
     onChange?.(optValue);
   };
