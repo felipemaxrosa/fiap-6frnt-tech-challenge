@@ -11,6 +11,7 @@ export interface TransactionFiltersValue {
 export interface TransactionFiltersProps {
   value: TransactionFiltersValue;
   onChange: (filters: TransactionFiltersValue) => void;
+  onClear?: () => void;
 }
 
 export const DEFAULT_FILTERS: TransactionFiltersValue = {

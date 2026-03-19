@@ -9,13 +9,13 @@ import { useTransactionFilters } from '@/hooks';
 
 function TransacoesContent() {
   const { transactions, isLoading, deleteTransaction } = useTransactions();
-  const { filters, setFilters, filtered } = useTransactionFilters(transactions);
+  const { filters, setFilters, clearFilters, filtered } = useTransactionFilters(transactions);
 
   return (
     <div className="flex flex-col gap-lg">
       <h1 className="heading-default text-content-primary text-xl">Transações</h1>
 
-      <TransactionFilters value={filters} onChange={setFilters} />
+      <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
 
       <TransactionsTable
         transactions={filtered}

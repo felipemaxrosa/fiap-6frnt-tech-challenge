@@ -61,5 +61,7 @@ export function useTransactionFilters(transactions: Transaction[]) {
     .filter((t) => matchesDateTo(t, filters.dateTo))
     .sort((a, b) => sortTransactions(a, b, filters));
 
-  return { filters, setFilters, filtered };
+  const clearFilters = useCallback(() => setFilters(DEFAULT_FILTERS), [setFilters]);
+
+  return { filters, setFilters, clearFilters, filtered };
 }

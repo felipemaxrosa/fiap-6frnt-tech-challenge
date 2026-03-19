@@ -2,6 +2,7 @@
 
 import { Select } from '@/components/ui/Select';
 import { DatePicker } from '@/components/ui/DatePicker';
+import { Button } from '@/components/ui/Button';
 import { TRANSACTION_TYPE_OPTIONS } from '@/shared/constants/transaction';
 import type { TransactionFiltersProps } from './ITransactionFilters';
 
@@ -22,12 +23,12 @@ const SORT_ORDER_AMOUNT_OPTIONS = [
   { label: 'Menor valor', value: 'asc' },
 ];
 
-export function TransactionFilters({ value, onChange }: TransactionFiltersProps) {
+export function TransactionFilters({ value, onChange, onClear }: TransactionFiltersProps) {
   const sortOrderOptions =
     value.sortBy === 'amount' ? SORT_ORDER_AMOUNT_OPTIONS : SORT_ORDER_DATE_OPTIONS;
 
   return (
-    <div className="flex flex-wrap gap-md">
+    <div className="flex flex-wrap items-end gap-md">
       <div className="min-w-40 flex-1">
         <Select
           label="Tipo"
@@ -76,6 +77,12 @@ export function TransactionFilters({ value, onChange }: TransactionFiltersProps)
           }
         />
       </div>
+
+      {onClear && (
+        <Button variant="ghost" size="sm" onClick={onClear}>
+          Limpar filtros
+        </Button>
+      )}
     </div>
   );
 }
