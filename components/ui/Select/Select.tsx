@@ -1,3 +1,4 @@
+import { getInputBorderColor } from '@/lib/input';
 import { cn } from '../../../lib/classes';
 import type { SelectProps } from './ISelect';
 import { ChevronDown } from 'lucide-react';
@@ -41,9 +42,7 @@ export function Select({
     onChange?.(optValue);
   };
 
-  const borderColor = error
-    ? 'border-[var(--color-feedback-danger)]'
-    : 'border-[var(--color-brand-primary)]';
+  const borderColor = getInputBorderColor(open, error);
 
   const iconColor = error ? 'var(--color-feedback-danger)' : 'var(--color-brand-primary)';
 
