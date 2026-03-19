@@ -1,9 +1,9 @@
 'use client';
 
 import { Pencil, Trash2 } from 'lucide-react';
+import { cn } from '@/lib/classes';
 import {
   AMOUNT_COLOR_MAP,
-  AMOUNT_PREFIX_MAP,
   BADGE_LABEL_MAP,
   BADGE_VARIANT_MAP,
 } from '@/shared/constants/transaction';
@@ -12,11 +12,21 @@ import type { TransactionListRowProps } from './ITransactionListRow';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 
-export function TransactionListRow({ transaction, onEdit, onDelete }: TransactionListRowProps) {
+export function TransactionListRow({
+  transaction,
+  onEdit,
+  onDelete,
+  className,
+}: TransactionListRowProps) {
   const { id, type, description, amount, date } = transaction;
 
   return (
-    <li className="flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md">
+    <li
+      className={cn(
+        'flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md',
+        className
+      )}
+    >
       {/* Left: Badge + Description + Date */}
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <Badge variant={BADGE_VARIANT_MAP[type]} size="md" className="min-w-28 flex justify-center">
@@ -32,7 +42,7 @@ export function TransactionListRow({ transaction, onEdit, onDelete }: Transactio
       {/* Right: Value + Actions */}
       <div className="flex shrink-0 items-center gap-2">
         <span className={`text-lg font-semibold ${AMOUNT_COLOR_MAP[type]}`}>
-          {AMOUNT_PREFIX_MAP[type]} {formatCurrency(amount, true)}
+          {formatCurrency(amount, true)}
         </span>
 
         <Button
