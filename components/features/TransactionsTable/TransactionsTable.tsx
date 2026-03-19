@@ -1,4 +1,6 @@
+import { Fragment } from 'react';
 import { ReceiptText } from 'lucide-react';
+import { TransactionItem } from '@/components/features/TransactionItem';
 import { TransactionListRow } from '@/components/features/TransactionListRow';
 import { SkeletonList } from '@/components/ui/Skeleton';
 import type { TransactionsTableProps } from './ITransactionsTable';
@@ -27,12 +29,20 @@ export function TransactionsTable({
     <div className="w-full">
       <ul className="flex flex-col gap-2">
         {transactions.map((transaction) => (
-          <TransactionListRow
-            key={transaction.id}
-            transaction={transaction}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
+          <Fragment key={transaction.id}>
+            <TransactionItem
+              transaction={transaction}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              className="sm:hidden"
+            />
+            <TransactionListRow
+              transaction={transaction}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              className="hidden sm:flex"
+            />
+          </Fragment>
         ))}
       </ul>
     </div>
