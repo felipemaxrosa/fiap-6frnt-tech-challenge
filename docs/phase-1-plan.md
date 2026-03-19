@@ -54,11 +54,11 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 8-10: Atomic Components (Design System)**
 
-- [ ] `Button` (primary, secondary, danger, sizes)
-- [ ] `Input` (text, number, date with validation states)
-- [ ] `Badge` (for transaction types)
-- [ ] `Card`
-- [ ] Document each in Storybook with all variants
+- [x] `Button` (primary, secondary, danger, sizes)
+- [x] `Input` (text, number, date with validation states)
+- [x] `Badge` (for transaction types)
+- [x] `Card`
+- [x] Document each in Storybook with all variants
 
 **Day 11-13: Form Components**
 

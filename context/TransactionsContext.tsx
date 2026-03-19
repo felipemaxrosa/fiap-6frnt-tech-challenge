@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from 'react';
 import type { Transaction, NewTransaction, UpdateTransaction } from '@/types';
 import { calculateBalance, getRecent, getAll } from '@/lib/transactions';
 import { TransactionService } from '@/services';
@@ -18,13 +18,16 @@ interface TransactionsContextValue {
 const TransactionsContext = createContext<TransactionsContextValue | null>(null);
 
 export function TransactionsProvider({ children }: { children: ReactNode }) {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactionsMap, setTransactionsMap] = useState<Map<string, Transaction>>(new Map());
   const [isLoading, setIsLoading] = useState(true);
+
+  // Convert Map to array once — passed to lib helpers and exposed to consumers
+  const transactions = useMemo(() => Array.from(transactionsMap.values()), [transactionsMap]);
 
   async function fetchTransactions() {
     try {
       const data = await TransactionService.getAll();
-      setTransactions(data);
+      setTransactionsMap(new Map(data.map((t) => [t.id, t])));
     } finally {
       setIsLoading(false);
     }
@@ -36,17 +39,21 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
 
   const addTransaction = async (data: NewTransaction) => {
     const created = await TransactionService.create(data);
-    setTransactions((prev) => [...prev, created]);
+    setTransactionsMap((prev) => new Map(prev).set(created.id, created));
   };
 
   const updateTransaction = async (id: string, data: UpdateTransaction) => {
     const updated = await TransactionService.update(id, data);
-    setTransactions((prev) => prev.map((t) => (t.id === id ? updated : t)));
+    setTransactionsMap((prev) => new Map(prev).set(id, updated));
   };
 
   const deleteTransaction = async (id: string) => {
     await TransactionService.remove(id);
-    setTransactions((prev) => prev.filter((t) => t.id !== id));
+    setTransactionsMap((prev) => {
+      const next = new Map(prev);
+      next.delete(id);
+      return next;
+    });
   };
 
   return (
