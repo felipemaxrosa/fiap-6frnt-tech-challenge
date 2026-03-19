@@ -12,8 +12,8 @@ export default function TransacoesPage() {
 
   const filtered = transactions
     .filter((t) => filters.type === 'all' || t.type === filters.type)
-    .filter((t) => !filters.dateFrom || t.date >= filters.dateFrom)
-    .filter((t) => !filters.dateTo || t.date <= filters.dateTo)
+    .filter((t) => !filters.dateFrom || t.date.slice(0, 10) >= filters.dateFrom)
+    .filter((t) => !filters.dateTo || t.date.slice(0, 10) <= filters.dateTo)
     .sort((a, b) => {
       const dir = filters.sortOrder === 'asc' ? 1 : -1;
       if (filters.sortBy === 'amount') return (a.amount - b.amount) * dir;
