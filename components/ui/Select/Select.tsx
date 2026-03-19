@@ -65,7 +65,7 @@ export function Select({
           className={cn(
             'w-full flex items-center justify-between',
             'bg-[var(--color-surface)]',
-            'rounded-[var(--radius-default)] border',
+            'rounded-default border',
             borderColor,
             'px-[var(--spacing-lg)] py-[var(--spacing-md)]',
             'body-default',
