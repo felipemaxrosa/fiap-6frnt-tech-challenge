@@ -1,11 +1,13 @@
 'use client';
 
+import { Suspense } from 'react';
 import { TransactionsTable } from '@/components/features/TransactionsTable';
 import { TransactionFilters } from '@/components/features/TransactionFilters';
+import { SkeletonList } from '@/components/ui/Skeleton';
 import { useTransactions } from '@/context/TransactionsContext';
 import { useTransactionFilters } from '@/hooks';
 
-export default function TransacoesPage() {
+function TransacoesContent() {
   const { transactions, isLoading, deleteTransaction } = useTransactions();
   const { filters, setFilters, filtered } = useTransactionFilters(transactions);
 
@@ -23,5 +25,13 @@ export default function TransacoesPage() {
         emptyMessage="Nenhuma transação encontrada para os filtros selecionados."
       />
     </div>
+  );
+}
+
+export default function TransacoesPage() {
+  return (
+    <Suspense fallback={<SkeletonList lines={5} />}>
+      <TransacoesContent />
+    </Suspense>
   );
 }
