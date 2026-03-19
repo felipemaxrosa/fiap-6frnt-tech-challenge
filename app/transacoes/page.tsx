@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { TransactionList } from '@/components/features/TransactionList';
+import { TransactionsTable } from '@/components/features/TransactionsTable';
 import { TransactionFilters, DEFAULT_FILTERS } from '@/components/features/TransactionFilters';
 import type { TransactionFiltersValue } from '@/components/features/TransactionFilters';
 import { useTransactions } from '@/context/TransactionsContext';
@@ -26,7 +26,7 @@ export default function TransacoesPage() {
 
       <TransactionFilters value={filters} onChange={setFilters} />
 
-      <TransactionList
+      <TransactionsTable
         transactions={filtered}
         isLoading={isLoading}
         onEdit={(id) => console.log('edit', id)}
