@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex flex-col gap-lg lg:flex-row lg:items-start">
       <div className="flex flex-col gap-lg lg:flex-1">
         {isLoading ? (
-          <Skeleton className=" h-133 md:h-89 w-full rounded-xl" />
+          <Skeleton className=" h-134.5 md:h-91 w-full rounded-xl" />
         ) : (
           <BalanceCard balance={balance} owner="Joana" />
         )}
