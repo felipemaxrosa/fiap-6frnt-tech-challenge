@@ -26,6 +26,7 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
 
   async function fetchTransactions() {
     try {
+      await new Promise((res) => setTimeout(res, 100));
       const data = await TransactionService.getAll();
       setTransactionsMap(new Map(data.map((t) => [t.id, t])));
     } finally {
