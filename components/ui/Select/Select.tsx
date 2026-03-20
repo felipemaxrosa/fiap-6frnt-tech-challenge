@@ -1,3 +1,4 @@
+import { getInputBorderColor } from '@/lib/input';
 import { cn } from '../../../lib/classes';
 import type { SelectProps } from './ISelect';
 import { ChevronDown } from 'lucide-react';
@@ -20,9 +21,9 @@ export function Select({
   const selectId = id ?? generatedId;
 
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(value ?? '');
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const selected = value ?? '';
   const selectedLabel = options.find((o) => o.value === selected)?.label;
 
   useEffect(() => {
@@ -36,14 +37,11 @@ export function Select({
   }, []);
 
   const handleSelect = (optValue: string) => {
-    setSelected(optValue);
     setOpen(false);
     onChange?.(optValue);
   };
 
-  const borderColor = error
-    ? 'border-[var(--color-feedback-danger)]'
-    : 'border-[var(--color-brand-primary)]';
+  const borderColor = getInputBorderColor(open, error);
 
   const iconColor = error ? 'var(--color-feedback-danger)' : 'var(--color-brand-primary)';
 
@@ -67,7 +65,7 @@ export function Select({
           className={cn(
             'w-full flex items-center justify-between',
             'bg-[var(--color-surface)]',
-            'rounded-[var(--radius-default)] border',
+            'rounded-default border',
             borderColor,
             'px-[var(--spacing-lg)] py-[var(--spacing-md)]',
             'body-default',

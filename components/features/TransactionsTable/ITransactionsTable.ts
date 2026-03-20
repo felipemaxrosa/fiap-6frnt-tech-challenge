@@ -1,6 +1,6 @@
 import type { Transaction } from '@/types';
 
-export interface TransactionListProps {
+export interface TransactionsTableProps {
   transactions: Transaction[];
   isLoading?: boolean;
   onEdit: (id: string) => void;
