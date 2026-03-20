@@ -24,47 +24,78 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
         className="absolute top-0 right-0 w-42 h-auto pointer-events-none select-none rotate-180"
       />
 
-      <div className="relative flex gap-lg flex-1">
-        <div className="flex flex-col">
+      <div
+        className="
+          relative flex gap-lg flex-1
+          max-md:grid max-md:grid-cols-1 max-md:justify-items-center
+        "
+      >
+        <div
+          className="
+            flex flex-col
+            max-md:items-center max-md:text-center
+          "
+        >
           {owner && <h1 className="text-xl font-semibold mb-sm">Olá, {owner}! :)</h1>}
 
-          <p className="text-sm mb-lg">{formatTodayDate()}</p>
+          <p className="text-sm mb-0 md:mb-lg">{formatTodayDate()}</p>
 
           <img
             src="/piggy-bank.png"
             aria-hidden="true"
-            className="pointer-events-none select-none"
+            className="
+              pointer-events-none select-none
+              max-md:hidden
+            "
             style={{ width: 283, height: 228.17 }}
           />
         </div>
 
-        <div className="flex flex-col items-start mt-sm gap-sm w-fit p-2xl self-start mx-auto">
-          <div className="flex items-center gap-sm">
-            <span className="text-base">Saldo</span>
-            <Button
-              variant="ghost"
-              size="sm"
-              leftIcon={
-                visible ? (
-                  <Eye size={20} className="text-icon-accent" />
-                ) : (
-                  <EyeOff size={20} className="text-icon-accent" />
-                )
-              }
-              onClick={() => setVisible((v) => !v)}
-              aria-label={visible ? 'Ocultar saldo' : 'Exibir saldo'}
-              className="hover:bg-transparent p-xs"
-            />
+        <div
+          className="
+            flex flex-col items-start p-2xl mt-0 md:mt-sm gap-sm min-w-50 self-start mx-auto
+            max-md:items-center max-md:text-center max-md:pt-0
+          "
+        >
+          <div className="w-fit">
+            <div className="flex items-center gap-sm max-md:justify-center">
+              <span className="text-base">Saldo</span>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                leftIcon={
+                  visible ? (
+                    <Eye size={20} className="text-icon-accent" />
+                  ) : (
+                    <EyeOff size={20} className="text-icon-accent" />
+                  )
+                }
+                onClick={() => setVisible((v) => !v)}
+                aria-label={visible ? 'Ocultar saldo' : 'Exibir saldo'}
+                className="hover:bg-transparent p-xs"
+              />
+            </div>
+
+            <span className="block h-px w-full bg-icon-accent" />
+
+            <p className="text-base">{label}</p>
           </div>
-
-          <span className="block h-px w-full bg-icon-accent" />
-
-          <p className="text-base">{label}</p>
 
           <span className={`text-xl font-bold ${!isPositive ? 'text-feedback-danger' : ''}`}>
             {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
           </span>
         </div>
+
+        <img
+          src="/piggy-bank.png"
+          aria-hidden="true"
+          className="
+            pointer-events-none select-none
+            hidden max-md:block
+          "
+          style={{ width: 283, height: 228.17 }}
+        />
       </div>
     </Card>
   );
