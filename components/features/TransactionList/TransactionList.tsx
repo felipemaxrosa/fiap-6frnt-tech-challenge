@@ -19,7 +19,7 @@ export function TransactionList({
 
   return (
     <div className="lg:w-80 lg:shrink-0">
-      <h2 className="text-2xl/7 font-bold text-content-primary sm:truncate sm:text-3xl sm:tracking-tight">
+      <h2 className="text-xl font-bold text-content-primary sm:truncate sm:tracking-tight mb-4">
         Extrato
       </h2>
 

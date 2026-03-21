@@ -7,6 +7,7 @@
 
   --color-text-primary: var(--color-content-primary);
   --color-text-secondary: var(--color-content-secondary);
+  --color-text-on-bg: var(--color-content-on-bg);
 
   /* ============================================
   ALIAS MAPPINGS (Focus / interactions)
@@ -23,8 +24,8 @@
   /* ============================================
   SURFACE COLORS (Backgrounds & Cards)
   ============================================ */
-  --color-background: #f3f3f3; /* página/canvas — corrigido (estava invertido) */
-  --color-surface: #ffffff; /* cards e painéis — corrigido (estava invertido) */
+  --color-background: #f3f3f3;
+  --color-surface: #ffffff;
   --color-surface-hover: #f8f8f8;
 
   /* ============================================
@@ -33,6 +34,7 @@
   --color-content-primary: #000b34;
   --color-content-secondary: #969baf;
   --color-content-inverse: #ffffff;
+  --color-content-on-bg: #f3f3f3;
 
   /* ============================================
   FEEDBACK COLORS (Semantic)

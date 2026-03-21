@@ -30,7 +30,7 @@ export function Button({
     <button
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center rounded-md font-medium',
+        'inline-flex items-center justify-center rounded-md font-medium cursor-pointer',
         'transition-colors focus-visible:outline-none focus-visible:ring-2',
         'focus-visible:ring-brand-primary disabled:opacity-50 disabled:cursor-not-allowed',
         variantStyles[variant],
