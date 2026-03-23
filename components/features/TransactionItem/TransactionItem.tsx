@@ -33,7 +33,7 @@ export function TransactionItem({
           {BADGE_LABEL_MAP[type]}
         </Badge>
 
-        <div className="mt-5 flex lg:mt-0 lg:ml-2 w-1/3 justify-end @md:order-4 @md:mt-0 @md:w-auto @md:ml-0">
+        <div className="flex lg:ml-2 w-1/3 justify-end @md:order-4 @md:mt-0 @md:w-auto @md:ml-0">
           <IconButton
             aria-label={`Edit transaction: ${description}`}
             onClick={() => onEdit(id)}
