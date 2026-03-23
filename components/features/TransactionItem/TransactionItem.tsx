@@ -2,11 +2,7 @@
 
 import { Pencil, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/classes';
-import {
-  AMOUNT_PREFIX_MAP,
-  BADGE_LABEL_MAP,
-  BADGE_VARIANT_MAP,
-} from '@/shared/constants/transaction';
+import { BADGE_LABEL_MAP, BADGE_VARIANT_MAP } from '@/shared/constants/transaction';
 import { formatCurrency, formatDate } from '@/lib/format';
 import type { TransactionItemProps } from './ITransactionItem';
 import { Badge } from '@/components/ui/Badge';
@@ -56,7 +52,7 @@ export function TransactionItem({
           </div>
         </div>
         <span className={'@md:text-base text-sm font-semibold @md:order-3'}>
-          {AMOUNT_PREFIX_MAP[type]} {formatCurrency(amount, true)}
+          {formatCurrency(amount, true)}
         </span>
       </div>
     </li>

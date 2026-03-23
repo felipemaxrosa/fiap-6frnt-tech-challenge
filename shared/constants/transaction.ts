@@ -13,12 +13,6 @@ export const TRANSACTION_TYPE_OPTIONS = [
   { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
 ] as SelectOption[];
 
-export const AMOUNT_PREFIX_MAP: Record<TransactionType, string> = {
-  [TRANSACTION_TYPE.DEPOSIT]: '+',
-  [TRANSACTION_TYPE.WITHDRAWAL]: '-',
-  [TRANSACTION_TYPE.TRANSFER]: '↔',
-};
-
 export const BADGE_LABEL_MAP: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: 'Depósito',
   [TRANSACTION_TYPE.WITHDRAWAL]: 'Saque',
