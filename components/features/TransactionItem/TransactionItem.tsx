@@ -3,7 +3,6 @@
 import { Pencil, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/classes';
 import {
-  AMOUNT_COLOR_MAP,
   AMOUNT_PREFIX_MAP,
   BADGE_LABEL_MAP,
   BADGE_VARIANT_MAP,
@@ -25,15 +24,16 @@ export function TransactionItem({
     <li
       className={cn(
         'flex flex-col items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md',
+        '@md:grid @md:grid-cols-[7rem_1fr_auto_auto] @md:items-center @md:gap-x-4 @md:gap-y-0',
         className
       )}
     >
-      <div className="w-full justify-between flex gap-3 min-w-0 flex-1">
-        <Badge variant={BADGE_VARIANT_MAP[type]} size="lg">
+      <div className="w-full justify-between items-start flex gap-3 min-w-0 flex-1 @md:contents">
+        <Badge variant={BADGE_VARIANT_MAP[type]} size="md" className="@md:order-1">
           {BADGE_LABEL_MAP[type]}
         </Badge>
 
-        <div className="mt-5 flex lg:mt-0 lg:ml-2 w-1/3 justify-end">
+        <div className="mt-5 flex lg:mt-0 lg:ml-2 w-1/3 justify-end @md:order-4 @md:mt-0 @md:w-auto @md:ml-0">
           <Button
             variant="ghost"
             size="sm"
@@ -52,16 +52,16 @@ export function TransactionItem({
         </div>
       </div>
 
-      <div className="w-full flex justify-between h-[-webkit-fill-available] items-end justify-between gap-2 shrink-0">
-        <div className="flex">
+      <div className="w-full flex justify-between h-[-webkit-fill-available] items-end gap-2 shrink-0 @md:contents">
+        <div className="flex @md:order-2 @md:min-w-0">
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-40">
+            <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-40 @md:max-w-none">
               {description}
             </p>
             <p className="text-xs text-gray-500">{formatDate(date)}</p>
           </div>
         </div>
-        <span className={`text-sm font-semibold ${AMOUNT_COLOR_MAP[type]}`}>
+        <span className={'@md:text-base text-sm font-semibold @md:order-3'}>
           {AMOUNT_PREFIX_MAP[type]} {formatCurrency(amount, true)}
         </span>
       </div>

@@ -1,13 +1,22 @@
 import { ReceiptText } from 'lucide-react';
+import { cn } from '@/lib/classes';
 import { TransactionItem } from '@/components/features/TransactionItem';
+import { SkeletonList } from '@/components/ui/Skeleton';
 import type { TransactionListProps } from './ITransactionList';
 
 export function TransactionList({
   transactions,
+  isLoading = false,
   onEdit,
   onDelete,
   emptyMessage = 'No transactions found.',
+  title,
+  className,
 }: TransactionListProps) {
+  if (isLoading) {
+    return <SkeletonList lines={5} />;
+  }
+
   if (transactions.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-gray-300 bg-white py-16 text-gray-400">
@@ -18,10 +27,12 @@ export function TransactionList({
   }
 
   return (
-    <div className="lg:w-80 lg:shrink-0">
-      <h2 className="text-xl font-bold text-content-primary sm:truncate sm:tracking-tight mb-4">
-        Extrato
-      </h2>
+    <div className={cn('@container', className)}>
+      {title && (
+        <h2 className="text-xl font-bold text-content-primary sm:truncate sm:tracking-tight mb-4">
+          {title}
+        </h2>
+      )}
 
       <ul className="flex flex-col gap-2">
         {transactions.map((transaction) => (

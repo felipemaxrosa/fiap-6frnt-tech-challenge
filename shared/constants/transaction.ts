@@ -13,12 +13,6 @@ export const TRANSACTION_TYPE_OPTIONS = [
   { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
 ] as SelectOption[];
 
-export const AMOUNT_COLOR_MAP: Record<TransactionType, string> = {
-  [TRANSACTION_TYPE.DEPOSIT]: 'text-badge-deposit-text',
-  [TRANSACTION_TYPE.WITHDRAWAL]: 'text-badge-withdraw-text',
-  [TRANSACTION_TYPE.TRANSFER]: 'text-badge-transfer-text',
-};
-
 export const AMOUNT_PREFIX_MAP: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: '+',
   [TRANSACTION_TYPE.WITHDRAWAL]: '-',

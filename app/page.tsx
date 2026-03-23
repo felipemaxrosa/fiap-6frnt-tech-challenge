@@ -28,6 +28,8 @@ export default function Home() {
         transactions={transactions}
         onEdit={(id) => console.log(id)}
         onDelete={(id) => console.log(id)}
+        title="Extrato"
+        className="lg:w-80 lg:shrink-0"
       />
     </div>
   );

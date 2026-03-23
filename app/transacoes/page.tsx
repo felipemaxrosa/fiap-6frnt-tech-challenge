@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import { TransactionsTable } from '@/components/features/TransactionsTable';
+import { TransactionList } from '@/components/features/TransactionList';
 import { TransactionFilters } from '@/components/features/TransactionFilters';
 import { SkeletonList } from '@/components/ui/Skeleton';
 import { useTransactions } from '@/context/TransactionsContext';
@@ -17,12 +17,13 @@ function TransacoesContent() {
 
       <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
 
-      <TransactionsTable
+      <TransactionList
         transactions={filtered}
         isLoading={isLoading}
         onEdit={(id) => console.log('edit', id)}
         onDelete={deleteTransaction}
         emptyMessage="Nenhuma transação encontrada para os filtros selecionados."
+        className="w-full overflow-y-auto max-h-[calc(100vh-300px)]"
       />
     </div>
   );
