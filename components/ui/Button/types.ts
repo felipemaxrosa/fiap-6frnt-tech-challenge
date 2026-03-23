@@ -6,3 +6,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   rightIcon?: React.ReactNode;
   fullWidth?: boolean;
 }
+
+export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label'> & {
+  icon: React.ReactNode;
+  'aria-label': string;
+};
