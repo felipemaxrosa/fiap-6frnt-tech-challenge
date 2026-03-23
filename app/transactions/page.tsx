@@ -7,7 +7,7 @@ import { SkeletonList } from '@/components/ui/Skeleton';
 import { useTransactions } from '@/context/TransactionsContext';
 import { useTransactionFilters } from '@/hooks';
 
-function TransacoesContent() {
+function TransactionsContent() {
   const { transactions, isLoading, deleteTransaction } = useTransactions();
   const { filters, setFilters, clearFilters, filtered } = useTransactionFilters(transactions);
 
@@ -29,10 +29,10 @@ function TransacoesContent() {
   );
 }
 
-export default function TransacoesPage() {
+export default function TransactionsPage() {
   return (
     <Suspense fallback={<SkeletonList lines={5} />}>
-      <TransacoesContent />
+      <TransactionsContent />
     </Suspense>
   );
 }

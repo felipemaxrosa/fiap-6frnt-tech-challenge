@@ -98,7 +98,7 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 27-31: Transaction List Page** ⏳ Aguardando confirmacao do coordenador do curso — see `docs/day-27-31-transaction-list-page.md`
 
-- [ ] Task 1: `/transacoes` page shell + Sidebar nav link
+- [ ] Task 1: `/transactions` page shell + Sidebar nav link
 - [ ] Task 2: `TransactionFilters` component (type, date range, sort)
 - [ ] Task 3: Wire filters to `TransactionList`
 

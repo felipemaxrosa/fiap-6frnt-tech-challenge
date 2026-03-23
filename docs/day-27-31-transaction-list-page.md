@@ -2,7 +2,7 @@
 
 ## Goals
 
-- Implement a dedicated `/transacoes` page listing all transactions
+- Implement a dedicated `/transactions` page listing all transactions
 - Allow filtering by transaction type (deposit, withdrawal, transfer)
 - Allow filtering by date range
 - Allow sorting by date or amount
@@ -18,7 +18,7 @@ Before starting, confirm all of the following are ready:
 - [ ] `EmptyState` implemented (Days 18-21)
 - [ ] `SkeletonList` implemented (Days 18-21)
 - [ ] `useTransactions()` returns `{ transactions, isLoading }` (Days 5-7)
-- [ ] `Sidebar` navigation link for `/transacoes` added
+- [ ] `Sidebar` navigation link for `/transactions` added
 
 ---
 
@@ -26,7 +26,7 @@ Before starting, confirm all of the following are ready:
 
 ```
 app/
-└── transacoes/
+└── transactions/
     └── page.tsx                                   # Transaction list page
 
 components/
@@ -40,13 +40,13 @@ components/
 
 ---
 
-## Task 1 — Add `/transacoes` route and page shell
+## Task 1 — Add `/transactions` route and page shell
 
-Create `app/transacoes/page.tsx` with the page heading and a placeholder for the filter bar and list.
+Create `app/transactions/page.tsx` with the page heading and a placeholder for the filter bar and list.
 
 ```tsx
-// app/transacoes/page.tsx
-export default function TransacoesPage() {
+// app/transactions/page.tsx
+export default function TransactionsPage() {
   return (
     <div className="flex flex-col gap-lg">
       <h1 className="heading-default text-content-primary">Transações</h1>
@@ -57,9 +57,9 @@ export default function TransacoesPage() {
 }
 ```
 
-Also add the route to the Sidebar nav links so `/transacoes` is reachable.
+Also add the route to the Sidebar nav links so `/transactions` is reachable.
 
-**Done when:** navigating to `/transacoes` renders the heading and the Sidebar highlights the correct link.
+**Done when:** navigating to `/transactions` renders the heading and the Sidebar highlights the correct link.
 
 ---
 
@@ -135,7 +135,7 @@ export const DateRangeFiltered: Story = {
 Apply the active filters and sort order to the transactions array in the page before passing them down to `TransactionList`.
 
 ```ts
-// app/transacoes/page.tsx
+// app/transactions/page.tsx
 const filtered = transactions
   .filter((t) => filters.type === 'all' || t.type === filters.type)
   .filter((t) => !filters.dateFrom || t.date >= filters.dateFrom)
