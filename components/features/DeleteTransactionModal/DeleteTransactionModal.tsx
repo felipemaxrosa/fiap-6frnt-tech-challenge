@@ -4,12 +4,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { formatCurrency, formatDate } from '@/lib/format';
-import {
-  AMOUNT_COLOR_MAP,
-  AMOUNT_PREFIX_MAP,
-  BADGE_LABEL_MAP,
-  BADGE_VARIANT_MAP,
-} from '@/shared/constants/transaction';
+import { BADGE_LABEL_MAP, BADGE_VARIANT_MAP } from '@/shared/constants/transaction';
 import type { DeleteTransactionModalProps } from './IDeleteTransactionModal';
 
 export function DeleteTransactionModal({
@@ -37,9 +32,7 @@ export function DeleteTransactionModal({
             <span className="label-default text-content-secondary">
               {formatDate(transaction.date)}
             </span>
-            <span className={`body-semibold ${AMOUNT_COLOR_MAP[transaction.type]}`}>
-              {formatCurrency(transaction.amount)}
-            </span>
+            <span className="body-semibold">{formatCurrency(transaction.amount)}</span>
           </div>
         </div>
       )}
