@@ -10,7 +10,7 @@ import {
 import { formatCurrency, formatDate } from '@/lib/format';
 import type { TransactionItemProps } from './ITransactionItem';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { IconButton } from '@/components/ui/Button';
 
 export function TransactionItem({
   transaction,
@@ -34,30 +34,24 @@ export function TransactionItem({
         </Badge>
 
         <div className="mt-5 flex lg:mt-0 lg:ml-2 w-1/3 justify-end @md:order-4 @md:mt-0 @md:w-auto @md:ml-0">
-          <Button
-            variant="ghost"
-            size="sm"
+          <IconButton
             aria-label={`Edit transaction: ${description}`}
             onClick={() => onEdit(id)}
-            leftIcon={<Pencil size={24} />}
+            icon={<Pencil size={18} />}
           />
 
-          <Button
-            variant="ghost"
-            size="sm"
+          <IconButton
             aria-label={`Delete transaction: ${description}`}
             onClick={() => onDelete(id)}
-            leftIcon={<Trash2 size={24} />}
+            icon={<Trash2 size={18} />}
           />
         </div>
       </div>
 
       <div className="w-full flex justify-between h-[-webkit-fill-available] items-end gap-2 shrink-0 @md:contents">
-        <div className="flex @md:order-2 @md:min-w-0">
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-gray-900 max-w-xs md:max-w-40 @md:max-w-none">
-              {description}
-            </p>
+        <div className="flex flex-1 min-w-0 @md:order-2">
+          <div className="min-w-0 w-full">
+            <p className="truncate text-sm font-medium text-gray-900">{description}</p>
             <p className="text-xs text-gray-500">{formatDate(date)}</p>
           </div>
         </div>
