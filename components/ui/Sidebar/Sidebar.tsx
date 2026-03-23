@@ -7,7 +7,7 @@ import type { SidebarProps } from './ISidebar';
 
 const navLinks = [
   { href: '/', label: 'Início' },
-  { href: '/transacoes', label: 'Transações' },
+  { href: '/transactions', label: 'Transações' },
 ];
 
 export function Sidebar({ onLinkClick, activePath }: SidebarProps) {

@@ -6,4 +6,6 @@ export interface TransactionListProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   emptyMessage?: string;
+  title?: string;
+  className?: string;
 }

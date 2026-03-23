@@ -35,9 +35,9 @@ export const DesktopInicio: Story = {
   decorators: desktopDecorator,
 };
 
-export const DesktopTransacoes: Story = {
+export const DesktopTransactions: Story = {
   name: 'Desktop — Transações (active)',
-  args: { activePath: '/transacoes' },
+  args: { activePath: '/transactions' },
   globals: { viewport: { value: 'desktop' } },
   decorators: desktopDecorator,
 };
@@ -51,9 +51,9 @@ export const MobileInicio: Story = {
   decorators: mobileDecorator,
 };
 
-export const MobileTransacoes: Story = {
+export const MobileTransactions: Story = {
   name: 'Mobile — Transações (active)',
-  args: { activePath: '/transacoes' },
+  args: { activePath: '/transactions' },
   globals: { viewport: { value: 'mobile' } },
   decorators: mobileDecorator,
 };
@@ -66,8 +66,8 @@ export const TabletInicio: Story = {
   globals: { viewport: { value: 'tablet' } },
 };
 
-export const TabletTransacoes: Story = {
+export const TabletTransactions: Story = {
   name: 'Tablet — Transações (active)',
-  args: { activePath: '/transacoes' },
+  args: { activePath: '/transactions' },
   globals: { viewport: { value: 'tablet' } },
 };

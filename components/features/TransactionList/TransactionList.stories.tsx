@@ -35,7 +35,7 @@ const meta: Meta<typeof TransactionList> = {
     docs: {
       description: {
         component:
-          'Renders a list of transactions using TransactionListRow. Handles loading and empty states.',
+          'Renders a list of transactions using TransactionItem. Handles loading and empty states. Supports optional title and custom className for different layout contexts.',
       },
     },
   },
@@ -46,6 +46,14 @@ const meta: Meta<typeof TransactionList> = {
     },
     emptyMessage: {
       description: 'Message displayed when there are no transactions.',
+      control: 'text',
+    },
+    title: {
+      description: 'Optional heading displayed above the list.',
+      control: 'text',
+    },
+    className: {
+      description: 'Custom CSS classes for the wrapper div.',
       control: 'text',
     },
     onEdit: { control: false },
@@ -94,6 +102,31 @@ export const EmptyWithCustomMessage: Story = {
   parameters: {
     docs: {
       description: { story: 'Empty state with a custom message, e.g. after applying filters.' },
+    },
+  },
+};
+
+export const WithTitle: Story = {
+  name: 'With Title (Sidebar)',
+  args: {
+    title: 'Extrato',
+    className: 'lg:w-80 lg:shrink-0',
+  },
+  parameters: {
+    docs: {
+      description: { story: 'Sidebar layout with title, as used on the homepage.' },
+    },
+  },
+};
+
+export const FullWidth: Story = {
+  name: 'Full Width (Transactions Page)',
+  args: {
+    className: 'w-full overflow-y-auto max-h-[calc(100vh-300px)]',
+  },
+  parameters: {
+    docs: {
+      description: { story: 'Full-width layout as used on the transactions page.' },
     },
   },
 };
