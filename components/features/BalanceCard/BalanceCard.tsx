@@ -1,50 +1,102 @@
 'use client';
 
 import { useState } from 'react';
-import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { formatCurrency, formatTodayDate } from '@/lib/format';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import type { BalanceCardProps } from './IBalanceCard';
 
-export function BalanceCard({ balance, owner, label = 'Current balance' }: BalanceCardProps) {
+export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: BalanceCardProps) {
   const isPositive = balance >= 0;
   const [visible, setVisible] = useState(true);
 
   return (
-    // TODO: replace outer div with <Card padding="lg" /> from components/ui/Card
-    <div className="rounded-xl flex flex-col md:flex-row justify-between bg-teal-800 p-6 text-white shadow-lg">
-      <div className="flex flex-col">
-        {owner && <h1 className="mb-1 text-lg font-medium opacity-75">Olá, {owner}! :)</h1>}
-        <p className="mb-4 text-sm opacity-60">{formatTodayDate()}</p>
-      </div>
+    <Card padding="lg" className="relative overflow-hidden mb-sm bg-brand-dark! text-text-on-bg">
+      <img
+        src="/pixels.png"
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 w-42 h-auto pointer-events-none select-none"
+      />
+      <img
+        src="/pixels.png"
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-42 h-auto pointer-events-none select-none rotate-180"
+      />
 
-      <div className="flex flex-col items-center md:items-end min-w-56 gap-2 justify-center">
-        <h2 className="w-full flex justify-center md:justify-end items-center gap-2 text-lg border-b pb-3 mb-3 border-white/20">
-          Saldo
-          {/* TODO: replace with <Button variant="ghost" size="sm" /> from components/ui/Button */}
-          <button
-            onClick={() => setVisible((v) => !v)}
-            aria-label={visible ? 'Hide balance' : 'Show balance'}
-            className="rounded p-0.5 opacity-70 hover:opacity-100 transition-opacity"
-          >
-            {visible ? <Eye size={18} /> : <EyeOff size={18} />}
-          </button>
-        </h2>
-        <p className="text-sm font-medium opacity-75">{label}</p>
-        <div className="mt-1 flex items-center gap-2">
-          {isPositive ? (
-            <TrendingUp size={28} className="opacity-80" />
-          ) : (
-            <TrendingDown size={28} className="opacity-80" />
-          )}
-          <span
-            className={`text-2xl sm:text-3xl tracking-tight ${!isPositive ? 'text-red-300' : ''}`}
-          >
+      <div
+        className="
+          relative flex gap-lg flex-1
+          max-md:grid max-md:grid-cols-1 max-md:justify-items-center
+        "
+      >
+        <div
+          className="
+            flex flex-col
+            max-md:items-center max-md:text-center
+          "
+        >
+          {owner && <h1 className="text-xl font-semibold mb-sm">Olá, {owner}! :)</h1>}
+
+          <p className="text-sm mb-0 md:mb-lg">{formatTodayDate()}</p>
+
+          <img
+            src="/piggy-bank.png"
+            aria-hidden="true"
+            className="
+              pointer-events-none select-none
+              max-md:hidden
+            "
+            style={{ width: 283, height: 228.17 }}
+          />
+        </div>
+
+        <div
+          className="
+            flex flex-col items-start p-2xl mt-0 md:mt-sm gap-sm min-w-50 self-start mx-auto
+            max-md:items-center max-md:text-center max-md:pt-0
+          "
+        >
+          <div className="w-fit">
+            <div className="flex items-center gap-sm max-md:justify-center">
+              <span className="text-base">Saldo</span>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                leftIcon={
+                  visible ? (
+                    <Eye size={20} className="text-icon-accent" />
+                  ) : (
+                    <EyeOff size={20} className="text-icon-accent" />
+                  )
+                }
+                onClick={() => setVisible((v) => !v)}
+                aria-label={visible ? 'Ocultar saldo' : 'Exibir saldo'}
+                className="hover:bg-transparent p-xs"
+              />
+            </div>
+
+            <span className="block h-px w-full bg-icon-accent" />
+
+            <p className="text-base">{label}</p>
+          </div>
+
+          <span className={`text-xl font-bold ${!isPositive ? 'text-feedback-danger' : ''}`}>
             {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
           </span>
         </div>
+
+        <img
+          src="/piggy-bank.png"
+          aria-hidden="true"
+          className="
+            pointer-events-none select-none
+            hidden max-md:block
+          "
+          style={{ width: 283, height: 228.17 }}
+        />
       </div>
-    </div>
+    </Card>
   );
 }
