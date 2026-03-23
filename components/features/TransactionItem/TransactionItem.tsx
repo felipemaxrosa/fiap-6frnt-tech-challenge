@@ -19,7 +19,7 @@ export function TransactionItem({
   return (
     <li
       className={cn(
-        'flex flex-col items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md',
+        'flex flex-col items-start justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md',
         '@md:grid @md:grid-cols-[7rem_1fr_auto_auto] @md:items-center @md:gap-x-4 @md:gap-y-0',
         className
       )}
@@ -47,13 +47,11 @@ export function TransactionItem({
       <div className="w-full flex justify-between h-[-webkit-fill-available] items-end gap-2 shrink-0 @md:contents">
         <div className="flex flex-1 min-w-0 @md:order-2">
           <div className="min-w-0 w-full">
-            <p className="truncate text-sm font-medium text-gray-900">{description}</p>
-            <p className="text-xs text-gray-500">{formatDate(date)}</p>
+            <p className="mb-1 @md:mb-0 truncate font-semibold text-gray-900">{description}</p>
+            <p className="text-sm text-content-muted">{formatDate(date)}</p>
           </div>
         </div>
-        <span className={'@md:text-base text-sm font-semibold @md:order-3'}>
-          {formatCurrency(amount, true)}
-        </span>
+        <span className={'font-bold @md:order-3'}>{formatCurrency(amount, true)}</span>
       </div>
     </li>
   );

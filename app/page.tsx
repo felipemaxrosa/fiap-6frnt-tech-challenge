@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 
 export default function Home() {
   const { transactions, balance, isLoading } = useTransactions();
-  const recentTransactions = useMemo(() => transactions.slice(0, 7), [transactions]);
+  const recentTransactions = useMemo(() => transactions.slice(0, 5), [transactions]);
 
   return (
     <div className="flex flex-col gap-lg lg:flex-row lg:items-start">
