@@ -38,7 +38,7 @@ export function TransactionForm({
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
@@ -130,8 +130,14 @@ export function TransactionForm({
         <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
           Cancelar
         </Button>
-        <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
-          {isSubmitting ? 'Concluindo...' : 'Concluir transação'}
+        <Button type="submit" disabled={isSubmitting || !isDirty} loading={isSubmitting}>
+          {initialValues
+            ? isSubmitting
+              ? 'Atualizando...'
+              : 'Atualizar transação'
+            : isSubmitting
+              ? 'Concluindo...'
+              : 'Concluir transação'}
         </Button>
       </div>
     </form>

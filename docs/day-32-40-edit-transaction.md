@@ -3,7 +3,7 @@
 ## Goals
 
 - Allow the user to edit an existing transaction directly from `TransactionItem`
-- Reuse `NewTransaction` (with `TransactionForm` inline) pre-populated via `editingTransaction` prop
+- Open an edit modal when clicking the edit button and pre-fill `TransactionForm` with the selected transaction
 - Update the transaction in context and reflect changes immediately in both `TransactionList` and `BalanceCard`
 - Show success/error feedback via `FeedbackModal`
 
@@ -23,20 +23,25 @@ Before starting, confirm all of the following are ready:
 
 ## Expected file structure at the end
 
-No new components — changes are limited to existing files:
+This implementation uses a dedicated edit modal component and keeps async state in the page container:
 
 ```
+app/
+└── transactions/
+    └── page.tsx                              # Holds pendingEdit + isUpdating and submits update
+
 components/
 └── features/
-    ├── NewTransaction/
-    │   └── NewTransaction.tsx     # Accepts optional editingTransaction prop
+    ├── EditTransactionModal/
+    │   ├── EditTransactionModal.tsx          # Wraps Modal + TransactionForm for edit mode
+    │   └── IEditTransactionModal.tsx
     ├── TransactionItem/
-    │   └── TransactionItem.tsx    # Edit button wired with onEdit callback
-    └── TransactionList/
-        └── TransactionList.tsx    # Holds editing state, passes onEdit to each item
+    │   └── TransactionItem.tsx               # Edit button wired with onEdit callback
+    ├── TransactionList/
+    │   └── TransactionList.tsx               # Forwards onEdit/onDelete to each row
+    └── TransactionForm/
+        └── TransactionForm.tsx               # Uses isDirty/isSubmitting to control submit button
 ```
-
-> No `EditTransaction` component needed — the inline `NewTransaction` card handles both add and edit depending on whether `editingTransaction` is set.
 
 ---
 
@@ -55,54 +60,52 @@ Implementation calls the API (`PATCH /transactions/:id`) and replaces the item i
 
 ---
 
-## Task 2 — Extend `NewTransaction` to support edit mode
+## Task 2 — Show edit modal when clicking edit button
 
-Add an optional `editingTransaction` prop. When set, `TransactionForm` renders pre-filled and submit calls `updateTransaction` instead of `addTransaction`.
-
-### Props update
-
-```ts
-// INewTransaction.ts — updated
-import type { Transaction } from '@/types';
-
-export interface NewTransactionProps {
-  editingTransaction?: Transaction; // undefined = add mode, Transaction = edit mode
-}
-```
+When the user clicks the pencil icon, open `EditTransactionModal` with `TransactionForm` pre-filled with the selected transaction. Submitting this modal must call `updateTransaction` with the selected `id` and the edited form data.
 
 ### Behavior
 
 ```tsx
-const isEditing = !!editingTransaction;
+const [pendingEdit, setPendingEdit] = useState<Transaction | null>(null);
+const [isUpdating, setIsUpdating] = useState(false);
 
-// TransactionForm receives initialValues when editing
-<TransactionForm initialValues={editingTransaction} onSubmit={handleFormSubmit} />;
+function handleEditRequest(id: string) {
+  const transaction = transactions.find((t) => t.id === id) ?? null;
+  setPendingEdit(transaction);
+}
 
-// Confirmation step calls the right context method
-async function handleConfirm() {
+<EditTransactionModal
+  transaction={pendingEdit}
+  onConfirm={handleEditConfirm}
+  onCancel={handleEditCancel}
+  isSubmitting={isUpdating}
+/>;
+
+async function handleEditConfirm(data: TransactionFormValues) {
+  if (!pendingEdit) return;
+  setIsUpdating(true);
   try {
-    if (isEditing) {
-      await updateTransaction(editingTransaction!.id, pendingData!);
-      showFeedback({
-        type: 'success',
-        title: 'Transação atualizada!',
-        message: 'As alterações foram salvas.',
-      });
-    } else {
-      await addTransaction(pendingData!);
-      showFeedback({
-        type: 'success',
-        title: 'Transação adicionada!',
-        message: 'Seu extrato foi atualizado.',
-      });
-    }
+    await updateTransaction(pendingEdit.id, data);
+    showFeedback({
+      type: 'success',
+      title: 'Transação atualizada',
+      message: 'A transação foi atualizada com sucesso.',
+    });
+    setPendingEdit(null);
   } catch {
-    showFeedback({ type: 'error', title: 'Erro ao salvar', message: 'Tente novamente.' });
+    showFeedback({
+      type: 'error',
+      title: 'Erro ao atualizar',
+      message: 'Não foi possível atualizar a transação. Tente novamente.',
+    });
+  } finally {
+    setIsUpdating(false);
   }
 }
 ```
 
-**Done when:** `NewTransaction` renders pre-filled when `editingTransaction` is passed and calls `updateTransaction` on confirm.
+**Done when:** clicking edit opens a pre-filled modal and confirming it calls `updateTransaction`.
 
 ---
 
@@ -116,33 +119,30 @@ Wire the edit icon button with an `onEdit` callback:
 // ITransactionList.ts — updated
 export interface TransactionItemProps {
   transaction: Transaction;
-  onEdit: () => void; // was a visual placeholder, now wired
+  onEdit: (id: string) => void;
 }
 ```
 
 ### Changes to `TransactionList`
 
-Hold the selected transaction in state and pass it to `NewTransaction` via `editingTransaction`:
+Forward `onEdit` from list to row items:
 
 ```tsx
-// In the page (app/page.tsx) — TransactionList bubbles up the selected item
-const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
-
-<NewTransaction editingTransaction={editingTransaction ?? undefined} />
-<TransactionList onEdit={(t) => setEditingTransaction(t)} />
+<TransactionItem transaction={transaction} onEdit={onEdit} />
 ```
 
-**Done when:** clicking the pencil icon on any row pre-fills the `NewTransaction` form with that transaction's data.
+**Done when:** clicking the pencil icon on any row calls `onEdit(id)` and opens the edit modal with that transaction's data.
 
 ---
 
 ## Task 4 — Validation and cancel behavior
 
-`TransactionForm` already handles validation via Zod — no changes needed. Confirm:
+`TransactionForm` handles validation via Zod and submit-state behavior. Confirm:
 
 - Submitting with invalid data shows inline error messages
-- Closing the confirmation modal returns to the filled form
-- Clearing the edit selection (e.g. clicking elsewhere) resets the form to empty add mode
+- In edit mode, submit remains disabled until at least one field changes (`isDirty`)
+- While updating, inputs and action buttons are disabled (`isSubmitting`)
+- Closing the edit modal clears selected transaction and does not affect add mode
 
 **Done when:** all cancel paths work correctly in both add and edit mode.
 
