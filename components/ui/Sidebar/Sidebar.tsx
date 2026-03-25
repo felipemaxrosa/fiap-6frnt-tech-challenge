@@ -32,7 +32,7 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
                   'block rounded-default px-md py-sm',
                   isSelected ? 'body-semibold' : '',
                   isSelected
-                    ? 'bg-surface text-brand-primary shadow-card'
+                    ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-brand-primary'
                     : 'text-content-inverse hover:text-content-inverse/80'
                 )}
               >
@@ -56,7 +56,7 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
                   'block rounded-default px-md py-sm',
                   isSelected ? 'body-semibold' : '',
                   isSelected
-                    ? 'bg-surface text-brand-primary shadow-card'
+                    ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-brand-primary'
                     : 'text-content-primary hover:text-brand-primary'
                 )}
               >
@@ -80,7 +80,7 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
                   'block rounded-default px-md py-sm',
                   isSelected ? 'body-semibold' : '',
                   isSelected
-                    ? 'bg-surface text-brand-primary shadow-card'
+                    ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-brand-primary'
                     : 'text-content-primary hover:text-brand-primary'
                 )}
               >

@@ -3,6 +3,7 @@
 import { cn } from '../../../lib/classes';
 import type { CurrencyInputProps } from './ICurrencyInput';
 import { formatCurrency } from '../../../lib/format';
+import { getInputBorderColor } from '../../../lib/input';
 import { useEffect, useId, useState } from 'react';
 
 export function CurrencyInput({
@@ -21,6 +22,7 @@ export function CurrencyInput({
   const inputId = id ?? generatedId;
 
   const [cents, setCents] = useState(Math.round(value * 100));
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setCents(Math.round(value * 100));
@@ -35,9 +37,7 @@ export function CurrencyInput({
 
   const formatted = formatCurrency(cents / 100);
 
-  const borderColor = error
-    ? 'border-[var(--color-feedback-danger)]'
-    : 'border-[var(--color-brand-primary)]';
+  const borderColor = getInputBorderColor(focused, error);
 
   return (
     <div className="flex flex-col gap-[var(--spacing-sm)]">
@@ -72,6 +72,8 @@ export function CurrencyInput({
           disabled={disabled}
           value={formatted}
           onChange={handleChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           style={{ outline: 'none' }}
           className={cn(
             'flex-1 px-[var(--spacing-lg)] py-[var(--spacing-md)]',
