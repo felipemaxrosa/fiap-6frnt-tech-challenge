@@ -56,6 +56,13 @@ export function TransactionForm({
     });
   };
 
+  const getSubmitButtonLabel = () => {
+    if (initialValues) {
+      return isSubmitting ? 'Atualizando...' : 'Atualizar transação';
+    }
+    return isSubmitting ? 'Concluindo...' : 'Concluir transação';
+  };
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-lg">
       <div>
@@ -131,13 +138,7 @@ export function TransactionForm({
           Cancelar
         </Button>
         <Button type="submit" disabled={isSubmitting || !isDirty} loading={isSubmitting}>
-          {initialValues
-            ? isSubmitting
-              ? 'Atualizando...'
-              : 'Atualizar transação'
-            : isSubmitting
-              ? 'Concluindo...'
-              : 'Concluir transação'}
+          {getSubmitButtonLabel()}
         </Button>
       </div>
     </form>
