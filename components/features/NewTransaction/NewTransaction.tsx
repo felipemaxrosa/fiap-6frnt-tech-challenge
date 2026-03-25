@@ -1,54 +1,87 @@
 'use client';
 
-import { useState } from 'react';
-import { TRANSACTION_TYPE_OPTIONS } from '@/shared/constants/transaction';
-import type { NewTransactionData, NewTransactionProps } from './INewTransaction';
 import { Card } from '@/components/ui/Card';
-import { Select } from '@/components/ui/Select';
-import { Button } from '@/components/ui/Button';
-import { CurrencyInput } from '@/components/ui/CurrencyInput';
+import { useFeedback } from '@/context/FeedbackContext';
+import { useTransactions } from '@/context/TransactionsContext';
+import type { ReactElement } from 'react';
+import { useRef, useState } from 'react';
+import { TransactionForm, type TransactionFormValues } from '../TransactionForm';
+import {
+  ConfirmTransactionModal,
+  type ConfirmTransactionModalRef,
+} from './ConfirmTransactionModal';
 
-export function NewTransaction({ onSubmit, loading = false }: NewTransactionProps) {
-  const [type, setType] = useState<NewTransactionData['type'] | ''>('');
-  const [amount, setAmount] = useState<number>(0);
+const SUCCESS_FEEDBACK = {
+  type: 'success' as const,
+  title: 'Transação adicionada!',
+  message: 'Seu extrato foi atualizado.',
+};
+const ERROR_FEEDBACK = {
+  type: 'error' as const,
+  title: 'Erro ao adicionar transação',
+  message: 'Tente novamente',
+};
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!type || !amount || amount <= 0) return;
-    await onSubmit?.({ type: type as NewTransactionData['type'], amount });
-    setType('');
-    setAmount(0);
-  }
+export function NewTransaction(): ReactElement {
+  const { addTransaction } = useTransactions();
+  const { showFeedback } = useFeedback();
 
-  const isDisabled = !type || !amount || amount <= 0 || loading;
+  const modalRef = useRef<ConfirmTransactionModalRef>(null);
+  const [pendingData, setPendingData] = useState<TransactionFormValues | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFormSubmit = (data: TransactionFormValues): void => {
+    setPendingData(data);
+    modalRef.current?.open();
+  };
+
+  const handleConfirm = async (): Promise<void> => {
+    if (!pendingData) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await addTransaction(pendingData);
+      closeModalAndReset();
+      showFeedback(SUCCESS_FEEDBACK);
+    } catch {
+      closeModal();
+      showFeedback(ERROR_FEEDBACK);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCancel = (): void => {
+    closeModal();
+  };
+
+  const closeModal = (): void => {
+    modalRef.current?.close();
+  };
+
+  const closeModalAndReset = (): void => {
+    closeModal();
+    setPendingData(null);
+  };
 
   return (
-    <Card padding="lg">
-      <h2 className="mb-6 text-xl font-semibold text-gray-900">Nova transação</h2>
+    <>
+      <Card padding="lg" className="rounded-default bg-surface shadow-card">
+        <h2 className="heading-default text-content-primary mb-lg">Nova transação</h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <Select
-          placeholder="Selecione o tipo de transação"
-          options={TRANSACTION_TYPE_OPTIONS}
-          value={type}
-          onChange={(value) => setType(value as NewTransactionData['type'] | '')}
+        <TransactionForm
+          onSubmit={handleFormSubmit}
+          onCancel={handleCancel}
+          isSubmitting={isSubmitting}
         />
+      </Card>
 
-        <div className="w-2/3 flex flex-col gap-12">
-          <CurrencyInput
-            label="Valor"
-            value={amount}
-            onValueChange={setAmount}
-            currency="R$"
-            placeholder="0,00"
-            disabled={loading}
-          />
-
-          <Button type="submit" fullWidth loading={loading} disabled={isDisabled}>
-            {loading ? 'Salvando…' : 'Concluir transação'}
-          </Button>
-        </div>
-      </form>
-    </Card>
+      <ConfirmTransactionModal
+        ref={modalRef}
+        onConfirm={handleConfirm}
+        isSubmitting={isSubmitting}
+      />
+    </>
   );
 }
