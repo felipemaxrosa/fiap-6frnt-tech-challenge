@@ -38,7 +38,7 @@ export function TransactionForm({
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
@@ -54,6 +54,13 @@ export function TransactionForm({
       ...data,
       amount: roundAmount(data.amount),
     });
+  };
+
+  const getSubmitButtonLabel = () => {
+    if (initialValues) {
+      return isSubmitting ? 'Atualizando...' : 'Atualizar transação';
+    }
+    return isSubmitting ? 'Concluindo...' : 'Concluir transação';
   };
 
   return (
@@ -130,8 +137,8 @@ export function TransactionForm({
         <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
           Cancelar
         </Button>
-        <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
-          {isSubmitting ? 'Concluindo...' : 'Concluir transação'}
+        <Button type="submit" disabled={isSubmitting || !isDirty} loading={isSubmitting}>
+          {getSubmitButtonLabel()}
         </Button>
       </div>
     </form>

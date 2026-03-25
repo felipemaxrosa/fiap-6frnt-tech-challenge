@@ -11,6 +11,7 @@ export function DeleteTransactionModal({
   transaction,
   onConfirm,
   onCancel,
+  isDeleting = false,
 }: DeleteTransactionModalProps) {
   return (
     <Modal isOpen={transaction !== null} onClose={onCancel} title="Excluir transação">
@@ -41,7 +42,7 @@ export function DeleteTransactionModal({
         <Button variant="secondary" onClick={onCancel}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={onConfirm}>
+        <Button variant="primary" onClick={onConfirm} disabled={isDeleting} loading={isDeleting}>
           Excluir
         </Button>
       </div>
