@@ -30,6 +30,7 @@ export function TransactionForm({
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(transactionFormSchema),
@@ -46,6 +47,11 @@ export function TransactionForm({
       ...data,
       amount: roundAmount(data.amount),
     });
+  };
+
+  const handleCancel = () => {
+    reset();
+    onCancel();
   };
 
   const getSubmitButtonLabel = () => {
@@ -129,7 +135,7 @@ export function TransactionForm({
       </div>
 
       <div className="flex justify-end gap-sm mt-lg">
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button type="button" variant="secondary" onClick={handleCancel} disabled={isSubmitting}>
           Cancelar
         </Button>
         <Button type="submit" disabled={isSubmitting || !isDirty} loading={isSubmitting}>
