@@ -61,6 +61,7 @@ export function Tooltip({ content, children, position = 'top' }: TooltipProps) {
               transform: coords.transform,
             }}
             className={cn(
+              'hidden sm:block fixed',
               'z-[9999] whitespace-nowrap px-md py-sm',
               'label-default text-content-inverse',
               'bg-brand-dark rounded-default pointer-events-none shadow-[var(--shadow-tooltip)]'
