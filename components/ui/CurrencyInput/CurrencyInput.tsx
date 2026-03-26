@@ -47,7 +47,7 @@ export function CurrencyInput({
       <div
         className={cn(
           'flex rounded-[var(--radius-default)] border overflow-hidden',
-          getInputBorderColor(error, 'focus-within'),
+          getInputBorderColor(error, { variant: 'focus-within' }),
           disabled && 'opacity-50 cursor-not-allowed'
         )}
       >

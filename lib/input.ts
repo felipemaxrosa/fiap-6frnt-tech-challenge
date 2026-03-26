@@ -1,16 +1,17 @@
+type FocusConfig = { variant?: 'focus' | 'focus-within' } | { active: boolean };
+
 /**
- * @param error Whether the input has an error
- * @param focusVariant Use 'focus-within' for wrapper elements, 'open' for JS-driven open state (e.g. Select), defaults to 'focus' for inputs
- * @returns The appropriate border color classes for the input
+ * Returns border color classes for input-like elements.
+ *
+ * CSS-driven (default): `getInputBorderColor(error)`
+ * CSS focus-within:     `getInputBorderColor(error, { variant: 'focus-within' })`
+ * JS-driven open state: `getInputBorderColor(error, { active: open })`
  */
-export function getInputBorderColor(
-  error?: boolean,
-  focusVariant: 'focus' | 'focus-within' | 'open' = 'focus',
-  open?: boolean
-) {
+export function getInputBorderColor(error?: boolean, config: FocusConfig = {}): string {
   if (error) return 'border-[var(--color-feedback-danger)]';
-  if (focusVariant === 'open') {
-    return open ? 'border-[var(--color-brand-primary)]' : 'border-[var(--color-border)]';
+  if ('active' in config) {
+    return config.active ? 'border-[var(--color-brand-primary)]' : 'border-[var(--color-border)]';
   }
-  return `border-[var(--color-border)] ${focusVariant}:border-[var(--color-brand-primary)]`;
+  const variant = config.variant ?? 'focus';
+  return `border-[var(--color-border)] ${variant}:border-[var(--color-brand-primary)]`;
 }
