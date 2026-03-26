@@ -68,7 +68,7 @@ export function NewTransaction(): ReactElement {
   return (
     <>
       <Card padding="lg" className="rounded-default bg-surface shadow-card">
-        <h2 className="heading-default text-content-primary mb-lg">Nova transação</h2>
+        <h2 className="heading text-content-primary mb-lg">Nova transação</h2>
 
         <TransactionForm
           onSubmit={handleFormSubmit}
