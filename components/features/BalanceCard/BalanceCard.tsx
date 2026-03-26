@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
-import { formatCurrency, formatTodayDate } from '@/lib/format';
+import { formatCurrencyExact, formatTodayDate } from '@/lib/format';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import type { BalanceCardProps } from './IBalanceCard';
@@ -89,7 +89,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
           </div>
 
           <span className={`text-xl font-bold ${!isPositive ? 'text-feedback-danger' : ''}`}>
-            {visible ? formatCurrency(balance, true) : 'R$ ••••••'}
+            {visible ? formatCurrencyExact(balance) : 'R$ ••••••'}
           </span>
         </div>
 
