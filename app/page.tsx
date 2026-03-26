@@ -21,11 +21,7 @@ export default function Home() {
           <BalanceCard balance={balance} owner="Joana" />
         )}
 
-        <NewTransaction
-          onSubmit={(response) => {
-            console.log(response);
-          }}
-        />
+        <NewTransaction />
       </div>
 
       <div className="lg:w-80 lg:shrink-0 flex flex-col gap-lg w-full">
@@ -34,7 +30,7 @@ export default function Home() {
           onEdit={(id) => console.log(id)}
           onDelete={(id) => console.log(id)}
           title="Extrato"
-          className=""
+          showActions={false}
         />
 
         <Link href="/transactions">

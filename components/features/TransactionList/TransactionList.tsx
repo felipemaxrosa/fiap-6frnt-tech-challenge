@@ -12,6 +12,7 @@ export function TransactionList({
   emptyMessage = 'No transactions found.',
   title,
   className,
+  showActions = true,
 }: TransactionListProps) {
   if (isLoading) {
     return <SkeletonList lines={5} />;
@@ -41,6 +42,7 @@ export function TransactionList({
             transaction={transaction}
             onEdit={onEdit}
             onDelete={onDelete}
+            showActions={showActions}
           />
         ))}
       </ul>

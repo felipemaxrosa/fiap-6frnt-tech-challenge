@@ -5,4 +5,5 @@ export interface TransactionItemProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   className?: string;
+  showActions?: boolean;
 }

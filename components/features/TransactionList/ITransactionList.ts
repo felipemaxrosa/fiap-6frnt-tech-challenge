@@ -8,4 +8,5 @@ export interface TransactionListProps {
   emptyMessage?: string;
   title?: string;
   className?: string;
+  showActions?: boolean;
 }
