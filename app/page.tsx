@@ -31,6 +31,7 @@ export default function Home() {
           onDelete={(id) => console.log(id)}
           title="Extrato"
           showActions={false}
+          tooltipPosition="left"
         />
 
         <Link href="/transactions">

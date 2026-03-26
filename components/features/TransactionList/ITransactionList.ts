@@ -1,3 +1,4 @@
+import { TooltipPosition } from '@/components/ui';
 import type { Transaction } from '@/types';
 
 export interface TransactionListProps {
@@ -9,4 +10,5 @@ export interface TransactionListProps {
   title?: string;
   className?: string;
   showActions?: boolean;
+  tooltipPosition?: TooltipPosition;
 }

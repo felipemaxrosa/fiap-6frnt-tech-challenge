@@ -6,6 +6,7 @@ import { BADGE_LABEL_MAP, BADGE_VARIANT_MAP } from '@/shared/constants/transacti
 import { formatCurrency, formatDate } from '@/lib/format';
 import type { TransactionItemProps } from './ITransactionItem';
 import { Badge } from '@/components/ui/Badge';
+import { Tooltip } from '@/components/ui/Tooltip';
 import { IconButton } from '@/components/ui/Button';
 
 export function TransactionItem({
@@ -14,6 +15,7 @@ export function TransactionItem({
   onDelete,
   className,
   showActions = true,
+  tooltipPosition = 'top',
 }: TransactionItemProps) {
   const { id, type, description, amount, date } = transaction;
 
@@ -51,7 +53,11 @@ export function TransactionItem({
       <div className="w-full flex justify-between h-[-webkit-fill-available] items-end gap-2 shrink-0 @md:contents">
         <div className="flex flex-1 min-w-0 @md:order-2">
           <div className="min-w-0 w-full">
-            <p className="mb-1 @md:mb-0 truncate font-normal text-content-primary">{description}</p>
+            <Tooltip content={description} position={tooltipPosition}>
+              <p className="mb-1 @md:mb-0 truncate font-normal text-content-primary">
+                {description}
+              </p>
+            </Tooltip>
             <p className="text-sm text-content-muted">{formatDate(date)}</p>
           </div>
         </div>

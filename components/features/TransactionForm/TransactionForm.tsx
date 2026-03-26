@@ -130,6 +130,7 @@ export function TransactionForm({
               placeholder={DEFAULT_DESCRIPTION_PLACEHOLDER}
               disabled={isSubmitting}
               error={!!errors.description}
+              maxLength={80}
             />
           )}
         />

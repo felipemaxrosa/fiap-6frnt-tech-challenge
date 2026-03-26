@@ -13,6 +13,7 @@ export function TransactionList({
   title,
   className,
   showActions = true,
+  tooltipPosition,
 }: TransactionListProps) {
   if (isLoading) {
     return <SkeletonList lines={5} />;
@@ -43,6 +44,7 @@ export function TransactionList({
             onEdit={onEdit}
             onDelete={onDelete}
             showActions={showActions}
+            tooltipPosition={tooltipPosition}
           />
         ))}
       </ul>

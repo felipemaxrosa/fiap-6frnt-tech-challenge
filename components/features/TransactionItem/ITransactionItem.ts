@@ -1,3 +1,4 @@
+import { TooltipPosition } from '@/components/ui';
 import type { Transaction } from '@/types';
 
 export interface TransactionItemProps {
@@ -6,4 +7,5 @@ export interface TransactionItemProps {
   onDelete: (id: string) => void;
   className?: string;
   showActions?: boolean;
+  tooltipPosition?: TooltipPosition;
 }
