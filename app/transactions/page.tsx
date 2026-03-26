@@ -87,7 +87,7 @@ function TransactionsContent() {
   return (
     <>
       <div className="flex flex-col gap-lg">
-        <h1 className="heading-default text-content-primary text-xl">Transações</h1>
+        <h1 className="heading text-content-primary text-xl">Transações</h1>
 
         <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
         <TransactionList
