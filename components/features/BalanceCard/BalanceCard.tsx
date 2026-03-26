@@ -63,7 +63,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
             max-md:items-center max-md:text-center max-md:pt-0
           "
         >
-          <div className="w-fit">
+          <div className="w-fit min-w-40">
             <div className="flex items-center gap-sm max-md:justify-center">
               <span className="text-base">Saldo</span>
 
