@@ -118,9 +118,10 @@ export function TransactionForm({
           render={({ field }) => (
             <Input
               {...field}
-              label="Descrição (opcional)"
+              label="Descrição"
               placeholder={DEFAULT_DESCRIPTION_PLACEHOLDER}
               disabled={isSubmitting}
+              error={!!errors.description}
             />
           )}
         />

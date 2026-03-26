@@ -16,7 +16,7 @@ export const transactionFormSchema = z.object({
     .positive({ message: 'O valor deve ser maior que zero' })
     .multipleOf(0.01, { message: 'O valor deve ter no máximo 2 casas decimais' }),
   date: z.string().min(1, 'Selecione uma data'),
-  description: z.string().optional().default(''),
+  description: z.string().min(1, 'Adicione uma descrição'),
 });
 
 export type TransactionFormSchemaValues = z.infer<typeof transactionFormSchema>;
