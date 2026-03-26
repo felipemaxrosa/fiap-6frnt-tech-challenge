@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import { formatCurrency, formatTodayDate } from '@/lib/format';
 import { Card } from '@/components/ui/Card';
@@ -13,15 +14,21 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
 
   return (
     <Card padding="lg" className="relative overflow-hidden mb-sm bg-brand-dark! text-text-on-bg">
-      <img
+      <Image
         src="/pixels.png"
         aria-hidden="true"
+        width={168}
+        height={168}
         className="absolute bottom-0 left-0 w-42 h-auto pointer-events-none select-none"
+        alt=""
       />
-      <img
+      <Image
         src="/pixels.png"
         aria-hidden="true"
+        width={168}
+        height={168}
         className="absolute top-0 right-0 w-42 h-auto pointer-events-none select-none rotate-180"
+        alt=""
       />
 
       <div
@@ -40,14 +47,13 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
 
           <p className="text-sm mb-0 md:mb-lg">{formatTodayDate()}</p>
 
-          <img
+          <Image
             src="/piggy-bank.png"
             aria-hidden="true"
-            className="
-              pointer-events-none select-none
-              max-md:hidden
-            "
-            style={{ width: 283, height: 228.17 }}
+            width={283}
+            height={229}
+            className="pointer-events-none select-none max-md:hidden"
+            alt=""
           />
         </div>
 
@@ -87,14 +93,13 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
           </span>
         </div>
 
-        <img
+        <Image
           src="/piggy-bank.png"
           aria-hidden="true"
-          className="
-            pointer-events-none select-none
-            hidden max-md:block
-          "
-          style={{ width: 283, height: 228.17 }}
+          width={283}
+          height={229}
+          className="pointer-events-none select-none hidden max-md:block"
+          alt=""
         />
       </div>
     </Card>
