@@ -6,7 +6,7 @@ interface LabelProps {
 
 export function Label({ children, htmlFor, required }: LabelProps) {
   return (
-    <label htmlFor={htmlFor} className="text-sm font-semibold text-content-secondary">
+    <label htmlFor={htmlFor} className="text-sm font-medium text-content-primary">
       {children}
       {required && (
         <span className="ml-xs text-feedback-danger" aria-hidden="true">
