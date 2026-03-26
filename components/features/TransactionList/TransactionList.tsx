@@ -15,18 +15,31 @@ export function TransactionList({
   showActions = true,
   tooltipPosition,
 }: TransactionListProps) {
-  if (isLoading) {
-    return <SkeletonList lines={5} />;
-  }
+  const renderListContent = () => {
+    if (isLoading) {
+      return <SkeletonList lines={5} />;
+    }
 
-  if (transactions.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-gray-300 bg-white py-16 text-gray-400">
-        <ReceiptText size={32} />
-        <p className="text-sm">{emptyMessage}</p>
-      </div>
-    );
-  }
+    if (transactions.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-gray-300 bg-white py-16 text-gray-400">
+          <ReceiptText size={32} />
+          <p className="text-sm">{emptyMessage}</p>
+        </div>
+      );
+    }
+
+    return transactions.map((transaction) => (
+      <TransactionItem
+        key={transaction.id}
+        transaction={transaction}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        showActions={showActions}
+        tooltipPosition={tooltipPosition}
+      />
+    ));
+  };
 
   return (
     <div className={cn('@container', className)}>
@@ -36,18 +49,7 @@ export function TransactionList({
         </h2>
       )}
 
-      <ul className="flex flex-col gap-2">
-        {transactions.map((transaction) => (
-          <TransactionItem
-            key={transaction.id}
-            transaction={transaction}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            showActions={showActions}
-            tooltipPosition={tooltipPosition}
-          />
-        ))}
-      </ul>
+      <ul className="flex flex-col gap-2">{renderListContent()}</ul>
     </div>
   );
 }
