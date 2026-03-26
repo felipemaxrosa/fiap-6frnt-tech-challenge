@@ -22,7 +22,6 @@ export function CurrencyInput({
   const inputId = id ?? generatedId;
 
   const [cents, setCents] = useState(Math.round(value * 100));
-  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setCents(Math.round(value * 100));
@@ -37,8 +36,6 @@ export function CurrencyInput({
 
   const formatted = formatCurrency(cents / 100);
 
-  const borderColor = getInputBorderColor(focused, error);
-
   return (
     <div className="flex flex-col gap-[var(--spacing-sm)]">
       {label && (
@@ -50,7 +47,7 @@ export function CurrencyInput({
       <div
         className={cn(
           'flex rounded-[var(--radius-default)] border overflow-hidden',
-          borderColor,
+          getInputBorderColor(error, 'focus-within'),
           disabled && 'opacity-50 cursor-not-allowed'
         )}
       >
@@ -59,7 +56,7 @@ export function CurrencyInput({
             'flex items-center px-[var(--spacing-lg)] py-[var(--spacing-md)]',
             'body-default text-[var(--color-content-secondary)]',
             'bg-[var(--color-background)] border-r',
-            borderColor,
+            getInputBorderColor(error),
             'select-none'
           )}
         >
@@ -72,8 +69,6 @@ export function CurrencyInput({
           disabled={disabled}
           value={formatted}
           onChange={handleChange}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
           style={{ outline: 'none' }}
           className={cn(
             'flex-1 px-[var(--spacing-lg)] py-[var(--spacing-md)]',

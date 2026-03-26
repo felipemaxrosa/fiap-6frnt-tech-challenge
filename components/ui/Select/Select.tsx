@@ -41,7 +41,7 @@ export function Select({
     onChange?.(optValue);
   };
 
-  const borderColor = getInputBorderColor(open, error);
+  const borderColor = getInputBorderColor(error, 'open', open);
 
   const iconColor = error ? 'var(--color-feedback-danger)' : 'var(--color-brand-primary)';
 
