@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Tooltip } from './Tooltip';
-import { Button } from '@/components/ui/Button';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'UI/Tooltip',
@@ -11,34 +10,92 @@ const meta: Meta<typeof Tooltip> = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-export const Top: Story = {
+const LONG_TEXT = 'Monthly subscription payment for cloud infrastructure services January 2026';
+const SHORT_TEXT = 'Short description';
+
+// Wrapper to constrain width so truncation actually triggers
+const NarrowContainer = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ width: 240 }}>{children}</div>
+);
+
+const TruncatedChild = ({ text }: { text: string }) => (
+  <p className="truncate font-normal text-content-primary">{text}</p>
+);
+
+export const TruncatedShowsTooltip: Story = {
+  name: 'Truncated — tooltip visible on hover',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={LONG_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
   args: {
-    content: 'Tooltip message',
+    content: LONG_TEXT,
     position: 'top',
-    children: <Button>Hover me</Button>,
   },
 };
 
-export const Bottom: Story = {
+export const ShortTextNoTooltip: Story = {
+  name: 'Short text — tooltip suppressed',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={SHORT_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
   args: {
-    content: 'Tooltip message',
-    position: 'bottom',
-    children: <Button>Hover me</Button>,
+    content: SHORT_TEXT,
+    position: 'top',
   },
 };
 
-export const Left: Story = {
-  args: {
-    content: 'Tooltip message',
-    position: 'left',
-    children: <Button>Hover me</Button>,
-  },
+export const PositionTop: Story = {
+  name: 'Position: top',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={LONG_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
+  args: { content: LONG_TEXT, position: 'top' },
 };
 
-export const Right: Story = {
-  args: {
-    content: 'Tooltip message',
-    position: 'right',
-    children: <Button>Hover me</Button>,
-  },
+export const PositionBottom: Story = {
+  name: 'Position: bottom',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={LONG_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
+  args: { content: LONG_TEXT, position: 'bottom' },
+};
+
+export const PositionLeft: Story = {
+  name: 'Position: left',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={LONG_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
+  args: { content: LONG_TEXT, position: 'left' },
+};
+
+export const PositionRight: Story = {
+  name: 'Position: right',
+  render: (args) => (
+    <NarrowContainer>
+      <Tooltip {...args}>
+        <TruncatedChild text={LONG_TEXT} />
+      </Tooltip>
+    </NarrowContainer>
+  ),
+  args: { content: LONG_TEXT, position: 'right' },
 };
