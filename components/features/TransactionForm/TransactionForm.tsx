@@ -80,41 +80,43 @@ export function TransactionForm({
         {errors.type?.message && <HelperText error>{errors.type.message}</HelperText>}
       </div>
 
-      <div>
-        <Controller
-          name="amount"
-          control={control}
-          render={({ field }) => (
-            <CurrencyInput
-              label="Valor"
-              value={field.value}
-              onValueChange={field.onChange}
-              currency={CURRENCY}
-              placeholder={DEFAULT_CURRENCY_PLACEHOLDER}
-              disabled={isSubmitting}
-              error={!!errors.amount}
-            />
-          )}
-        />
-        {errors.amount?.message && <HelperText error>{errors.amount.message}</HelperText>}
-      </div>
+      <div className="flex flex-col gap-lg sm:flex-row">
+        <div className="flex-1">
+          <Controller
+            name="amount"
+            control={control}
+            render={({ field }) => (
+              <CurrencyInput
+                label="Valor"
+                value={field.value}
+                onValueChange={field.onChange}
+                currency={CURRENCY}
+                placeholder={DEFAULT_CURRENCY_PLACEHOLDER}
+                disabled={isSubmitting}
+                error={!!errors.amount}
+              />
+            )}
+          />
+          {errors.amount?.message && <HelperText error>{errors.amount.message}</HelperText>}
+        </div>
 
-      <div>
-        <Controller
-          name="date"
-          control={control}
-          render={({ field }) => (
-            <DatePicker
-              {...field}
-              label="Data"
-              placeholder={DEFAULT_DATE_PLACEHOLDER}
-              disabled={isSubmitting}
-              onChange={field.onChange}
-              error={!!errors.date}
-            />
-          )}
-        />
-        {errors.date?.message && <HelperText error>{errors.date.message}</HelperText>}
+        <div className="flex-1">
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                {...field}
+                label="Data"
+                placeholder={DEFAULT_DATE_PLACEHOLDER}
+                disabled={isSubmitting}
+                onChange={field.onChange}
+                error={!!errors.date}
+              />
+            )}
+          />
+          {errors.date?.message && <HelperText error>{errors.date.message}</HelperText>}
+        </div>
       </div>
 
       <div>
