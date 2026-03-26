@@ -1,0 +1,43 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { TransactionInfo } from './TransactionInfo';
+
+const meta: Meta<typeof TransactionInfo> = {
+  title: 'Features/TransactionInfo',
+  component: TransactionInfo,
+  tags: ['autodocs'],
+};
+export default meta;
+type Story = StoryObj<typeof TransactionInfo>;
+
+export const Deposit: Story = {
+  args: {
+    transaction: {
+      type: 'deposit',
+      amount: 1500,
+      date: '2026-03-26',
+      description: 'Salário março',
+    },
+  },
+};
+
+export const Withdrawal: Story = {
+  args: {
+    transaction: {
+      type: 'withdrawal',
+      amount: 250.5,
+      date: '2026-03-20',
+      description: 'Supermercado',
+    },
+  },
+};
+
+export const Transfer: Story = {
+  args: {
+    transaction: {
+      type: 'transfer',
+      amount: 800,
+      date: '2026-03-15',
+      description: 'Transferência para poupança',
+    },
+  },
+};
