@@ -2,6 +2,7 @@
 
 import { cn } from '../../../lib/classes';
 import { getInputBorderColor } from '@/lib/input';
+import { HelperText } from '@/components/ui/HelperText';
 import type { DatePickerProps } from './IDatePicker';
 import { forwardRef, useId } from 'react';
 
@@ -39,17 +40,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         />
 
         {helperText && (
-          <p
-            id={helperId}
-            className={cn(
-              'label-default',
-              error
-                ? 'text-[var(--color-feedback-danger)]'
-                : 'text-[var(--color-content-secondary)]'
-            )}
-          >
+          <HelperText id={helperId} error={error}>
             {helperText}
-          </p>
+          </HelperText>
         )}
       </div>
     );

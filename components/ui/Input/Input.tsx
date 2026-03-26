@@ -1,5 +1,6 @@
 import { cn } from '@/lib/classes';
 import { getInputBorderColor } from '@/lib/input';
+import { HelperText } from '@/components/ui/HelperText';
 import { InputProps } from './types';
 
 export function Input({
@@ -41,11 +42,7 @@ export function Input({
           <span className="absolute right-3 text-content-secondary">{rightAddon}</span>
         )}
       </div>
-      {helperText && (
-        <p className={cn('text-xs', error ? 'text-expense' : 'text-content-secondary')}>
-          {helperText}
-        </p>
-      )}
+      {helperText && <HelperText error={error}>{helperText}</HelperText>}
     </div>
   );
 }

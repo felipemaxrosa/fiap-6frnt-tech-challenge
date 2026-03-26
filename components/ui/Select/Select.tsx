@@ -1,5 +1,6 @@
 import { getInputBorderColor } from '@/lib/input';
 import { cn } from '../../../lib/classes';
+import { HelperText } from '@/components/ui/HelperText';
 import type { SelectProps } from './ISelect';
 import { ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect, useId } from 'react';
@@ -128,16 +129,7 @@ export function Select({
         )}
       </div>
 
-      {helperText && (
-        <p
-          className={cn(
-            'label-default',
-            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
-          )}
-        >
-          {helperText}
-        </p>
-      )}
+      {helperText && <HelperText error={error}>{helperText}</HelperText>}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { CurrencyInput } from '@/components/ui/CurrencyInput';
 import { DatePicker } from '@/components/ui/DatePicker';
 import { Input } from '@/components/ui/Input';
+import { HelperText } from '@/components/ui/HelperText';
 import { Select } from '@/components/ui/Select';
 import { TRANSACTION_TYPE, TRANSACTION_TYPE_OPTIONS } from '@/shared/constants/transaction';
 import { transactionFormSchema } from './schema';
@@ -15,15 +16,6 @@ const CURRENCY = 'R$';
 const DEFAULT_CURRENCY_PLACEHOLDER = '0,00';
 const DEFAULT_DATE_PLACEHOLDER = 'Selecione uma data';
 const DEFAULT_DESCRIPTION_PLACEHOLDER = 'Adicione uma descrição';
-
-interface FormFieldErrorProps {
-  error?: { message?: string };
-}
-
-function FormFieldError({ error }: FormFieldErrorProps) {
-  if (!error?.message) return null;
-  return <p className="body-small text-error mt-xs">{error.message}</p>;
-}
 
 function roundAmount(amount: number): number {
   return Math.round(amount * 100) / 100;
@@ -79,7 +71,7 @@ export function TransactionForm({
             />
           )}
         />
-        <FormFieldError error={errors.type} />
+        {errors.type?.message && <HelperText error>{errors.type.message}</HelperText>}
       </div>
 
       <div>
@@ -94,10 +86,11 @@ export function TransactionForm({
               currency={CURRENCY}
               placeholder={DEFAULT_CURRENCY_PLACEHOLDER}
               disabled={isSubmitting}
+              error={!!errors.amount}
             />
           )}
         />
-        <FormFieldError error={errors.amount} />
+        {errors.amount?.message && <HelperText error>{errors.amount.message}</HelperText>}
       </div>
 
       <div>
@@ -111,10 +104,11 @@ export function TransactionForm({
               placeholder={DEFAULT_DATE_PLACEHOLDER}
               disabled={isSubmitting}
               onChange={field.onChange}
+              error={!!errors.date}
             />
           )}
         />
-        <FormFieldError error={errors.date} />
+        {errors.date?.message && <HelperText error>{errors.date.message}</HelperText>}
       </div>
 
       <div>
@@ -130,7 +124,7 @@ export function TransactionForm({
             />
           )}
         />
-        <FormFieldError error={errors.description} />
+        {errors.description?.message && <HelperText error>{errors.description.message}</HelperText>}
       </div>
 
       <div className="flex justify-end gap-sm mt-lg">

@@ -4,6 +4,7 @@ import { cn } from '../../../lib/classes';
 import type { CurrencyInputProps } from './ICurrencyInput';
 import { formatCurrency } from '../../../lib/format';
 import { getInputBorderColor } from '../../../lib/input';
+import { HelperText } from '@/components/ui/HelperText';
 import { useEffect, useId, useState } from 'react';
 
 export function CurrencyInput({
@@ -82,16 +83,7 @@ export function CurrencyInput({
         />
       </div>
 
-      {helperText && (
-        <p
-          className={cn(
-            'label-default',
-            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
-          )}
-        >
-          {helperText}
-        </p>
-      )}
+      {helperText && <HelperText error={error}>{helperText}</HelperText>}
     </div>
   );
 }
