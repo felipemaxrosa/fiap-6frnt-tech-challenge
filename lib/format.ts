@@ -28,6 +28,13 @@ export function formatCurrency(value: number, showSuffix = false): string {
   });
 }
 
+export function formatCurrencyExact(value: number): string {
+  return value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+}
+
 export function formatDate(dateStr: string | Date): string {
   if (typeof dateStr === 'string') {
     dateStr = `${dateStr}T00:00:00Z`;
