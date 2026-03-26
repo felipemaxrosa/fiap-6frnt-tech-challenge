@@ -1,6 +1,7 @@
 import { cn } from '@/lib/classes';
 import { getInputBorderColor } from '@/lib/input';
 import { HelperText } from '@/components/ui/HelperText';
+import { Label } from '@/components/ui/Label';
 import { InputProps } from './types';
 
 export function Input({
@@ -18,11 +19,7 @@ export function Input({
 
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-content-primary">
-          {label}
-        </label>
-      )}
+      {label && <Label htmlFor={inputId}>{label}</Label>}
       <div className="relative flex items-center">
         {leftAddon && <span className="absolute left-3 text-content-secondary">{leftAddon}</span>}
         <input

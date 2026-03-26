@@ -1,5 +1,6 @@
 export * from './CurrencyInput';
 export * from './HelperText';
+export * from './Label';
 export * from './DatePicker';
 export * from './FormField';
 export * from './Select';

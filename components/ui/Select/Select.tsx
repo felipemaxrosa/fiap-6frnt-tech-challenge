@@ -1,6 +1,7 @@
 import { getInputBorderColor } from '@/lib/input';
 import { cn } from '../../../lib/classes';
 import { HelperText } from '@/components/ui/HelperText';
+import { Label } from '@/components/ui/Label';
 import type { SelectProps } from './ISelect';
 import { ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect, useId } from 'react';
@@ -48,11 +49,7 @@ export function Select({
 
   return (
     <div className="flex flex-col gap-[var(--spacing-sm)]">
-      {label && (
-        <label htmlFor={selectId} className="label-semibold text-[var(--color-content-secondary)]">
-          {label}
-        </label>
-      )}
+      {label && <Label htmlFor={selectId}>{label}</Label>}
 
       <div ref={containerRef} className="relative">
         <button

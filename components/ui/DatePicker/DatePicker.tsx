@@ -3,6 +3,7 @@
 import { cn } from '../../../lib/classes';
 import { getInputBorderColor } from '@/lib/input';
 import { HelperText } from '@/components/ui/HelperText';
+import { Label } from '@/components/ui/Label';
 import type { DatePickerProps } from './IDatePicker';
 import { forwardRef, useId } from 'react';
 
@@ -14,11 +15,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 
     return (
       <div className="flex flex-col gap-[var(--spacing-sm)]">
-        {label && (
-          <label htmlFor={inputId} className="label-semibold text-[var(--color-content-secondary)]">
-            {label}
-          </label>
-        )}
+        {label && <Label htmlFor={inputId}>{label}</Label>}
 
         <input
           ref={ref}
