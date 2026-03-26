@@ -2,7 +2,6 @@
 
 import { cn } from '../../../lib/classes';
 import type { CurrencyInputProps } from './ICurrencyInput';
-import { formatCurrency } from '../../../lib/format';
 import { getInputBorderColor } from '../../../lib/input';
 import { HelperText } from '@/components/ui/HelperText';
 import { Label } from '@/components/ui/Label';
@@ -23,20 +22,23 @@ export function CurrencyInput({
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
-  const [cents, setCents] = useState(Math.round(value * 100));
+  const [valueInCents, setValueInCents] = useState(Math.round(value * 100));
 
   useEffect(() => {
-    setCents(Math.round(value * 100));
+    setValueInCents(Math.round(value * 100));
   }, [value]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const digits = e.target.value.replace(/\D/g, '');
-    const newCents = Number(digits || '0');
-    setCents(newCents);
-    onValueChange?.(newCents / 100);
+    const newValueInCents = Number(digits || '0');
+    setValueInCents(newValueInCents);
+    onValueChange?.(newValueInCents / 100);
   }
 
-  const formatted = formatCurrency(cents / 100);
+  const formatted = (valueInCents / 100).toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   return (
     <div className="flex flex-col gap-[var(--spacing-sm)]">
