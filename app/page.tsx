@@ -32,10 +32,13 @@ export default function Home() {
           title="Transações recentes"
           showActions={false}
           tooltipPosition="left"
+          isLoading={isLoading}
         />
 
         <Link href="/transactions">
-          <Button className="w-full"> Todas as transações</Button>
+          <Button className="w-full" disabled={isLoading}>
+            Todas as transações
+          </Button>
         </Link>
       </div>
     </div>
