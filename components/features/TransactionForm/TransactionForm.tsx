@@ -1,6 +1,6 @@
 'use client';
 
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/Button';
 import { CurrencyInput } from '@/components/ui/CurrencyInput';
@@ -41,6 +41,8 @@ export function TransactionForm({
       description: initialValues?.description || '',
     },
   });
+
+  const description = useWatch({ control, name: 'description' });
 
   const handleFormSubmit = (data: TransactionFormValues) => {
     onSubmit({
@@ -134,7 +136,16 @@ export function TransactionForm({
             />
           )}
         />
-        {errors.description?.message && <HelperText error>{errors.description.message}</HelperText>}
+        <div className="flex justify-between items-center">
+          {errors.description?.message ? (
+            <HelperText error>{errors.description.message}</HelperText>
+          ) : (
+            <span />
+          )}
+          <span className="text-sm text-content-secondary tabular-nums mt-1">
+            {(description ?? '').length}/80
+          </span>
+        </div>
       </div>
 
       <div className="flex justify-end gap-sm mt-lg">
