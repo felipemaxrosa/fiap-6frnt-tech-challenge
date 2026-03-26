@@ -83,7 +83,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
               />
             </div>
 
-            <span className="block h-px w-full bg-icon-accent" />
+            <span className="block h-px w-full bg-icon-accent my-xs" />
 
             <p className="text-base">{label}</p>
           </div>
