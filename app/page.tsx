@@ -29,7 +29,7 @@ export default function Home() {
           transactions={recentTransactions}
           onEdit={(id) => console.log(id)}
           onDelete={(id) => console.log(id)}
-          title="Extrato"
+          title="Transações recentes"
           showActions={false}
           tooltipPosition="left"
         />
