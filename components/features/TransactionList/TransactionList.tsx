@@ -17,7 +17,7 @@ export function TransactionList({
 }: TransactionListProps) {
   const renderListContent = () => {
     if (isLoading) {
-      return <SkeletonList lines={5} />;
+      return <SkeletonList lines={5} showActions={showActions} />;
     }
 
     if (transactions.length === 0) {

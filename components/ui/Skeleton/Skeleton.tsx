@@ -7,7 +7,7 @@ export function Skeleton({ className }: SkeletonProps) {
   );
 }
 
-export function SkeletonList({ lines = 3 }: SkeletonListProps) {
+export function SkeletonList({ lines = 3, showActions = true }: SkeletonListProps) {
   return (
     <div className="flex flex-col gap-sm" aria-hidden="true">
       {Array.from({ length: lines }).map((_, i) => (
@@ -18,10 +18,13 @@ export function SkeletonList({ lines = 3 }: SkeletonListProps) {
           {/* Row 1: badge + icons */}
           <div className="flex items-center justify-between">
             <Skeleton className="h-5 w-20 rounded-default" />
-            <div className="flex gap-xs">
-              <Skeleton className="h-5 w-5 rounded-default" />
-              <Skeleton className="h-5 w-5 rounded-default" />
-            </div>
+
+            {showActions && (
+              <div className="flex gap-xs">
+                <Skeleton className="h-5 w-5 rounded-default" />
+                <Skeleton className="h-5 w-5 rounded-default" />
+              </div>
+            )}
           </div>
           {/* Row 2: description */}
           <Skeleton className="h-4 w-3/4" />

@@ -4,4 +4,5 @@ export interface SkeletonProps {
 
 export interface SkeletonListProps {
   lines?: number;
+  showActions?: boolean;
 }
