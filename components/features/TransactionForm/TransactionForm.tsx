@@ -64,7 +64,7 @@ export function TransactionForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-lg">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-md">
       <div>
         <Controller
           name="type"
@@ -82,7 +82,7 @@ export function TransactionForm({
         {errors.type?.message && <HelperText error>{errors.type.message}</HelperText>}
       </div>
 
-      <div className="flex flex-col gap-lg sm:flex-row">
+      <div className="flex flex-col gap-md sm:flex-row">
         <div className="flex-1">
           <Controller
             name="amount"
