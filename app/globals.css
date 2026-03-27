@@ -29,6 +29,7 @@
 html {
   /* Fluido de 375px (14px) → 1280px (16px) — corrigido para rem (evita bug iOS Safari) */
   font-size: clamp(0.875rem, 0.8rem + 0.417vw, 1rem);
+  scrollbar-width: none;
 }
 
 body {
