@@ -44,9 +44,7 @@ export function TransactionList({
   return (
     <div className={cn('@container', className)}>
       {title && (
-        <h2 className="text-xl font-bold text-content-primary sm:truncate sm:tracking-tight mb-4">
-          {title}
-        </h2>
+        <h2 className="heading text-content-primary sm:truncate sm:tracking-tight mb-4">{title}</h2>
       )}
 
       <ul className="flex flex-col gap-2">{renderListContent()}</ul>
