@@ -92,28 +92,28 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 **Day 22-26: Home Page** — see `docs/day-22-26-home-page.md`
 
 - [x] Task 1: Home page layout shell (two-column responsive grid)
-- [ ] Task 2: `BalanceCard` integration with `useTransactions()` + loading skeleton
-- [ ] Task 3: `TransactionForm` component + `NewTransaction` refactor (add only, with `FeedbackModal`)
-- [ ] Task 4: `TransactionList` + `TransactionItem` (read-only, edit/delete are visual placeholders)
+- [x] Task 2: `BalanceCard` integration with `useTransactions()` + loading skeleton
+- [x] Task 3: `TransactionForm` component + `NewTransaction` refactor (add only, with `FeedbackModal`)
+- [x] Task 4: `TransactionList` + `TransactionItem` (read-only, edit/delete are visual placeholders)
 
 **Day 27-31: Transaction List Page** ⏳ Aguardando confirmacao do coordenador do curso — see `docs/day-27-31-transaction-list-page.md`
 
-- [ ] Task 1: `/transactions` page shell + Sidebar nav link
-- [ ] Task 2: `TransactionFilters` component (type, date range, sort)
-- [ ] Task 3: Wire filters to `TransactionList`
+- [x] Task 1: `/transactions` page shell + Sidebar nav link
+- [x] Task 2: `TransactionFilters` component (type, date range, sort)
+- [x] Task 3: Wire filters to `TransactionList`
 
 **Day 32-40: Edit Transaction** — see `docs/day-32-40-edit-transaction.md`
 
-- [ ] Task 1: Expose `updateTransaction` in `useTransactions()` context
-- [ ] Task 2: Build `EditTransaction` orchestrator (Modal + TransactionForm with initialValues)
-- [ ] Task 3: Wire `onEdit` through `TransactionList` → `TransactionItem`
-- [ ] Task 4: Validate cancel behavior (discard changes on all close paths)
+- [x] Task 1: Expose `updateTransaction` in `useTransactions()` context
+- [x] Task 2: Build `EditTransaction` orchestrator (Modal + TransactionForm with initialValues)
+- [x] Task 3: Wire `onEdit` through `TransactionList` → `TransactionItem`
+- [x] Task 4: Validate cancel behavior (discard changes on all close paths)
 
 **Day 41-42: Delete Transaction** — see `docs/day-41-42-delete-transaction.md`
 
-- [ ] Task 1: Expose `deleteTransaction` in `useTransactions()` context
-- [ ] Task 2: Wire `onDelete` through `TransactionList` → `TransactionItem` + confirmation `Modal`
-- [ ] Task 3: Confirm and execute deletion with success/error `FeedbackModal`
+- [x] Task 1: Expose `deleteTransaction` in `useTransactions()` context
+- [x] Task 2: Wire `onDelete` through `TransactionList` → `TransactionItem` + confirmation `Modal`
+- [x] Task 3: Confirm and execute deletion with success/error `FeedbackModal`
 
 ---
 
@@ -136,7 +136,7 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 49-50: Visual Consistency & UX**
 
-- [ ] Consistent use of design tokens
+- [x] Consistent use of design tokens
 - [ ] Loading states for all async-like actions
 - [ ] Error states
 - [ ] Empty states (no transactions yet)
