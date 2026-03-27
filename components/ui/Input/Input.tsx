@@ -8,7 +8,6 @@ export function Input({
   label,
   helperText,
   error,
-  success,
   leftAddon,
   rightAddon,
   className,
