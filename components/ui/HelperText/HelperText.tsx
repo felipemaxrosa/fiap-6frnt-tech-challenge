@@ -11,7 +11,7 @@ export function HelperText({ children, error, id }: HelperTextProps) {
     <p
       id={id}
       className={cn(
-        'text-sm font-normal',
+        'text-sm font-normal mt-1',
         error ? 'text-feedback-danger' : 'text-content-secondary'
       )}
     >
