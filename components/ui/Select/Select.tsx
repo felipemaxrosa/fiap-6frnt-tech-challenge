@@ -59,8 +59,9 @@ export function Select({
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
+          style={{ outline: 'none' }}
           className={cn(
-            'w-full flex items-center justify-between [outline:none]',
+            'w-full flex items-center justify-between',
             'bg-surface rounded-default border',
             borderColor,
             'px-lg py-md',

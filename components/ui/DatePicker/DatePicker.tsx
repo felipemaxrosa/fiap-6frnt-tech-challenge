@@ -26,7 +26,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           aria-describedby={helperId}
           style={{ outline: 'none' }}
           className={cn(
-            'w-full rounded-default border bg-surface [outline:none]',
+            'w-full rounded-default border bg-surface',
             'px-lg py-md',
             'body-default text-content-primary',
             'disabled:opacity-50 disabled:cursor-not-allowed',
