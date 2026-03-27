@@ -49,6 +49,7 @@ export function TransactionForm({
       ...data,
       amount: roundAmount(data.amount),
     });
+    reset();
   };
 
   const handleCancel = () => {
