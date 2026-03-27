@@ -1,5 +1,5 @@
 import { getInputBorderColor } from '@/lib/input';
-import { cn } from '../../../lib/classes';
+import { cn } from '@/lib/classes';
 import { HelperText } from '@/components/ui/HelperText';
 import { Label } from '@/components/ui/Label';
 import type { SelectProps } from './ISelect';
@@ -45,10 +45,10 @@ export function Select({
 
   const borderColor = getInputBorderColor(error, { active: open });
 
-  const iconColor = error ? 'var(--color-feedback-danger)' : 'var(--color-brand-primary)';
+  const iconClass = error ? 'text-feedback-danger' : 'text-brand-primary';
 
   return (
-    <div className="flex flex-col gap-[var(--spacing-sm)]">
+    <div className="flex flex-col gap-sm">
       {label && <Label htmlFor={selectId}>{label}</Label>}
 
       <div ref={containerRef} className="relative">
@@ -59,36 +59,29 @@ export function Select({
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
-          style={{ outline: 'none' }}
           className={cn(
-            'w-full flex items-center justify-between',
-            'bg-[var(--color-surface)]',
-            'rounded-default border',
+            'w-full flex items-center justify-between [outline:none]',
+            'bg-surface rounded-default border',
             borderColor,
-            'px-[var(--spacing-lg)] py-[var(--spacing-md)]',
+            'px-lg py-md',
             'body-default',
             'disabled:opacity-50 disabled:cursor-not-allowed',
             className
           )}
           {...props}
         >
-          <span
-            className={cn(
-              selected ? 'text-[var(--color-content-primary)]' : 'text-[var(--color-placeholder)]'
-            )}
-          >
+          <span className={cn(selected ? 'text-content-primary' : 'text-placeholder')}>
             {selectedLabel ?? placeholder ?? ''}
           </span>
 
           <ChevronDown
-            style={{
-              width: 24,
-              height: 24,
-              color: iconColor,
-              strokeWidth: 2,
-              transition: 'transform 0.2s',
-              transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-            }}
+            size={24}
+            strokeWidth={2}
+            className={cn(
+              iconClass,
+              'transition-transform duration-200',
+              open ? 'rotate-180' : 'rotate-0'
+            )}
           />
         </button>
 
@@ -97,11 +90,9 @@ export function Select({
             role="listbox"
             className={cn(
               'absolute z-50 w-full mt-1',
-              'bg-[var(--color-surface)]',
-              'rounded-[var(--radius-default)] border',
+              'bg-surface rounded-default border',
               borderColor,
-              'overflow-hidden',
-              'shadow-[var(--shadow-card)]'
+              'overflow-hidden shadow-card'
             )}
           >
             {options.map((opt) => (
@@ -111,12 +102,12 @@ export function Select({
                 aria-selected={selected === opt.value}
                 onClick={() => handleSelect(opt.value)}
                 className={cn(
-                  'flex items-center px-[var(--spacing-lg)] py-[var(--spacing-md)]',
-                  'body-default text-[var(--color-content-primary)]',
+                  'flex items-center px-lg py-md',
+                  'body-default text-content-primary',
                   'cursor-pointer transition-colors',
                   selected === opt.value
-                    ? 'bg-[var(--color-badge-transfer-bg)] text-[var(--color-brand-primary)]'
-                    : 'hover:bg-[var(--color-badge-transfer-bg)]'
+                    ? 'bg-badge-transfer-bg text-brand-primary'
+                    : 'hover:bg-badge-transfer-bg'
                 )}
               >
                 {opt.label}
