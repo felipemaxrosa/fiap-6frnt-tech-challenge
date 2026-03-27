@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '../../../lib/classes';
+import { cn } from '@/lib/classes';
 import type { CurrencyInputProps } from './ICurrencyInput';
-import { getInputBorderColor } from '../../../lib/input';
+import { getInputBorderColor } from '@/lib/input';
 import { HelperText } from '@/components/ui/HelperText';
 import { Label } from '@/components/ui/Label';
 import { useEffect, useId, useState } from 'react';
@@ -41,21 +41,21 @@ export function CurrencyInput({
   });
 
   return (
-    <div className="flex flex-col gap-[var(--spacing-sm)]">
+    <div className="flex flex-col gap-sm">
       {label && <Label htmlFor={inputId}>{label}</Label>}
 
       <div
         className={cn(
-          'flex rounded-[var(--radius-default)] border overflow-hidden',
+          'flex rounded-default border overflow-hidden',
           getInputBorderColor(error, { variant: 'focus-within' }),
           disabled && 'opacity-50 cursor-not-allowed'
         )}
       >
         <span
           className={cn(
-            'flex items-center px-[var(--spacing-lg)] py-[var(--spacing-md)]',
-            'body-default text-[var(--color-content-secondary)]',
-            'bg-[var(--color-background)] border-r',
+            'flex items-center px-lg py-md',
+            'body-default',
+            'bg-background border-r',
             getInputBorderColor(error),
             'select-none'
           )}
@@ -71,9 +71,9 @@ export function CurrencyInput({
           onChange={handleChange}
           style={{ outline: 'none' }}
           className={cn(
-            'flex-1 px-[var(--spacing-lg)] py-[var(--spacing-md)]',
-            'body-default text-[var(--color-content-primary)]',
-            'bg-[var(--color-surface)]',
+            'flex-1 px-lg py-md',
+            'body-default text-content-primary',
+            'bg-surface',
             'focus:ring-0',
             'disabled:cursor-not-allowed',
             className
