@@ -1,4 +1,4 @@
-import { cn } from '../../../lib/classes';
+import { cn } from '@/lib/classes';
 import { Label } from '@/components/ui/Label';
 import type { FormFieldProps } from './IFormField';
 
@@ -14,7 +14,7 @@ export function FormField({
   const message = error ?? helperText;
 
   return (
-    <div className={cn('flex flex-col gap-[var(--spacing-sm)]', className)}>
+    <div className={cn('flex flex-col gap-sm', className)}>
       <Label htmlFor={htmlFor} required={required}>
         {label}
       </Label>
@@ -24,10 +24,7 @@ export function FormField({
       {message && (
         <p
           id={`${htmlFor}-description`}
-          className={cn(
-            'label-default',
-            error ? 'text-[var(--color-feedback-danger)]' : 'text-[var(--color-content-secondary)]'
-          )}
+          className={cn('label-default', error ? 'text-feedback-danger' : 'text-content-secondary')}
           role={error ? 'alert' : undefined}
         >
           {message}
