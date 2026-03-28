@@ -86,8 +86,8 @@ function TransactionsContent() {
 
   return (
     <>
-      <div className="flex flex-col gap-lg">
-        <h1 className="heading-default text-content-primary text-xl">Transações</h1>
+      <div className="flex flex-col gap-lg h-full">
+        <h1 className="heading text-content-primary text-xl">Transações</h1>
 
         <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
         <TransactionList
@@ -96,7 +96,7 @@ function TransactionsContent() {
           onEdit={handleEditRequest}
           onDelete={handleDeleteRequest}
           emptyMessage="Nenhuma transação encontrada para os filtros selecionados."
-          className="w-full overflow-y-auto max-h-[calc(100vh-300px)]"
+          className="w-full overflow-y-auto h-full"
         />
       </div>
       <DeleteTransactionModal

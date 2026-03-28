@@ -50,7 +50,7 @@ export function Modal({
       {/* Panel */}
       <div
         className={cn(
-          'relative z-10 w-full max-w-[28rem] rounded-default bg-surface p-lg shadow-card',
+          'relative z-10 w-full max-w-[30rem] rounded-default bg-surface p-lg shadow-card',
           className
         )}
       >

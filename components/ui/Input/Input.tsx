@@ -1,11 +1,13 @@
 import { cn } from '@/lib/classes';
+import { getInputBorderColor } from '@/lib/input';
+import { HelperText } from '@/components/ui/HelperText';
+import { Label } from '@/components/ui/Label';
 import { InputProps } from './types';
 
 export function Input({
   label,
   helperText,
   error,
-  success,
   leftAddon,
   rightAddon,
   className,
@@ -16,20 +18,18 @@ export function Input({
 
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-content-primary">
-          {label}
-        </label>
-      )}
+      {label && <Label htmlFor={inputId}>{label}</Label>}
       <div className="relative flex items-center">
         {leftAddon && <span className="absolute left-3 text-content-secondary">{leftAddon}</span>}
         <input
           id={inputId}
+          style={{ outline: 'none' }}
           className={cn(
-            'w-full rounded-default border bg-transparent px-2 py-2 text-base text-content-primary',
+            'w-full rounded-default border bg-transparent px-lg py-md text-base text-content-primary',
             'placeholder:text-content-secondary',
-            'focus:ring-0 focus:border-transparent',
+            'focus-visible:outline-none focus:ring-0',
             'disabled:opacity-50 disabled:cursor-not-allowed transition duration-100 ease-in-out',
+            getInputBorderColor(error),
             className
           )}
           {...props}
@@ -38,11 +38,7 @@ export function Input({
           <span className="absolute right-3 text-content-secondary">{rightAddon}</span>
         )}
       </div>
-      {helperText && (
-        <p className={cn('text-xs', error ? 'text-expense' : 'text-content-secondary')}>
-          {helperText}
-        </p>
-      )}
+      {helperText && <HelperText error={error}>{helperText}</HelperText>}
     </div>
   );
 }

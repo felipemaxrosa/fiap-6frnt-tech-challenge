@@ -7,13 +7,7 @@ const variantStyles = {
   transfer: 'bg-badge-transfer-bg  text-badge-transfer-text',
 };
 
-export function Badge({
-  variant = 'income',
-  size = 'md',
-  dot = false,
-  children,
-  className,
-}: BadgeProps) {
+export function Badge({ variant = 'income', size = 'md', children, className }: BadgeProps) {
   const sizeStyles = {
     sm: 'px-2 py-0.5 text-xs',
     md: 'px-2.5 py-1 text-sm',

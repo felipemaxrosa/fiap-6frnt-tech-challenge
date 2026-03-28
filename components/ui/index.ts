@@ -1,4 +1,7 @@
 export * from './CurrencyInput';
+export * from './HelperText';
+export * from './Label';
+export * from './Tooltip';
 export * from './DatePicker';
 export * from './FormField';
 export * from './Select';
