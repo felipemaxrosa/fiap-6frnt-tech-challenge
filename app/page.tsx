@@ -13,8 +13,8 @@ export default function Home() {
   const recentTransactions = useMemo(() => transactions.slice(0, 5), [transactions]);
 
   return (
-    <div className="flex flex-col gap-lg lg:flex-row lg:items-start">
-      <div className="flex flex-col gap-lg lg:flex-1">
+    <div className="flex flex-col gap-lg lg:flex-row lg:items-start h-fit w-full">
+      <div className="flex flex-col gap-lg lg:flex-1 min-w-0">
         {isLoading ? (
           <Skeleton className=" h-134.5 md:h-91 w-full rounded-xl" />
         ) : (
@@ -24,7 +24,7 @@ export default function Home() {
         <NewTransaction />
       </div>
 
-      <div className="lg:w-80 lg:shrink-0 flex flex-col gap-lg w-full">
+      <div className="lg:w-80 lg:shrink-0 flex flex-col gap-lg w-full min-w-0">
         <TransactionList
           transactions={recentTransactions}
           onEdit={(id) => console.log(id)}

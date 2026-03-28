@@ -29,13 +29,16 @@
 html {
   /* Fluido de 375px (14px) → 1280px (16px) — corrigido para rem (evita bug iOS Safari) */
   font-size: clamp(0.875rem, 0.8rem + 0.417vw, 1rem);
-  scrollbar-width: none;
+  height: 100%;
+  width: 100%;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-content-primary);
   font-family: var(--font-sans);
+  height: 100%;
+  width: 100%;
 }
 
 :focus-visible {

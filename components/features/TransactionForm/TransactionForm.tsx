@@ -84,7 +84,7 @@ export function TransactionForm({
       </div>
 
       <div className="flex flex-col gap-md sm:flex-row">
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <Controller
             name="amount"
             control={control}
@@ -103,7 +103,7 @@ export function TransactionForm({
           {errors.amount?.message && <HelperText error>{errors.amount.message}</HelperText>}
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <Controller
             name="date"
             control={control}
