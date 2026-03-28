@@ -160,11 +160,16 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 ### Phase 5 - Documentation (Days 53-57)
 
-**Day 53-54: Storybook finalization**
+**Day 53-54: Storybook finalization** — see `docs/day-53-54-storybook.md`
 
-- [ ] Ensure all components have Stories with all variants
-- [ ] Add component documentation (description, props table)
-- [ ] Publish Storybook (Chromatic or GitHub Pages)
+- [ ] Task 1: Fix broken `WithSuccess` story in `Input.stories.tsx` (Input has no `success` prop)
+- [ ] Task 2: Add `IconButton` stories to `Button.stories.tsx`
+- [ ] Task 3: Add component-level `docs.description` to `Button`, `Input`, `Modal`, `Badge`, `TransactionForm`, `FeedbackModal`
+- [ ] Task 4: Add `WithoutDot` to `Badge.stories.tsx` · `WithoutActions` to `TransactionItem.stories.tsx`
+- [ ] Task 5: Upgrade `a11y` test mode `'todo'` → `'error'` in `preview.ts`
+- [ ] Task 6: Smoke test every story in Storybook (`npm run storybook`)
+- [ ] Task 7: a11y panel audit — confirm no red violations
+- [ ] Task 8: Publish (Chromatic or GitHub Pages) · add URL to README
 
 **Day 55-56: README**
 
