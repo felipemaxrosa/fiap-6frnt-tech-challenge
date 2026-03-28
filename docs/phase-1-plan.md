@@ -213,50 +213,93 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 ## Tech Stack Decisions
 
-| Concern            | Choice                   | Reason                                   |
-| ------------------ | ------------------------ | ---------------------------------------- |
-| Framework          | Next.js 14+ (App Router) | Required                                 |
-| Language           | TypeScript               | Type safety, better DX                   |
-| Styling            | Tailwind CSS             | Utility-first, fast iteration            |
-| UI Components      | shadcn/ui                | Accessible, customizable, Tailwind-based |
-| Design System Docs | Storybook                | Industry standard, required by challenge |
-| State Management   | React Context API        | Simple enough for this scope             |
-| Mock Data          | JSON file + Context      | No extra dependencies needed             |
-| Form Handling      | React Hook Form + Zod    | Lightweight, schema validation           |
-| Icons              | Lucide React             | Consistent, tree-shakeable               |
+| Concern            | Choice                  | Reason                                                              |
+| ------------------ | ----------------------- | ------------------------------------------------------------------- |
+| Framework          | Next.js 16 (App Router) | Required by challenge                                               |
+| Language           | TypeScript              | Type safety, better DX and autocompletion                           |
+| Styling            | Tailwind CSS v4         | Utility-first, CSS-based config, integrates natively with DS tokens |
+| Design System Docs | Storybook 10            | Industry standard, required by challenge                            |
+| State Management   | React Context API       | Adequate scope for this app; no extra dependencies                  |
+| Form Handling      | React Hook Form + Zod   | Lightweight validation with type inference from schema              |
+| Mock Backend       | json-server             | Zero-config REST API over a JSON file                               |
+| Icons              | Lucide React            | Consistent, tree-shakeable                                          |
+| Tests              | Vitest + Playwright     | Component tests via Storybook addon-vitest                          |
+| Commit hooks       | Husky + lint-staged     | Enforces lint and formatting on every commit                        |
 
 ---
 
 ## Folder Structure
 
 ```
-/
+tech-challenge/
 ├── app/
-│   ├── page.tsx              # Home
+│   ├── page.tsx                  # Home — balance, new transaction, recents
 │   ├── transactions/
-│   │   └── page.tsx          # Transaction list
-│   └── layout.tsx
+│   │   └── page.tsx              # Full list with filters
+│   ├── layout.tsx                # Root layout — providers, Header, Sidebar
+│   └── globals.css               # Design tokens + keyframe animations
+│
 ├── components/
-│   ├── ui/                   # Atomic Design System components
+│   ├── ui/                       # Design System atoms
 │   │   ├── Button/
 │   │   ├── Input/
-│   │   ├── Card/
+│   │   ├── Select/
+│   │   ├── CurrencyInput/
+│   │   ├── DatePicker/
+│   │   ├── FormField/
 │   │   ├── Modal/
-│   │   └── ...
-│   └── features/             # Feature-specific composed components
-│       ├── TransactionItem/
-│       ├── TransactionForm/
+│   │   ├── FeedbackModal/
+│   │   ├── Badge/
+│   │   ├── Card/
+│   │   ├── EmptyState/
+│   │   ├── Skeleton/
+│   │   ├── Tooltip/
+│   │   ├── HelperText/
+│   │   ├── Label/
+│   │   ├── Header/
+│   │   └── Sidebar/
+│   └── features/                 # Composed feature components
 │       ├── BalanceCard/
-│       └── ...
+│       ├── NewTransaction/
+│       ├── TransactionForm/
+│       ├── TransactionList/
+│       ├── TransactionItem/
+│       ├── TransactionFilters/
+│       ├── TransactionInfo/
+│       ├── ConfirmTransactionModal/
+│       ├── EditTransactionModal/
+│       └── DeleteTransactionModal/
+│
 ├── context/
-│   └── TransactionsContext.tsx
+│   ├── TransactionsContext.tsx   # Global CRUD state + isLoading / isError
+│   └── FeedbackContext.tsx       # Global FeedbackModal state
+│
+├── hooks/
+│   └── useTransactionFilters.ts  # Filter + sort with URL persistence
+│
+├── services/
+│   └── TransactionService.ts     # HTTP calls to json-server
+│
 ├── lib/
-│   └── transactions.ts       # CRUD helpers
-├── data/
-│   └── transactions.json     # Mock data
+│   └── transactions.ts           # Pure helpers: getAll, calculateBalance, getRecent
+│
+├── shared/
+│   └── constants/
+│       └── transaction.ts        # TRANSACTION_TYPE_OPTIONS and related constants
+│
 ├── types/
-│   └── index.ts
-└── stories/                  # Storybook stories
+│   └── index.ts                  # Transaction, TransactionType, Account
+│
+├── data/
+│   └── transactions.json         # Mock data (read/written by json-server)
+│
+├── stories/
+│   └── foundations/
+│       └── colors.stories.tsx    # Design token color palette documentation
+│
+└── .storybook/                   # Storybook configuration
+    ├── main.ts
+    └── preview.ts
 ```
 
 ---
