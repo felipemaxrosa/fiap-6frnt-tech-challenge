@@ -138,13 +138,14 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 6: Header `max-w-[1200px]` → `max-w-300` (token alignment)
 - [ ] Task 7: Manual test at 375px / 768px / 1280px + overflow check
 
-**Day 49-50: Visual Consistency & UX**
+**Day 49-50: Visual Consistency & UX** — see `docs/day-49-50-visual-consistency-ux.md`
 
 - [x] Consistent use of design tokens
-- [ ] Loading states for all async-like actions
-- [ ] Error states
-- [ ] Empty states (no transactions yet)
-- [ ] Micro-interactions / transitions
+- [ ] Task 1: Wire `EmptyState` component in `TransactionList` (remove hardcoded colors)
+- [ ] Task 2: Add `isError` to `TransactionsContext` + error UI in both pages
+- [ ] Task 3: Modal action buttons stacked on mobile (`ConfirmTransactionModal`, `DeleteTransactionModal`)
+- [ ] Task 4: Modal enter animation — backdrop fade + panel scale-fade (`globals.css` keyframes)
+- [ ] Task 5: Mobile nav drawer slide-in animation
 
 **Day 51-52: Performance**
 
