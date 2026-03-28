@@ -128,12 +128,15 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 5: Tooltip keyboard fallback (aria-label on truncated TransactionItem text)
 - [ ] Task 6: FeedbackModal close button contextual label + color contrast check
 
-**Day 46-48: Responsiveness**
+**Day 46-48: Responsiveness** — see `docs/day-46-48-responsiveness.md`
 
-- [ ] Mobile-first layout review
-- [ ] Test on 375px, 768px, 1280px breakpoints
-- [ ] Fix overflow and layout issues
-- [ ] Touch-friendly tap targets
+- [ ] Task 1: Modal horizontal margin on mobile (add `px-4` to outer wrapper — `Modal` + `FeedbackModal`)
+- [ ] Task 2: Form action buttons — stacked full-width on mobile (`flex-col sm:flex-row sm:justify-end`)
+- [ ] Task 3: `IconButton` touch target — add `min-h-[44px] min-w-[44px]`
+- [ ] Task 4: Sidebar mobile nav touch target — `py-sm` → `py-md` on mobile links
+- [ ] Task 5: `TransactionFilters` clear button — `w-full sm:w-auto`
+- [ ] Task 6: Header `max-w-[1200px]` → `max-w-300` (token alignment)
+- [ ] Task 7: Manual test at 375px / 768px / 1280px + overflow check
 
 **Day 49-50: Visual Consistency & UX**
 
