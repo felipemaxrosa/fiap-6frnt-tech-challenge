@@ -119,13 +119,14 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 ### Phase 4 - Polish & Accessibility (Days 43-52)
 
-**Day 43-45: Accessibility (a11y)**
+**Day 43-45: Accessibility (a11y)** — see `docs/day-43-45-accessibility.md`
 
-- [ ] Semantic HTML throughout
-- [ ] ARIA labels on interactive elements
-- [ ] Keyboard navigation (Tab, Enter, Escape for modals)
-- [ ] Focus management after modal open/close
-- [ ] Color contrast check (WCAG AA)
+- [ ] Task 1: Focus trap + restore in Modal (all modal variants inherit the fix)
+- [ ] Task 2: Keyboard navigation in Select (Arrow/Enter/Escape/Home/End) + aria-controls
+- [ ] Task 3: aria-invalid + aria-describedby on Input and CurrencyInput
+- [ ] Task 4: Page structure — section + heading hierarchy in page.tsx and BalanceCard
+- [ ] Task 5: Tooltip keyboard fallback (aria-label on truncated TransactionItem text)
+- [ ] Task 6: FeedbackModal close button contextual label + color contrast check
 
 **Day 46-48: Responsiveness**
 
