@@ -147,11 +147,14 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 4: Modal enter animation — backdrop fade + panel scale-fade (`globals.css` keyframes)
 - [ ] Task 5: Mobile nav drawer slide-in animation
 
-**Day 51-52: Performance**
+**Day 51-52: Performance** — see `docs/day-51-52-performance.md`
 
-- [ ] Review unnecessary re-renders
-- [ ] Lazy load heavy components if any
-- [ ] Optimize images/icons
+- [ ] Task 1: Memoize context derived values (`sorted`, `contextValue`) in `TransactionsContext`
+- [ ] Task 2: Wrap mutation functions in `useCallback` in `TransactionsContext`
+- [ ] Task 3: Memoize `filtered` in `useTransactionFilters`
+- [ ] Task 4: Lazy-load modals with `next/dynamic` (`EditTransactionModal`, `DeleteTransactionModal`, `NewTransaction`)
+- [ ] Task 5: Image audit — verify `priority` placement, grep for raw `<img>` tags
+- [ ] Task 6: React DevTools Profiler run — verify no unexpected re-renders
 
 ---
 
