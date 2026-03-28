@@ -193,12 +193,16 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Record 7 segments (~5 min): intro · BalanceCard toggle · add transaction (form → confirm → success) · transaction list + filters + URL params · edit transaction · delete with confirmation · Storybook walkthrough
 - [ ] Trim, export MP4, upload (YouTube unlisted / Loom / Drive) · add video link to README
 
-**Day 59: Final Review**
+**Day 59: Final Review** — see `docs/day-59-final-review.md`
 
-- [ ] Test full user flow end-to-end
-- [ ] Check all checkboxes from the challenge requirements
-- [ ] Verify README has all required info
-- [ ] Push final commit to main branch
+- [ ] Step 1: Reset `data/transactions.json` to clean 23-entry state · `npm install` · `npm run dev` · browser console clear
+- [ ] Step 2: Walk full user flow (home, add, filters, edit, delete, mobile nav) — every feature confirmed working
+- [ ] Step 3: All 12 challenge requirements checked against the table in the doc
+- [ ] Step 4: README read-through on GitHub — no boilerplate, video link works, screenshots render, Storybook URL live
+- [ ] Step 5: `npm run build` → 0 errors
+- [ ] Step 6: `npm run lint` → 0 warnings
+- [ ] Step 7: Push final commit (clean data + finalized README)
+- [ ] Step 8: Repo is public, About field set, default branch is `main`
 
 **Day 60: Submission**
 
