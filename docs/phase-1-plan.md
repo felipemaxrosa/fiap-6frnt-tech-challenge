@@ -187,16 +187,11 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 ### Phase 6 - Delivery (Days 58-60)
 
-**Day 58: Demo Video Recording**
+**Day 58: Demo Video Recording** — see `docs/day-58-demo-video.md`
 
-- [ ] Record 5-minute video covering:
-  - Home page overview
-  - Balance and recent transactions
-  - Navigate to transaction list
-  - Add a new transaction (show form + success)
-  - Edit an existing transaction
-  - Delete a transaction (show confirmation)
-  - Brief Storybook walkthrough
+- [ ] Pre-recording: remove test entry `c9a0` ("asdasd") from `data/transactions.json`; start `npm run dev` + `npm run storybook`; set browser to 1280px, 100% zoom, Do Not Disturb on
+- [ ] Record 7 segments (~5 min): intro · BalanceCard toggle · add transaction (form → confirm → success) · transaction list + filters + URL params · edit transaction · delete with confirmation · Storybook walkthrough
+- [ ] Trim, export MP4, upload (YouTube unlisted / Loom / Drive) · add video link to README
 
 **Day 59: Final Review**
 
