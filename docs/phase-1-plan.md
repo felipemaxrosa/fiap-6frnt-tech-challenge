@@ -171,15 +171,10 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Task 7: a11y panel audit — confirm no red violations
 - [ ] Task 8: Publish (Chromatic or GitHub Pages) · add URL to README
 
-**Day 55-56: README**
+**Day 55-56: README** — see `docs/day-55-56-readme.md`
 
-- [ ] Project description and purpose
-- [ ] Prerequisites (Node version, package manager)
-- [ ] Step-by-step installation and run instructions
-- [ ] Environment variables (if any)
-- [ ] Project structure explanation
-- [ ] Tech stack and why each was chosen
-- [ ] Screenshots
+- [ ] Day 55: Replace boilerplate README with complete project-specific documentation (purpose, prerequisites, installation, env vars, structure, tech stack, Design System section with Storybook URL)
+- [ ] Day 56: Take screenshots (home desktop, home mobile, transactions page, new transaction modal, success FeedbackModal) · save to `docs/screenshots/` · drop into README · final review checklist
 
 **Day 57: Code cleanup**
 
