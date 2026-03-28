@@ -176,11 +176,12 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 - [ ] Day 55: Replace boilerplate README with complete project-specific documentation (purpose, prerequisites, installation, env vars, structure, tech stack, Design System section with Storybook URL)
 - [ ] Day 56: Take screenshots (home desktop, home mobile, transactions page, new transaction modal, success FeedbackModal) · save to `docs/screenshots/` · drop into README · final review checklist
 
-**Day 57: Code cleanup**
+**Day 57: Code cleanup** — see `docs/day-57-code-cleanup.md`
 
-- [ ] Remove unused code, console.logs, TODOs
-- [ ] Final ESLint pass
-- [ ] Ensure consistent code style
+- [ ] Task 1: Remove `console.log` from `app/page.tsx` `onEdit`/`onDelete` callbacks (dead code — `showActions={false}`)
+- [ ] Task 2: Replace raw `<input>` elements with `<Input>` DS component in `FormField.stories.tsx` (3 stories with TODO comments)
+- [ ] Task 3: Remove 33 redundant `name:` annotations from 8 story files (`storybook/no-redundant-story-name`)
+- [ ] Task 4: `npm run lint` → 0 warnings · `npm run format` → clean
 
 ---
 
