@@ -21,6 +21,7 @@ export function CurrencyInput({
 }: CurrencyInputProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
+  const helperId = helperText ? `${inputId}-helper` : undefined;
 
   const [valueInCents, setValueInCents] = useState(Math.round(value * 100));
 
@@ -48,10 +49,12 @@ export function CurrencyInput({
         className={cn(
           'flex rounded-default border overflow-hidden',
           getInputBorderColor(error, { variant: 'focus-within' }),
-          disabled && 'opacity-50 cursor-not-allowed'
+          disabled && 'opacity-50 cursor-not-allowed',
+          'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-primary'
         )}
       >
         <span
+          aria-hidden="true"
           className={cn(
             'flex items-center px-lg py-md',
             'body-default',
@@ -69,9 +72,12 @@ export function CurrencyInput({
           disabled={disabled}
           value={formatted}
           onChange={handleChange}
+          aria-invalid={error || undefined}
+          aria-describedby={helperId}
+          aria-label={label ? undefined : `Valor em ${currency}`}
           style={{ outline: 'none' }}
           className={cn(
-            'flex-1 px-lg py-md',
+            'flex-1 px-lg py-md w-full',
             'body-default text-content-primary',
             'bg-surface',
             'focus:ring-0',
@@ -82,7 +88,11 @@ export function CurrencyInput({
         />
       </div>
 
-      {helperText && <HelperText error={error}>{helperText}</HelperText>}
+      {helperText && (
+        <HelperText id={helperId} error={error}>
+          {helperText}
+        </HelperText>
+      )}
     </div>
   );
 }

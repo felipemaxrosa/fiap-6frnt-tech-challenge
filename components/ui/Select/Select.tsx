@@ -21,9 +21,12 @@ export function Select({
 }: SelectProps) {
   const generatedId = useId();
   const selectId = id ?? generatedId;
+  const listboxId = `${selectId}-listbox`;
 
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const selected = value ?? '';
   const selectedLabel = options.find((o) => o.value === selected)?.label;
@@ -32,19 +35,86 @@ export function Select({
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
+        setActiveIndex(-1);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSelect = (optValue: string) => {
+  function openDropdown(startIndex?: number) {
+    const idx = startIndex ?? options.findIndex((o) => o.value === selected);
+    setActiveIndex(idx >= 0 ? idx : 0);
+    setOpen(true);
+  }
+
+  function closeDropdown() {
     setOpen(false);
+    setActiveIndex(-1);
+    buttonRef.current?.focus();
+  }
+
+  function handleSelect(optValue: string) {
     onChange?.(optValue);
-  };
+    closeDropdown();
+  }
+
+  function handleButtonKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
+    switch (e.key) {
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        if (open) {
+          if (activeIndex >= 0) handleSelect(options[activeIndex].value);
+          else closeDropdown();
+        } else {
+          openDropdown();
+        }
+        break;
+
+      case 'ArrowDown':
+        e.preventDefault();
+        if (!open) {
+          openDropdown();
+        } else {
+          setActiveIndex((i) => Math.min(i + 1, options.length - 1));
+        }
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        if (!open) {
+          openDropdown(options.length - 1);
+        } else {
+          setActiveIndex((i) => Math.max(i - 1, 0));
+        }
+        break;
+
+      case 'Home':
+        e.preventDefault();
+        if (open) setActiveIndex(0);
+        break;
+
+      case 'End':
+        e.preventDefault();
+        if (open) setActiveIndex(options.length - 1);
+        break;
+
+      case 'Escape':
+        e.preventDefault();
+        closeDropdown();
+        break;
+
+      case 'Tab':
+        if (open) {
+          setOpen(false);
+          setActiveIndex(-1);
+        }
+        break;
+    }
+  }
 
   const borderColor = getInputBorderColor(error, { active: open });
-
   const iconClass = error ? 'text-feedback-danger' : 'text-brand-primary';
 
   return (
@@ -53,13 +123,15 @@ export function Select({
 
       <div ref={containerRef} className="relative">
         <button
+          ref={buttonRef}
           id={selectId}
           type="button"
           disabled={disabled}
           aria-haspopup="listbox"
           aria-expanded={open}
-          onClick={() => setOpen((o) => !o)}
-          style={{ outline: 'none' }}
+          aria-controls={open ? listboxId : undefined}
+          onKeyDown={handleButtonKeyDown}
+          onClick={() => (open ? closeDropdown() : openDropdown())}
           className={cn(
             'w-full flex items-center justify-between',
             'bg-surface rounded-default border',
@@ -67,6 +139,7 @@ export function Select({
             'px-lg py-md',
             'body-default',
             'disabled:opacity-50 disabled:cursor-not-allowed',
+            'focus-visible:ring-2 focus-visible:ring-brand-primary',
             className
           )}
           {...props}
@@ -88,7 +161,9 @@ export function Select({
 
         {open && (
           <ul
+            id={listboxId}
             role="listbox"
+            aria-label={label ?? 'Opções'}
             className={cn(
               'absolute z-50 w-full mt-1',
               'bg-surface rounded-default border',
@@ -96,9 +171,10 @@ export function Select({
               'overflow-hidden shadow-card'
             )}
           >
-            {options.map((opt) => (
+            {options.map((opt, i) => (
               <li
                 key={opt.value}
+                id={`${selectId}-option-${i}`}
                 role="option"
                 aria-selected={selected === opt.value}
                 onClick={() => handleSelect(opt.value)}
@@ -106,9 +182,11 @@ export function Select({
                   'flex items-center px-lg py-md',
                   'body-default text-content-primary',
                   'cursor-pointer transition-colors',
-                  selected === opt.value
-                    ? 'bg-badge-transfer-bg text-brand-primary'
-                    : 'hover:bg-badge-transfer-bg'
+                  activeIndex === i
+                    ? 'bg-badge-transfer-bg text-brand-primary outline-none ring-2 ring-inset ring-brand-primary'
+                    : selected === opt.value
+                      ? 'bg-badge-transfer-bg text-brand-primary'
+                      : 'hover:bg-badge-transfer-bg'
                 )}
               >
                 {opt.label}

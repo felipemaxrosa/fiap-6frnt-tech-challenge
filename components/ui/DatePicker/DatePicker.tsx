@@ -24,12 +24,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           disabled={disabled}
           aria-invalid={error || undefined}
           aria-describedby={helperId}
-          style={{ outline: 'none' }}
           className={cn(
             'w-full rounded-default border bg-surface',
             'px-lg py-md',
             'body-default text-content-primary',
             'disabled:opacity-50 disabled:cursor-not-allowed',
+            'focus-visible:ring-1 focus-visible:ring-brand-primary focus-visible:ring-offset-1',
             getInputBorderColor(error),
             className
           )}

@@ -1,9 +1,18 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { CheckCircle, XCircle, Info, X } from 'lucide-react';
 import type { FeedbackModalProps, FeedbackType } from './IFeedbackModal';
+
+const FOCUSABLE =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+const closeLabel: Record<FeedbackType, string> = {
+  success: 'Fechar',
+  error: 'Entendido',
+  info: 'OK',
+};
 
 const config: Record<FeedbackType, { icon: React.ReactNode; iconClass: string }> = {
   success: {
@@ -28,20 +37,63 @@ export function FeedbackModal({
   message,
   showCloseButton = true,
 }: FeedbackModalProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      if (e.key !== 'Tab') return;
+
+      const panel = panelRef.current;
+      if (!panel) return;
+
+      const focusable = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     },
     [onClose]
   );
 
   useEffect(() => {
     if (!isOpen) return;
+
+    previouslyFocused.current = document.activeElement as HTMLElement;
+
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
+
+    const raf = requestAnimationFrame(() => {
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = panel.querySelectorAll<HTMLElement>(FOCUSABLE);
+      const first = focusable[0];
+      if (first) first.focus();
+    });
+
     return () => {
+      cancelAnimationFrame(raf);
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      previouslyFocused.current?.focus();
     };
   }, [isOpen, handleKeyDown]);
 
@@ -64,7 +116,10 @@ export function FeedbackModal({
       />
 
       {/* Panel */}
-      <div className="relative z-10 w-full max-w-[22rem] rounded-default bg-surface p-xl shadow-card flex flex-col items-center gap-sm text-center">
+      <div
+        ref={panelRef}
+        className="relative z-10 w-full max-w-[22rem] rounded-default bg-surface p-xl shadow-card flex flex-col items-center gap-sm text-center"
+      >
         {showCloseButton && (
           <button
             onClick={onClose}
@@ -87,7 +142,7 @@ export function FeedbackModal({
           onClick={onClose}
           className="mt-sm w-full rounded-default bg-brand-primary py-sm body-semibold text-content-inverse hover:opacity-90 transition-opacity"
         >
-          OK
+          {closeLabel[type]}
         </button>
       </div>
     </div>,
