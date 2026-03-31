@@ -62,7 +62,7 @@ export function TransactionItem({
                 {description}
               </p>
             </Tooltip>
-            <p className="text-sm text-content-muted">{formatDate(date)}</p>
+            <p className="text-sm text-content-secondary">{formatDate(date)}</p>
           </div>
         </div>
         <span className={'font-bold @md:order-3'}>{formatCurrency(amount, true)}</span>
