@@ -4,8 +4,12 @@ import { Card } from '@/components/ui/Card';
 import { useFeedback } from '@/context/FeedbackContext';
 import { useTransactions } from '@/context/TransactionsContext';
 import type { ReactElement } from 'react';
-import { useState } from 'react';
-import { TransactionForm, type TransactionFormValues } from '../TransactionForm';
+import { useRef, useState } from 'react';
+import {
+  TransactionForm,
+  type TransactionFormRef,
+  type TransactionFormValues,
+} from '../TransactionForm';
 import { ConfirmTransactionModal } from '@/components/features/ConfirmTransactionModal';
 
 const SUCCESS_FEEDBACK = {
@@ -23,6 +27,7 @@ export function NewTransaction(): ReactElement {
   const { addTransaction } = useTransactions();
   const { showFeedback } = useFeedback();
 
+  const formRef = useRef<TransactionFormRef>(null);
   const [pendingData, setPendingData] = useState<TransactionFormValues | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,6 +43,7 @@ export function NewTransaction(): ReactElement {
     try {
       await addTransaction(pendingData);
       setPendingData(null);
+      formRef.current?.reset();
       showFeedback(SUCCESS_FEEDBACK);
     } catch {
       setPendingData(null);
@@ -57,6 +63,7 @@ export function NewTransaction(): ReactElement {
         <h2 className="heading text-content-primary mb-lg">Nova transação</h2>
 
         <TransactionForm
+          ref={formRef}
           onSubmit={handleFormSubmit}
           onCancel={handleCancel}
           isSubmitting={isSubmitting}
