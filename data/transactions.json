@@ -153,6 +153,20 @@
       "amount": 140,
       "date": "2026-03-08",
       "description": "Dental appointment"
+    },
+    {
+      "id": "txn-023",
+      "type": "transfer",
+      "amount": 800,
+      "date": "2026-03-10",
+      "description": "Rent payment"
+    },
+    {
+      "id": "c9a0",
+      "type": "deposit",
+      "amount": 200,
+      "date": "2026-03-18",
+      "description": "asdasd"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
