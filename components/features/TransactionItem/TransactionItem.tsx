@@ -54,11 +54,15 @@ export function TransactionItem({
         <div className="flex flex-1 min-w-0 @md:order-2">
           <div className="min-w-0 w-full">
             <Tooltip content={description} position={tooltipPosition}>
-              <p className="mb-1 @md:mb-0 truncate font-normal text-content-primary">
+              <p
+                className="mb-1 @md:mb-0 truncate font-normal text-content-primary"
+                title={description}
+                aria-label={description}
+              >
                 {description}
               </p>
             </Tooltip>
-            <p className="text-sm text-content-muted">{formatDate(date)}</p>
+            <p className="text-sm text-content-secondary">{formatDate(date)}</p>
           </div>
         </div>
         <span className={'font-bold @md:order-3'}>{formatCurrency(amount, true)}</span>

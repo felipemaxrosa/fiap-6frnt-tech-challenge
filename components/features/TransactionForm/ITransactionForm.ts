@@ -7,3 +7,6 @@ export interface TransactionFormProps {
   initialValues?: Partial<NewTransaction>;
   isSubmitting?: boolean;
 }
+export interface TransactionFormRef {
+  reset: () => void;
+}

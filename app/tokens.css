@@ -32,10 +32,9 @@
   CONTENT COLORS (Typography)
   ============================================ */
   --color-content-primary: #000b34;
-  --color-content-secondary: #969baf;
+  --color-content-secondary: #5c6070;
   --color-content-inverse: #ffffff;
   --color-content-on-bg: #f3f3f3;
-  --color-content-muted: #969baf;
 
   /* ============================================
   FEEDBACK COLORS (Semantic)
@@ -49,9 +48,9 @@
   --color-badge-transfer-bg: rgba(104, 65, 242, 0.1); /* #6841F2 a 10% */
   --color-badge-transfer-text: #6841f2;
   --color-badge-withdraw-bg: rgba(242, 72, 34, 0.1); /* #F24822 a 10% */
-  --color-badge-withdraw-text: #f24822;
+  --color-badge-withdraw-text: #b53418;
   --color-badge-deposit-bg: rgba(31, 228, 113, 0.1); /* #1FE471 a 10% */
-  --color-badge-deposit-text: var(--color-feedback-success);
+  --color-badge-deposit-text: #0d7a3e;
 
   /* ============================================
   BORDER COLORS
@@ -111,7 +110,6 @@
   FOCUS / INTERACTION
   ============================================ */
   --color-focus-ring: var(--color-brand-primary);
-  --color-focus-ring-offset: var(
-    --color-surface
-  ); /* auto-adapta no dark mode via --color-surface */
+  --color-focus-ring-offset: var(--color-surface);
+  /* auto-adapta no dark mode via --color-surface */
 }

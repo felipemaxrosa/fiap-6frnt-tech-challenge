@@ -86,8 +86,10 @@ function TransactionsContent() {
 
   return (
     <>
-      <div className="flex flex-col gap-lg h-full">
-        <h1 className="heading text-content-primary text-xl">Transações</h1>
+      <section aria-labelledby="transactions-heading" className="flex flex-col gap-lg h-full px-1">
+        <h1 id="transactions-heading" className="heading text-content-primary text-xl">
+          Transações
+        </h1>
 
         <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
         <TransactionList
@@ -98,7 +100,7 @@ function TransactionsContent() {
           emptyMessage="Nenhuma transação encontrada para os filtros selecionados."
           className="w-full overflow-y-auto h-full"
         />
-      </div>
+      </section>
       <DeleteTransactionModal
         transaction={pendingDelete}
         onConfirm={handleDeleteConfirm}

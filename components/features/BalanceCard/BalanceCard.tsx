@@ -43,7 +43,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
             max-md:items-center max-md:text-center
           "
         >
-          {owner && <h1 className="text-xl font-semibold mb-sm">Olá, {owner}! :)</h1>}
+          {owner && <p className="text-xl font-semibold mb-sm">Olá, {owner}! :)</p>}
 
           <p className="text-sm mb-0 md:mb-lg">{formatTodayDate()}</p>
 

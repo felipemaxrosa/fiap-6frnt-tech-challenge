@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/classes';
+import { useFocusTrap } from '@/hooks';
 import type { ModalProps } from './IModal';
 
 export function Modal({
@@ -14,22 +14,7 @@ export function Modal({
   className,
   showCloseButton = true,
 }: ModalProps) {
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    },
-    [onClose]
-  );
-
-  useEffect(() => {
-    if (!isOpen) return;
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [isOpen, handleKeyDown]);
+  const panelRef = useFocusTrap({ isActive: isOpen, onEscape: onClose });
 
   if (!isOpen) return null;
 
@@ -49,6 +34,7 @@ export function Modal({
 
       {/* Panel */}
       <div
+        ref={panelRef}
         className={cn(
           'relative z-10 w-full max-w-[30rem] rounded-default bg-surface p-lg shadow-card',
           className

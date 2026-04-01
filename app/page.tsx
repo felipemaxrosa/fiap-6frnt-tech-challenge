@@ -13,8 +13,14 @@ export default function Home() {
   const recentTransactions = useMemo(() => transactions.slice(0, 5), [transactions]);
 
   return (
-    <div className="flex flex-col gap-lg lg:flex-row lg:items-start h-fit w-full">
-      <div className="flex flex-col gap-lg lg:flex-1 min-w-0">
+    <div className="flex flex-col gap-lg lg:flex-row lg:items-start h-fit w-full px-1">
+      <section
+        aria-labelledby="overview-heading"
+        className="flex flex-col gap-lg lg:flex-1 min-w-0"
+      >
+        <h1 id="overview-heading" className="sr-only">
+          Visão geral da conta
+        </h1>
         {isLoading ? (
           <Skeleton className=" h-134.5 md:h-91 w-full rounded-xl" />
         ) : (
@@ -22,9 +28,15 @@ export default function Home() {
         )}
 
         <NewTransaction />
-      </div>
+      </section>
 
-      <div className="lg:w-80 lg:shrink-0 flex flex-col gap-lg w-full min-w-0">
+      <section
+        aria-labelledby="recent-tx-heading"
+        className="lg:w-80 lg:shrink-0 flex flex-col gap-lg w-full min-w-0"
+      >
+        <h2 id="recent-tx-heading" className="sr-only">
+          Transações recentes
+        </h2>
         <TransactionList
           transactions={recentTransactions}
           onEdit={(id) => console.log(id)}
@@ -40,7 +52,7 @@ export default function Home() {
             Todas as transações
           </Button>
         </Link>
-      </div>
+      </section>
     </div>
   );
 }
