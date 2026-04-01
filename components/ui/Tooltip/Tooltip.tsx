@@ -47,7 +47,14 @@ export function Tooltip({ content, children, position = 'top' }: TooltipProps) {
   const hide = useCallback(() => setCoords(null), []);
 
   return (
-    <div ref={ref} className="min-w-0 w-full" onMouseEnter={show} onMouseLeave={hide}>
+    <div
+      ref={ref}
+      className="min-w-0 w-full"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
+    >
       {children}
       {coords &&
         content &&

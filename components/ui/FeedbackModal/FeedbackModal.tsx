@@ -1,9 +1,15 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { CheckCircle, XCircle, Info, X } from 'lucide-react';
+import { useFocusTrap } from '@/hooks';
 import type { FeedbackModalProps, FeedbackType } from './IFeedbackModal';
+
+const closeLabel: Record<FeedbackType, string> = {
+  success: 'Fechar',
+  error: 'Entendido',
+  info: 'OK',
+};
 
 const config: Record<FeedbackType, { icon: React.ReactNode; iconClass: string }> = {
   success: {
@@ -28,22 +34,7 @@ export function FeedbackModal({
   message,
   showCloseButton = true,
 }: FeedbackModalProps) {
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    },
-    [onClose]
-  );
-
-  useEffect(() => {
-    if (!isOpen) return;
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [isOpen, handleKeyDown]);
+  const panelRef = useFocusTrap({ isActive: isOpen, onEscape: onClose });
 
   if (!isOpen) return null;
 
@@ -64,7 +55,10 @@ export function FeedbackModal({
       />
 
       {/* Panel */}
-      <div className="relative z-10 w-full max-w-[22rem] rounded-default bg-surface p-xl shadow-card flex flex-col items-center gap-sm text-center">
+      <div
+        ref={panelRef}
+        className="relative z-10 w-full max-w-[22rem] rounded-default bg-surface p-xl shadow-card flex flex-col items-center gap-sm text-center"
+      >
         {showCloseButton && (
           <button
             onClick={onClose}
@@ -87,7 +81,7 @@ export function FeedbackModal({
           onClick={onClose}
           className="mt-sm w-full rounded-default bg-brand-primary py-sm body-semibold text-content-inverse hover:opacity-90 transition-opacity"
         >
-          OK
+          {closeLabel[type]}
         </button>
       </div>
     </div>,
