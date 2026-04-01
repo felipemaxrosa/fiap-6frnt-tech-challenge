@@ -244,27 +244,27 @@ Use Chrome DevTools device emulation. For each viewport, run the checks below.
 
 **Layout**
 
-- [ ] Header shows logo + hamburger only; no nav links visible
-- [ ] Hamburger opens full-screen nav drawer; links are tappable (verify touch target ≥ 44px tall)
-- [ ] Home page: BalanceCard → NewTransaction form → TransactionList stack vertically, no horizontal overflow
-- [ ] Transactions page: `<h1>` + filters + list stack vertically, no overflow
-- [ ] TransactionFilters: filters wrap to 2–3 rows; "Limpar filtros" goes full-width when alone on a row
+- [x] Header shows logo + hamburger only; no nav links visible
+- [x] Hamburger opens nav drawer; links are tappable (verify touch target ≥ 44px tall)
+- [x] Home page: BalanceCard → NewTransaction form → TransactionList stack vertically, no horizontal overflow
+- [x] Transactions page: `<h1>` + filters + list stack vertically, no overflow
+- [x] TransactionFilters: filters wrap to 2–3 rows; "Limpar filtros" goes full-width when alone on a row
 
 **Modals**
 
-- [ ] Open any modal → panel has visible margin on left and right (not edge-to-edge)
-- [ ] `FeedbackModal` same treatment
+- [x] Open any modal → panel has visible margin on left and right (not edge-to-edge)
+- [x] `FeedbackModal` same treatment
 
 **Forms**
 
-- [ ] `TransactionForm` buttons are stacked full-width; both buttons are easily tappable
-- [ ] `CurrencyInput` is full-width; "R$" prefix doesn't overflow
-- [ ] `Select` dropdown list is full-width; options are tappable
+- [x] `TransactionForm` buttons are stacked full-width; both buttons are easily tappable
+- [x] `CurrencyInput` is full-width; "R$" prefix doesn't overflow
+- [x] `Select` dropdown list is full-width; options are tappable
 
 **Touch targets**
 
-- [ ] `IconButton` (edit/delete in TransactionItem) — tap area feels large enough (≥ 44px)
-- [ ] Sidebar nav links in mobile drawer — tap area is clearly tall
+- [x] `IconButton` (edit/delete in TransactionItem) — tap area feels large enough (≥ 44px)
+- [x] Sidebar nav links in mobile drawer — tap area is clearly tall
 
 ---
 
@@ -272,19 +272,19 @@ Use Chrome DevTools device emulation. For each viewport, run the checks below.
 
 **Layout**
 
-- [ ] Header shows logo + username; hamburger is hidden
-- [ ] Horizontal tab nav bar appears below header (`sm:block lg:hidden`)
-- [ ] Home page: still single-column (`lg:flex-row` only kicks in at 1024px)
-- [ ] Transactions page: filters row has 2–3 items per row, wraps cleanly
+- [x] Header shows logo + username; hamburger is hidden
+- [x] Horizontal tab nav bar appears below header (`sm:block lg:hidden`)
+- [x] Home page: still single-column (`lg:flex-row` only kicks in at 1024px)
+- [x] Transactions page: filters row has 2–3 items per row, wraps cleanly
 
 **Forms**
 
-- [ ] `TransactionForm` amount + date fields are side by side (`sm:flex-row`) ✓
-- [ ] Form buttons are in a row, right-aligned (`sm:flex-row sm:justify-end`)
+- [x] `TransactionForm` amount + date fields are side by side (`sm:flex-row`) ✓
+- [x] Form buttons are in a row, right-aligned (`sm:flex-row sm:justify-end`)
 
 **Modals**
 
-- [ ] Modal panel is centered with visible margin on all sides
+- [x] Modal panel is centered with visible margin on all sides
 
 ---
 
@@ -292,24 +292,24 @@ Use Chrome DevTools device emulation. For each viewport, run the checks below.
 
 **Layout**
 
-- [ ] Desktop vertical sidebar visible; horizontal tab nav hidden
-- [ ] Home page: two-column layout (BalanceCard + NewTransaction on left; recent transactions on right)
-- [ ] Right column is `w-80` (320px); left column fills remaining space
-- [ ] Transactions page: filters in a single row; list scrollable within its container
+- [x] Desktop vertical sidebar visible; horizontal tab nav hidden
+- [x] Home page: two-column layout (BalanceCard + NewTransaction on left; recent transactions on right)
+- [x] Right column is `w-80` (320px); left column fills remaining space
+- [x] Transactions page: filters in a single row; list scrollable within its container
 
 **Overflow**
 
-- [ ] No horizontal scrollbar on any page
-- [ ] Long transaction descriptions truncate with ellipsis and do not break layout
-- [ ] `TransactionItem` in `@md` container view: 4-column grid with badge / description / amount / actions
+- [x] No horizontal scrollbar on any page
+- [x] Long transaction descriptions truncate with ellipsis and do not break layout
+- [x] `TransactionItem` in `@md` container view: 4-column grid with badge / description / amount / actions
 
 ---
 
 ### Cross-breakpoint checks
 
-- [ ] Resize slowly from 375px → 1280px; no layout "jumps" or content clipping
-- [ ] `BalanceCard` content stays readable at all widths (piggy bank image, balance amount)
-- [ ] `TransactionList` on the home page sidebar (right column) doesn't overflow its `w-80` container
+- [x] Resize slowly from 375px → 1280px; no layout "jumps" or content clipping
+- [x] `BalanceCard` content stays readable at all widths (piggy bank image, balance amount)
+- [x] `TransactionList` on the home page sidebar (right column) doesn't overflow its `w-80` container
 
 ---
 

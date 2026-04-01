@@ -29,7 +29,7 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
                 href={link.href}
                 onClick={onLinkClick}
                 className={cn(
-                  'block rounded-default px-md py-sm',
+                  'block rounded-default p-md',
                   isSelected ? 'body-semibold' : '',
                   isSelected
                     ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-brand-primary'

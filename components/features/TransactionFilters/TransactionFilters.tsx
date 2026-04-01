@@ -79,7 +79,7 @@ export function TransactionFilters({ value, onChange, onClear }: TransactionFilt
       </div>
 
       {onClear && (
-        <Button variant="ghost" size="sm" onClick={onClear}>
+        <Button variant="ghost" size="sm" onClick={onClear} className="w-full sm:w-auto">
           Limpar filtros
         </Button>
       )}
