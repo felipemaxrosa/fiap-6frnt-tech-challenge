@@ -28,7 +28,7 @@ export function TransactionItem({
         className
       )}
     >
-      <div className="w-full justify-between items-start flex gap-3 min-w-0 flex-1 @md:contents">
+      <div className="w-full justify-between items-center flex gap-3 min-w-0 flex-1 @md:contents">
         <Badge variant={BADGE_VARIANT_MAP[type]} size="md" className="@md:order-1">
           {BADGE_LABEL_MAP[type]}
         </Badge>

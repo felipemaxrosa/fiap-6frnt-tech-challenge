@@ -151,7 +151,7 @@ export const TransactionForm = forwardRef<TransactionFormRef, TransactionFormPro
           </div>
         </div>
 
-        <div className="flex justify-end gap-sm mt-lg">
+        <div className="flex flex-col gap-sm mt-lg sm:flex-row sm:justify-end">
           <Button type="button" variant="secondary" onClick={handleCancel} disabled={isSubmitting}>
             Cancelar
           </Button>
