@@ -27,7 +27,7 @@ export function Header({ userName = 'Joana da Silva Oliveira' }: HeaderProps) {
 
           {/* Hamburger — mobile only */}
           <button
-            className="sm:hidden rounded-default p-sm text-content-inverse"
+            className="sm:hidden rounded-default p-sm text-content-inverse cursor-pointer"
             aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"

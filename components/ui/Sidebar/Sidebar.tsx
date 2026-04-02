@@ -19,7 +19,7 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
   return (
     <nav aria-label="Navegação principal">
       {/* Mobile: vertical list (rendered inside Header drawer) */}
-      <ul className="flex flex-col gap-xs px-lg py-lg sm:hidden">
+      <ul className="flex flex-col gap-xs px-lg py-lg shadow-card sm:hidden">
         {navLinks.map((link) => {
           const isSelected = isSelectedMenu(pathname, link.href);
 
