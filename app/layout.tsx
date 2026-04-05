@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         <FeedbackProvider>
           <TransactionsProvider>
-            <div className="flex flex-col h-screen">
+            <div className="flex h-dvh flex-col overflow-hidden">
               <Header />
 
               {/* Tablet: horizontal nav (full width, above content) */}
@@ -26,14 +26,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
 
-              {/* Desktop + content area */}
-              <div className="mx-auto flex max-w-300 flex-col lg:flex-row p-lg gap-lg h-full w-full overflow-hidden">
-                {/* Desktop: vertical sidebar */}
-                <div className="hidden lg:block w-48 shrink-0">
-                  <Sidebar />
-                </div>
+              <div className="flex-1 overflow-y-auto">
+                {/* Desktop + content area */}
+                <div className="mx-auto flex max-w-300 flex-col lg:flex-row px-lg gap-lg w-full">
+                  {/* Desktop: vertical sidebar */}
+                  <div className="hidden lg:block w-48 shrink-0 sticky top-0 self-start">
+                    <Sidebar />
+                  </div>
 
-                <main className="h-full w-full overflow-auto">{children}</main>
+                  <main className="w-full py-lg">{children}</main>
+                </div>
               </div>
             </div>
           </TransactionsProvider>

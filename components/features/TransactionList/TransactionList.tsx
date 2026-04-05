@@ -1,4 +1,3 @@
-import { ReceiptText } from 'lucide-react';
 import { cn } from '@/lib/classes';
 import { TransactionItem } from '@/components/features/TransactionItem';
 import { SkeletonList } from '@/components/ui/Skeleton';
@@ -9,7 +8,7 @@ export function TransactionList({
   isLoading = false,
   onEdit,
   onDelete,
-  emptyMessage = 'No transactions found.',
+  emptyState,
   title,
   className,
   showActions = true,
@@ -20,13 +19,8 @@ export function TransactionList({
       return <SkeletonList lines={5} showActions={showActions} />;
     }
 
-    if (transactions.length === 0) {
-      return (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-gray-300 bg-white py-16 text-gray-400">
-          <ReceiptText size={32} />
-          <p className="text-sm">{emptyMessage}</p>
-        </div>
-      );
+    if (!transactions.length) {
+      return emptyState;
     }
 
     return transactions.map((transaction) => (

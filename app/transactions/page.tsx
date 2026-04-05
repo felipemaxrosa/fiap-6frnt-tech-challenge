@@ -11,16 +11,25 @@ import { useTransactionFilters } from '@/hooks';
 import type { Transaction } from '@/types';
 import { EditTransactionModal } from '@/components/features/EditTransactionModal';
 import { TransactionFormValues } from '@/components/features';
+import { EmptyState, IconButton } from '@/components/ui';
+import { Funnel, ReceiptText, SearchX } from 'lucide-react';
+import { ErrorState } from '@/components/ui/ErrorState/ErrorState';
 
 function TransactionsContent() {
-  const { transactions, isLoading, deleteTransaction, updateTransaction } = useTransactions();
-  const { filters, setFilters, clearFilters, filtered } = useTransactionFilters(transactions);
+  const { transactions, isLoading, deleteTransaction, updateTransaction, isError } =
+    useTransactions();
+  const { filters, setFilters, clearFilters, filtered, isFilterVisible, setIsFilterVisible } =
+    useTransactionFilters(transactions);
 
   const { showFeedback } = useFeedback();
   const [pendingDelete, setPendingDelete] = useState<Transaction | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [pendingEdit, setPendingEdit] = useState<Transaction | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  if (isError) {
+    return <ErrorState />;
+  }
 
   function handleDeleteRequest(id: string) {
     const transaction = transactions.find((t) => t.id === id) ?? null;
@@ -84,20 +93,56 @@ function TransactionsContent() {
     setPendingEdit(null);
   }
 
+  function renderEmptyState() {
+    // Diferenciar entre "sem transações" e "filtros não encontraram resultados"
+    if (transactions.length > 0 && filtered.length === 0) {
+      return (
+        <EmptyState
+          icon={<SearchX size={32} />}
+          title="Nenhuma transação encontrada"
+          description="Tente ajustar seus filtros para ver mais resultados."
+        />
+      );
+    }
+
+    return (
+      <EmptyState
+        icon={<ReceiptText size={32} />}
+        title="Nenhuma transação registrada"
+        description="Registre sua primeira transação!"
+        className="border border-gray-300 bg-white"
+      />
+    );
+  }
+
   return (
     <>
       <section aria-labelledby="transactions-heading" className="flex flex-col gap-lg h-full px-1">
-        <h1 id="transactions-heading" className="heading text-content-primary text-xl">
-          Transações
-        </h1>
-
-        <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
+        <div className="sticky top-0 flex flex-col">
+          <h1
+            id="transactions-heading"
+            className="py-lg w-full heading text-content-primary bg-background z-20 text-xl flex justify-between items-center"
+          >
+            Transações
+            <IconButton
+              icon={<Funnel />}
+              aria-label="Adicionar filtros"
+              className="sm:hidden"
+              onClick={() => setIsFilterVisible(!isFilterVisible)}
+            />
+          </h1>
+          <div
+            className={`bg-background sm:block pb-lg ${isFilterVisible ? 'block filter-panel-in [animation:filter-panel-in_0.2s_ease-out]' : 'hidden'}`}
+          >
+            <TransactionFilters value={filters} onChange={setFilters} onClear={clearFilters} />
+          </div>
+        </div>
         <TransactionList
           transactions={filtered}
           isLoading={isLoading}
           onEdit={handleEditRequest}
           onDelete={handleDeleteRequest}
-          emptyMessage="Nenhuma transação encontrada para os filtros selecionados."
+          emptyState={renderEmptyState()}
           className="w-full overflow-y-auto h-full"
         />
       </section>

@@ -45,3 +45,48 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-focus-ring);
 }
+
+/* ==================== */
+/* ANIMATIONS */
+/* ==================== */
+
+/* MODAL */
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* MENU */
+@keyframes drawer-panel-in {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 100%;
+    top: 4rem; /* 16px (base) + 16px (header) */
+  }
+}
+
+/* FILTERS */
+@keyframes filter-panel-in {
+  from {
+    transform: translateY(-8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
