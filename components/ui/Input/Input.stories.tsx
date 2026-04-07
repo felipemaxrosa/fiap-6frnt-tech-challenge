@@ -6,6 +6,18 @@ const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
+  argTypes: {
+    label: { control: 'text' },
+    placeholder: { control: 'text' },
+    helperText: { control: 'text' },
+    value: { control: 'text' },
+    type: { control: 'select', options: ['text', 'number', 'email', 'password', 'date'] },
+    error: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    leftAddon: { control: false },
+    rightAddon: { control: false },
+    onClear: { control: false },
+  },
   parameters: {
     docs: {
       description: {

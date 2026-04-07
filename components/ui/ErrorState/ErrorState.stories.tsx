@@ -7,6 +7,12 @@ const meta: Meta<typeof ErrorState> = {
   title: 'UI/ErrorState',
   component: ErrorState,
   tags: ['autodocs'],
+  argTypes: {
+    icon: { control: false },
+    title: { control: 'text' },
+    description: { control: 'text' },
+    action: { control: false },
+  },
   parameters: {
     layout: 'centered',
     docs: {

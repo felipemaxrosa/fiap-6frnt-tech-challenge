@@ -8,6 +8,13 @@ const meta: Meta<typeof ConfirmTransactionModal> = {
   component: ConfirmTransactionModal,
   title: 'Features/ConfirmTransactionModal',
   tags: ['autodocs'],
+  argTypes: {
+    isOpen: { control: 'boolean' },
+    transaction: { control: 'object' },
+    isSubmitting: { control: 'boolean' },
+    onConfirm: { control: false },
+    onCancel: { control: false },
+  },
   parameters: {
     docs: {
       description: {

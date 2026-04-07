@@ -5,6 +5,11 @@ const meta: Meta<typeof Label> = {
   title: 'UI/Label',
   component: Label,
   tags: ['autodocs'],
+  argTypes: {
+    children: { control: 'text' },
+    required: { control: 'boolean' },
+    htmlFor: { control: 'text' },
+  },
   parameters: {
     docs: {
       description: {

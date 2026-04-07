@@ -5,6 +5,12 @@ const meta: Meta<typeof Card> = {
   title: 'UI/Card',
   component: Card,
   tags: ['autodocs'],
+  argTypes: {
+    as: { control: 'select', options: ['div', 'section', 'article'] },
+    padding: { control: 'select', options: ['sm', 'md', 'lg'] },
+    hoverable: { control: 'boolean' },
+    children: { control: false },
+  },
   parameters: {
     docs: {
       description: {

@@ -5,6 +5,9 @@ const meta: Meta<typeof Sidebar> = {
   title: 'UI/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
+  argTypes: {
+    activePath: { control: 'select', options: ['/', '/transactions'] },
+  },
   parameters: {
     layout: 'fullscreen',
     docs: {

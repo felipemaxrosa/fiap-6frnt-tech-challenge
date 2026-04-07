@@ -6,6 +6,12 @@ const meta: Meta<typeof TransactionForm> = {
   component: TransactionForm,
   title: 'Features/TransactionForm',
   tags: ['autodocs'],
+  argTypes: {
+    initialValues: { control: 'object' },
+    isSubmitting: { control: 'boolean' },
+    onSubmit: { control: false },
+    onCancel: { control: false },
+  },
   parameters: {
     docs: {
       description: {

@@ -8,6 +8,10 @@ const meta: Meta<typeof TransactionFilters> = {
   title: 'Features/TransactionFilters',
   component: TransactionFilters,
   tags: ['autodocs'],
+  argTypes: {
+    value: { control: 'object' },
+    onChange: { control: false },
+  },
   parameters: {
     docs: {
       description: {

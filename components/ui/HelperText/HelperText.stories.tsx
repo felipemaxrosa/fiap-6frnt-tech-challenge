@@ -5,6 +5,11 @@ const meta: Meta<typeof HelperText> = {
   title: 'UI/HelperText',
   component: HelperText,
   tags: ['autodocs'],
+  argTypes: {
+    children: { control: 'text' },
+    error: { control: 'boolean' },
+    id: { control: 'text' },
+  },
   parameters: {
     docs: {
       description: {

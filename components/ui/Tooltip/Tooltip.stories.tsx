@@ -5,6 +5,11 @@ const meta: Meta<typeof Tooltip> = {
   title: 'UI/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
+  argTypes: {
+    content: { control: 'text' },
+    position: { control: 'select', options: ['top', 'bottom', 'left', 'right'] },
+    children: { control: false },
+  },
   parameters: {
     layout: 'centered',
     docs: {

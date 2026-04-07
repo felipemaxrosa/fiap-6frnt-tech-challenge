@@ -6,6 +6,14 @@ const meta: Meta<typeof FeedbackModal> = {
   title: 'UI/FeedbackModal',
   component: FeedbackModal,
   tags: ['autodocs'],
+  argTypes: {
+    isOpen: { control: 'boolean' },
+    type: { control: 'select', options: ['success', 'error', 'info'] },
+    title: { control: 'text' },
+    message: { control: 'text' },
+    showCloseButton: { control: 'boolean' },
+    onClose: { control: false },
+  },
   parameters: {
     layout: 'centered',
     docs: {

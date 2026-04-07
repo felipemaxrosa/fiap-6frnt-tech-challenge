@@ -5,6 +5,9 @@ const meta: Meta<typeof Skeleton> = {
   title: 'UI/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
+  argTypes: {
+    className: { control: 'text' },
+  },
   parameters: {
     layout: 'centered',
     docs: {

@@ -8,6 +8,7 @@ const meta: Meta<typeof NewTransaction> = {
   component: NewTransaction,
   title: 'Features/NewTransaction',
   tags: ['autodocs'],
+  argTypes: {},
   parameters: {
     docs: {
       description: {

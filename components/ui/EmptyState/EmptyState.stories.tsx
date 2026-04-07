@@ -6,6 +6,11 @@ const meta: Meta<typeof EmptyState> = {
   title: 'UI/EmptyState',
   component: EmptyState,
   tags: ['autodocs'],
+  argTypes: {
+    icon: { control: false },
+    title: { control: 'text' },
+    description: { control: 'text' },
+  },
   parameters: {
     layout: 'centered',
     docs: {

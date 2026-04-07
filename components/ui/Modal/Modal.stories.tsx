@@ -6,6 +6,14 @@ const meta: Meta<typeof Modal> = {
   title: 'UI/Modal',
   component: Modal,
   tags: ['autodocs'],
+  argTypes: {
+    isOpen: { control: 'boolean' },
+    title: { control: 'text' },
+    showCloseButton: { control: 'boolean' },
+    className: { control: 'text' },
+    onClose: { control: false },
+    children: { control: false },
+  },
   parameters: {
     layout: 'centered',
     docs: {

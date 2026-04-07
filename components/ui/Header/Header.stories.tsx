@@ -5,6 +5,9 @@ const meta: Meta<typeof Header> = {
   title: 'UI/Header',
   component: Header,
   tags: ['autodocs'],
+  argTypes: {
+    userName: { control: 'text' },
+  },
   parameters: {
     layout: 'fullscreen',
     docs: {

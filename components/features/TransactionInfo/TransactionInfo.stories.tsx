@@ -5,6 +5,9 @@ const meta: Meta<typeof TransactionInfo> = {
   title: 'Features/TransactionInfo',
   component: TransactionInfo,
   tags: ['autodocs'],
+  argTypes: {
+    transaction: { control: 'object' },
+  },
   parameters: {
     docs: {
       description: {
