@@ -1,31 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import type { Transaction } from '@/types';
 import { EditTransactionModal } from './EditTransactionModal';
-
-const DEPOSIT: Transaction = {
-  id: '1',
-  type: 'deposit',
-  description: 'Salario mensal',
-  amount: 5000,
-  date: '2025-03-01',
-};
-
-const WITHDRAWAL: Transaction = {
-  id: '2',
-  type: 'withdrawal',
-  description: 'Aluguel',
-  amount: 1800,
-  date: '2025-03-05',
-};
-
-const LONG_DESCRIPTION: Transaction = {
-  id: '3',
-  type: 'transfer',
-  description: 'Transferencia para reserva de emergencia da conta conjunta',
-  amount: 950.75,
-  date: '2025-03-10',
-};
+import {
+  EDIT_DEPOSIT_TRANSACTION,
+  EDIT_LONG_DESCRIPTION_TRANSACTION,
+  EDIT_WITHDRAWAL_TRANSACTION,
+} from '../../../stories/mocks/transactions';
 
 const meta: Meta<typeof EditTransactionModal> = {
   title: 'Features/EditTransactionModal',
@@ -56,23 +36,23 @@ type Story = StoryObj<typeof EditTransactionModal>;
 
 export const Deposit: Story = {
   name: 'Depósito',
-  args: { transaction: DEPOSIT },
+  args: { transaction: EDIT_DEPOSIT_TRANSACTION },
 };
 
 export const Withdrawal: Story = {
   name: 'Saque',
-  args: { transaction: WITHDRAWAL },
+  args: { transaction: EDIT_WITHDRAWAL_TRANSACTION },
 };
 
 export const LongDescription: Story = {
   name: 'Descrição longa',
-  args: { transaction: LONG_DESCRIPTION },
+  args: { transaction: EDIT_LONG_DESCRIPTION_TRANSACTION },
 };
 
 export const Submitting: Story = {
   name: 'Atualizando',
   args: {
-    transaction: DEPOSIT,
+    transaction: EDIT_DEPOSIT_TRANSACTION,
     isSubmitting: true,
   },
 };
@@ -85,7 +65,7 @@ export const Closed: Story = {
 export const AccessibilityKeyboardFocus: Story = {
   name: 'Accessibility: Keyboard / Escape',
   args: {
-    transaction: DEPOSIT,
+    transaction: EDIT_DEPOSIT_TRANSACTION,
     onConfirm: fn(),
     onCancel: fn(),
     isSubmitting: false,
