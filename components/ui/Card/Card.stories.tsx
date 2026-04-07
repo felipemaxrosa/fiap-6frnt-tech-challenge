@@ -5,6 +5,14 @@ const meta: Meta<typeof Card> = {
   title: 'UI/Card',
   component: Card,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Surface container used to group related content, with configurable padding, semantic element, and hover behavior.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Card>;

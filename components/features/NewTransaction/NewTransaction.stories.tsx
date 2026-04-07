@@ -8,6 +8,14 @@ const meta: Meta<typeof NewTransaction> = {
   component: NewTransaction,
   title: 'Features/NewTransaction',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Feature section for creating a transaction, combining TransactionForm and confirmation flow with feedback/context providers.',
+      },
+    },
+  },
   decorators: [
     ((Story): ReactElement => (
       <FeedbackProvider>

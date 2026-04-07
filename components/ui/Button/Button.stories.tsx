@@ -6,6 +6,14 @@ const meta: Meta<typeof Button> = {
   title: 'UI/Button',
   component: Button,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Primary action button with variant, size, loading, disabled, icon, and full-width options.',
+      },
+    },
+  },
   argTypes: {
     variant: { control: 'select', options: ['primary', 'secondary', 'ghost'] },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },

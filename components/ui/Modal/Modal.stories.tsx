@@ -6,7 +6,15 @@ const meta: Meta<typeof Modal> = {
   title: 'UI/Modal',
   component: Modal,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Generic dialog container with backdrop, keyboard escape handling, close button, and optional title.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Modal>;

@@ -5,6 +5,14 @@ const meta: Meta<typeof HelperText> = {
   title: 'UI/HelperText',
   component: HelperText,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Small helper/error text element rendered below form controls to communicate validation or guidance.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof HelperText>;

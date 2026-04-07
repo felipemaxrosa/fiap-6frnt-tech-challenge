@@ -5,7 +5,15 @@ const meta: Meta<typeof Sidebar> = {
   title: 'UI/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Primary navigation sidebar supporting desktop panel and mobile drawer behavior across active routes.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Sidebar>;

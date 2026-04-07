@@ -6,7 +6,15 @@ const meta: Meta<typeof EmptyState> = {
   title: 'UI/EmptyState',
   component: EmptyState,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Informational empty-state pattern with icon, title, and optional description for no-data scenarios.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof EmptyState>;

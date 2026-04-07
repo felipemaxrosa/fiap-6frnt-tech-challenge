@@ -5,7 +5,15 @@ const meta: Meta<typeof Skeleton> = {
   title: 'UI/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Loading placeholder primitives used to represent pending UI content, including list and card compositions.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Skeleton>;

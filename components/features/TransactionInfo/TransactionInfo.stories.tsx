@@ -5,6 +5,14 @@ const meta: Meta<typeof TransactionInfo> = {
   title: 'Features/TransactionInfo',
   component: TransactionInfo,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Read-only transaction summary used in modal confirmations, showing type badge, amount, date, and description.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof TransactionInfo>;

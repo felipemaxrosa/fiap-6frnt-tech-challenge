@@ -6,7 +6,15 @@ const meta: Meta<typeof FeedbackModal> = {
   title: 'UI/FeedbackModal',
   component: FeedbackModal,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Modal used for success, error, and info feedback after user actions, with optional close button.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof FeedbackModal>;

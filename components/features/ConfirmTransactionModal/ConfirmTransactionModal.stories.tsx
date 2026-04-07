@@ -8,6 +8,14 @@ const meta: Meta<typeof ConfirmTransactionModal> = {
   component: ConfirmTransactionModal,
   title: 'Features/ConfirmTransactionModal',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Modal that asks users to confirm a transaction before submission, showing the transaction summary and loading state.',
+      },
+    },
+  },
 };
 
 export default meta;

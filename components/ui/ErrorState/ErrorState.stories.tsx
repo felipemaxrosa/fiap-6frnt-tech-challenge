@@ -7,7 +7,15 @@ const meta: Meta<typeof ErrorState> = {
   title: 'UI/ErrorState',
   component: ErrorState,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Reusable error feedback block with icon, title, description, and optional recovery action.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof ErrorState>;

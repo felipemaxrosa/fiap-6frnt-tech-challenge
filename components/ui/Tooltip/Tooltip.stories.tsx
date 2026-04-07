@@ -5,7 +5,15 @@ const meta: Meta<typeof Tooltip> = {
   title: 'UI/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Contextual tooltip for truncated content, with smart visibility behavior and configurable position.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Tooltip>;

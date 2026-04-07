@@ -6,6 +6,14 @@ const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Text input field with label, helper text, validation state, addons, and clear interaction support.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Input>;

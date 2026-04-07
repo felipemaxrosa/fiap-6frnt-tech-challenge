@@ -6,6 +6,14 @@ const meta: Meta<typeof IconButton> = {
   title: 'UI/IconButton',
   component: IconButton,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Icon-only button for compact actions such as edit and delete, requiring accessible aria-label text.',
+      },
+    },
+  },
   argTypes: {
     disabled: { control: 'boolean' },
     className: { control: 'text' },

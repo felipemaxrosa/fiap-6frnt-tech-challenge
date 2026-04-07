@@ -3,7 +3,15 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 const meta: Meta = {
   title: 'Foundations/Colors',
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component:
+          'Foundation palette documentation for design tokens used across brand, surface, content, feedback, and interaction colors.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj;
