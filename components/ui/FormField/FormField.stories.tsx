@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { FormField } from './FormField';
 import { CurrencyInput } from '../CurrencyInput';
 import { DatePicker } from '../DatePicker';
+import { Input } from '../Input';
 import { Select } from '../Select';
 
 const meta: Meta<typeof FormField> = {
@@ -52,19 +53,13 @@ export default meta;
 type Story = StoryObj<typeof FormField>;
 
 export const WithInput: Story = {
-  name: 'With Input',
   render: () => (
     <FormField
       label="Description"
       htmlFor="description"
       helperText="A brief note about this transaction"
     >
-      {/* TODO: Replace with <Input /> */}
-      <input
-        id="description"
-        placeholder="e.g.: Grocery shopping"
-        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-600/50 focus:border-teal-600"
-      />
+      <Input id="description" placeholder="e.g.: Grocery shopping" />
     </FormField>
   ),
   parameters: {
@@ -75,16 +70,9 @@ export const WithInput: Story = {
 };
 
 export const WithError: Story = {
-  name: 'With Error',
   render: () => (
     <FormField label="Description" htmlFor="description-err" error="This field is mandatory">
-      {/* TODO: Replace with <Input error /> */}
-      <input
-        id="description-err"
-        aria-describedby="description-err-description"
-        placeholder="e.g.: Grocery shopping"
-        className="w-full rounded-lg border border-red-400 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-400/50"
-      />
+      <Input id="description-err" placeholder="e.g.: Grocery shopping" error />
     </FormField>
   ),
   parameters: {
@@ -97,7 +85,6 @@ export const WithError: Story = {
 };
 
 export const Required: Story = {
-  name: 'Required',
   render: () => (
     <FormField label="Valor" htmlFor="amount-req" required>
       <CurrencyInput id="amount-req" value={0} aria-describedby="amount-req-description" />
@@ -111,7 +98,6 @@ export const Required: Story = {
 };
 
 export const WithSelect: Story = {
-  name: 'With Select',
   render: () => (
     <FormField label="Transaction type" htmlFor="type-field" required>
       <Select
@@ -134,7 +120,6 @@ export const WithSelect: Story = {
 };
 
 export const FullTransactionForm: Story = {
-  name: 'Full Transaction Form',
   render: () => (
     <div className="flex flex-col gap-4 w-96 p-6 rounded-xl border border-gray-200 bg-white shadow-sm">
       <h2 className="text-lg font-semibold text-gray-900">New transaction</h2>
@@ -157,13 +142,7 @@ export const FullTransactionForm: Story = {
         <DatePicker id="date-full" aria-describedby="date-full-description" />
       </FormField>
       <FormField label="Description" htmlFor="desc-full" helperText="Optional">
-        {/* TODO: Replace with <Input /> */}
-        <input
-          id="desc-full"
-          aria-describedby="desc-full-description"
-          placeholder="e.g.: Grocery shopping"
-          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-600/50 focus:border-teal-600"
-        />
+        <Input id="desc-full" placeholder="e.g.: Grocery shopping" />
       </FormField>
     </div>
   ),
