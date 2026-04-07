@@ -39,7 +39,7 @@ export const WithError: Story = {
   },
 };
 export const WithSuccess: Story = {
-  args: { label: 'Email', success: true, helperText: 'Valid email', value: 'user@email.com' },
+  args: { label: 'Email', helperText: 'Valid email', value: 'user@email.com' },
 };
 export const Disabled: Story = {
   args: { label: 'ID', disabled: true, value: '00123' },
