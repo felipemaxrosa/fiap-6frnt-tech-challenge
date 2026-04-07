@@ -21,6 +21,13 @@ export const Default: Story = {
   args: {
     children: <p className="text-content-secondary">Card content goes here</p>,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default card rendering for grouped content without hover behavior.',
+      },
+    },
+  },
 };
 export const Hoverable: Story = {
   args: {

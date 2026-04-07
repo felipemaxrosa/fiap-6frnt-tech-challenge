@@ -28,6 +28,13 @@ export const Default: Story = {
     icon: <Pencil size={18} />,
     'aria-label': 'Editar transacao',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default icon action button with required accessible label.',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
@@ -35,6 +42,13 @@ export const Disabled: Story = {
     icon: <Pencil size={18} />,
     'aria-label': 'Editar transacao',
     disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled state preventing click interaction while preserving icon visibility.',
+      },
+    },
   },
 };
 

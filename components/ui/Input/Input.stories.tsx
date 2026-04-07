@@ -18,14 +18,39 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const Default: Story = { args: { label: 'Description', placeholder: 'e.g. Salary' } };
+export const Default: Story = {
+  args: { label: 'Description', placeholder: 'e.g. Salary' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default text input with label and placeholder.',
+      },
+    },
+  },
+};
 export const WithError: Story = {
   args: { label: 'Amount', error: true, helperText: 'This field is required', placeholder: '0.00' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error validation state with helper message for invalid input.',
+      },
+    },
+  },
 };
 export const WithSuccess: Story = {
   args: { label: 'Email', success: true, helperText: 'Valid email', value: 'user@email.com' },
 };
-export const Disabled: Story = { args: { label: 'ID', disabled: true, value: '00123' } };
+export const Disabled: Story = {
+  args: { label: 'ID', disabled: true, value: '00123' },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled input state for read-only or blocked interactions.',
+      },
+    },
+  },
+};
 export const TypeDate: Story = { args: { label: 'Date', type: 'date' } };
 export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } };
 export const WithLeftAddon: Story = {

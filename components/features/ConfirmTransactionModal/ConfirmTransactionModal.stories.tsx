@@ -36,6 +36,14 @@ export const Default: Story = {
     onCancel: fn(),
     isSubmitting: false,
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default confirmation flow with transaction summary and active confirm/cancel actions.',
+      },
+    },
+  },
 };
 
 export const Submitting: Story = {

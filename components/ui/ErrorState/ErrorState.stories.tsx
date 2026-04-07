@@ -31,4 +31,11 @@ export const Default: Story = {
       </Button>
     ),
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default error feedback with recovery action button for retry flows.',
+      },
+    },
+  },
 };

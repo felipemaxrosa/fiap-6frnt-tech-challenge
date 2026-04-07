@@ -32,4 +32,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default state with provider-wrapped form and confirmation modal flow for creating a new transaction.',
+      },
+    },
+  },
 };

@@ -24,6 +24,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
   args: {},
+  parameters: {
+    docs: {
+      description: {
+        story: 'Empty initial state for creating a new transaction.',
+      },
+    },
+  },
 };
 
 export const PrefilledDeposit: Story = {

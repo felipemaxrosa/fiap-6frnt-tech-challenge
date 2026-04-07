@@ -31,8 +31,26 @@ export const Ghost: Story = { args: { children: 'View more', variant: 'ghost' } 
 export const WithIcon: Story = {
   args: { children: 'New transaction', leftIcon: <Plus size={16} /> },
 };
-export const Loading: Story = { args: { children: 'Saving...', loading: true } };
-export const Disabled: Story = { args: { children: 'Unavailable', disabled: true } };
+export const Loading: Story = {
+  args: { children: 'Saving...', loading: true },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Loading state that disables interaction while an action is in progress.',
+      },
+    },
+  },
+};
+export const Disabled: Story = {
+  args: { children: 'Unavailable', disabled: true },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled state for unavailable actions.',
+      },
+    },
+  },
+};
 export const FullWidth: Story = { args: { children: 'Sign in', fullWidth: true } };
 export const Sizes: Story = {
   render: () => (

@@ -62,6 +62,13 @@ export const Error: Story = {
       </>
     );
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error feedback scenario for failed operations with clear recovery messaging.',
+      },
+    },
+  },
 };
 
 export const Info: Story = {
