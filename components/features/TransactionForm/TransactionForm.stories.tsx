@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { fn } from 'storybook/test';
+import { fn, userEvent, within } from 'storybook/test';
 import { TransactionForm } from './TransactionForm';
 
 const meta: Meta<typeof TransactionForm> = {
@@ -64,5 +64,23 @@ export const PrefilledWithdrawal: Story = {
 export const Submitting: Story = {
   args: {
     isSubmitting: true,
+  },
+};
+
+export const ValidationError: Story = {
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Validation error state after attempting submit with missing required fields (date and amount).',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.type(canvas.getByLabelText('Descrição'), 'Teste');
+    await userEvent.click(canvas.getByRole('button', { name: /Concluir transação/i }));
   },
 };
