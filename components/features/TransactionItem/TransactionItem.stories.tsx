@@ -91,3 +91,25 @@ export const LongDescription: Story = {
     docs: { description: { story: 'Long description truncates with ellipsis.' } },
   },
 };
+
+export const WithoutActions: Story = {
+  name: 'State: Without Actions',
+  args: {
+    transaction: {
+      id: '5',
+      type: 'deposit',
+      description: 'Salário mensal',
+      amount: 5000,
+      date: '2025-03-01',
+    },
+    showActions: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Read-only transaction item variant used in compact contexts without edit/delete actions.',
+      },
+    },
+  },
+};

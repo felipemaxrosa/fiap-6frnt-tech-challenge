@@ -52,9 +52,13 @@ export const WithError: Story = {
     },
   },
 };
-export const WithSuccess: Story = {
-  name: 'State: Success',
-  args: { label: 'Email', helperText: 'Valid email', value: 'user@email.com' },
+export const WithHelperText: Story = {
+  name: 'State: Helper Text',
+  args: {
+    label: 'Email',
+    helperText: 'We will never share your email.',
+    placeholder: 'you@example.com',
+  },
 };
 export const Disabled: Story = {
   name: 'State: Disabled',
