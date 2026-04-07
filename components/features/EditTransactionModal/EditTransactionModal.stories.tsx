@@ -55,7 +55,7 @@ export default meta;
 type Story = StoryObj<typeof EditTransactionModal>;
 
 export const Deposit: Story = {
-  name: 'Deposito',
+  name: 'Depósito',
   args: { transaction: DEPOSIT },
 };
 
@@ -65,7 +65,7 @@ export const Withdrawal: Story = {
 };
 
 export const LongDescription: Story = {
-  name: 'Descricao longa',
+  name: 'Descrição longa',
   args: { transaction: LONG_DESCRIPTION },
 };
 
