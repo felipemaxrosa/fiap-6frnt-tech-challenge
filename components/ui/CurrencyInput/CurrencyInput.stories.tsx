@@ -65,7 +65,6 @@ export default meta;
 type Story = StoryObj<typeof CurrencyInput>;
 
 export const Default: Story = {
-  name: 'Default',
   args: { label: 'Value', value: 0 },
   parameters: {
     docs: {
@@ -75,7 +74,6 @@ export const Default: Story = {
 };
 
 export const WithValue: Story = {
-  name: 'With Value',
   args: { label: 'Value', value: 1250.5 },
   parameters: {
     docs: {
@@ -85,7 +83,6 @@ export const WithValue: Story = {
 };
 
 export const WithHelperText: Story = {
-  name: 'With Helper Text',
   args: {
     label: 'Value',
     value: 0,
@@ -99,7 +96,6 @@ export const WithHelperText: Story = {
 };
 
 export const WithError: Story = {
-  name: 'With Error',
   args: {
     label: 'Value',
     value: 0,
@@ -114,7 +110,6 @@ export const WithError: Story = {
 };
 
 export const Disabled: Story = {
-  name: 'Disabled',
   args: { label: 'Value', value: 500, disabled: true },
   parameters: {
     docs: {
