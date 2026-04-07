@@ -13,7 +13,7 @@ const meta: Meta<typeof NewTransaction> = {
     docs: {
       description: {
         component:
-          'Feature section for creating a transaction, combining TransactionForm and confirmation flow with feedback/context providers.',
+          'Feature section for creating a transaction, combining TransactionForm and confirmation flow. Requires FeedbackProvider and TransactionsProvider contexts (applied via story decorator).',
       },
     },
   },
@@ -37,7 +37,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          'Default state with provider-wrapped form and confirmation modal flow for creating a new transaction.',
+          'Default state with provider-wrapped form and confirmation modal flow for creating a new transaction. This story includes required FeedbackProvider and TransactionsProvider decorators.',
       },
     },
   },

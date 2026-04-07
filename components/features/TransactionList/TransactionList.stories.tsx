@@ -38,7 +38,7 @@ const meta: Meta<typeof TransactionList> = {
     docs: {
       description: {
         component:
-          'Renders a list of transactions using TransactionItem. Handles loading and empty states. Supports optional title and custom className for different layout contexts.',
+          'Renders a list of transactions using TransactionItem. Handles loading and empty states. Supports optional title and custom className for different layout contexts. Does not require providers directly; in app usage it is commonly wired with TransactionsContext data and filter state.',
       },
     },
   },
@@ -72,6 +72,21 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: { story: 'Full list with mixed transaction types.' },
+    },
+  },
+};
+
+export const ContextIntegration: Story = {
+  name: 'Context Integration Notes',
+  args: {
+    transactions: MOCK_TRANSACTIONS,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Integration reference: in production this component typically receives `transactions`, `onEdit`, and `onDelete` from TransactionsContext-driven containers.',
+      },
     },
   },
 };
