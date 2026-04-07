@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
+import { Button } from '@/components/ui/Button';
 import { Modal } from './Modal';
 
 const meta: Meta<typeof Modal> = {
   title: 'UI/Modal',
   component: Modal,
   tags: ['autodocs'],
+  args: {
+    isOpen: false,
+  },
   argTypes: {
     isOpen: { control: 'boolean' },
     title: { control: 'text' },
@@ -29,12 +33,9 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 const openButton = (onClick: () => void) => (
-  <button
-    onClick={onClick}
-    className="rounded-default bg-brand-primary px-md py-sm body-semibold text-content-inverse"
-  >
+  <Button type="button" onClick={onClick}>
     Abrir modal
-  </button>
+  </Button>
 );
 
 const confirmContent = (onClose: () => void) => (
@@ -112,11 +113,29 @@ export const WithoutCloseButton: Story = {
 export const AccessibilityKeyboardFocus: Story = {
   name: 'State: Accessibility Keyboard / Escape',
   args: {
-    isOpen: true,
+    isOpen: false,
     onClose: fn(),
     title: 'Confirmar ação',
     showCloseButton: true,
     children: confirmContent(() => {}),
+  },
+  render: (args) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        {openButton(() => setOpen(true))}
+        <Modal
+          {...args}
+          isOpen={open}
+          onClose={() => {
+            args.onClose?.();
+            setOpen(false);
+          }}
+        >
+          {confirmContent(() => setOpen(false))}
+        </Modal>
+      </>
+    );
   },
   parameters: {
     docs: {
@@ -128,6 +147,7 @@ export const AccessibilityKeyboardFocus: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: /Abrir modal/i }));
     expect(canvas.getByRole('dialog')).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     expect(args.onClose).toHaveBeenCalled();
