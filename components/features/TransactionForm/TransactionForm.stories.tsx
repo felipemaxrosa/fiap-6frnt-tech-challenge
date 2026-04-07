@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import type { TransactionFormValues } from './ITransactionForm';
+import { fn } from 'storybook/test';
 import { TransactionForm } from './TransactionForm';
 
 const meta: Meta<typeof TransactionForm> = {
@@ -7,8 +7,8 @@ const meta: Meta<typeof TransactionForm> = {
   title: 'Features/TransactionForm',
   tags: ['autodocs'],
   args: {
-    onSubmit: (data: TransactionFormValues) => console.log('Form submitted:', data),
-    onCancel: () => console.log('Form cancelled'),
+    onSubmit: fn(),
+    onCancel: fn(),
   },
 };
 

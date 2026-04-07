@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { TransactionList } from './TransactionList';
 import { ReceiptText } from 'lucide-react';
@@ -30,8 +31,8 @@ const meta: Meta<typeof TransactionList> = {
   tags: ['autodocs'],
   args: {
     transactions: MOCK_TRANSACTIONS,
-    onEdit: (id) => console.log('edit', id),
-    onDelete: (id) => console.log('delete', id),
+    onEdit: fn(),
+    onDelete: fn(),
   },
   parameters: {
     docs: {

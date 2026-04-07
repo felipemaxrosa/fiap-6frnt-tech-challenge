@@ -1,6 +1,7 @@
 'use client';
 
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import { ConfirmTransactionModal } from './ConfirmTransactionModal';
 
 const meta: Meta<typeof ConfirmTransactionModal> = {
@@ -23,8 +24,8 @@ export const Default: Story = {
   args: {
     isOpen: true,
     transaction: mockTransaction,
-    onConfirm: () => console.log('Confirmado'),
-    onCancel: () => console.log('Cancelado'),
+    onConfirm: fn(),
+    onCancel: fn(),
     isSubmitting: false,
   },
 };
@@ -33,8 +34,8 @@ export const Submitting: Story = {
   args: {
     isOpen: true,
     transaction: mockTransaction,
-    onConfirm: () => {},
-    onCancel: () => {},
+    onConfirm: fn(),
+    onCancel: fn(),
     isSubmitting: true,
   },
 };

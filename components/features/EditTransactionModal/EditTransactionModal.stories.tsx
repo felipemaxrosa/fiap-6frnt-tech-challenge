@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { EditTransactionModal } from './EditTransactionModal';
 
@@ -31,8 +32,8 @@ const meta: Meta<typeof EditTransactionModal> = {
   component: EditTransactionModal,
   tags: ['autodocs'],
   args: {
-    onConfirm: async (data) => console.log('edit confirmed', data),
-    onCancel: () => console.log('edit cancelled'),
+    onConfirm: fn(),
+    onCancel: fn(),
     isSubmitting: false,
   },
   argTypes: {

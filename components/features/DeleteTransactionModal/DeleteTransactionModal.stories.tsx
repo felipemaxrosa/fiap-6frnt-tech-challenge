@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { DeleteTransactionModal } from './DeleteTransactionModal';
 
@@ -39,8 +40,8 @@ const meta: Meta<typeof DeleteTransactionModal> = {
   component: DeleteTransactionModal,
   tags: ['autodocs'],
   args: {
-    onConfirm: () => console.log('confirmed'),
-    onCancel: () => console.log('cancelled'),
+    onConfirm: fn(),
+    onCancel: fn(),
   },
   argTypes: {
     onConfirm: { control: false },

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import { TransactionItem } from './TransactionItem';
 
 const meta: Meta<typeof TransactionItem> = {
@@ -6,8 +7,8 @@ const meta: Meta<typeof TransactionItem> = {
   component: TransactionItem,
   tags: ['autodocs'],
   args: {
-    onEdit: (id) => console.log('edit', id),
-    onDelete: (id) => console.log('delete', id),
+    onEdit: fn(),
+    onDelete: fn(),
   },
   parameters: {
     docs: {
