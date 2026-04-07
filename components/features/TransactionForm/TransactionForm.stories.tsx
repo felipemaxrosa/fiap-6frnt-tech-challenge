@@ -8,7 +8,6 @@ const meta: Meta<typeof TransactionForm> = {
   tags: ['autodocs'],
   args: {
     onSubmit: fn(),
-    onCancel: fn(),
   },
 };
 
