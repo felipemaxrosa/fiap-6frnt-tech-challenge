@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { fn } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { DeleteTransactionModal } from './DeleteTransactionModal';
 
@@ -100,5 +100,27 @@ export const Closed: Story = {
   args: { transaction: null },
   parameters: {
     docs: { description: { story: 'Modal in closed state — nothing is rendered.' } },
+  },
+};
+
+export const AccessibilityKeyboardFocus: Story = {
+  name: 'Accessibility: Keyboard / Escape',
+  args: {
+    transaction: DEPOSIT,
+    onConfirm: fn(),
+    onCancel: fn(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A11y check: with modal open, Escape closes the dialog through the cancel callback.',
+      },
+    },
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(args.onCancel).toHaveBeenCalled();
   },
 };

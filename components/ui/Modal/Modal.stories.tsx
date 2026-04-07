@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { Modal } from './Modal';
 
 const meta: Meta<typeof Modal> = {
@@ -102,5 +103,30 @@ export const WithoutCloseButton: Story = {
         </Modal>
       </>
     );
+  },
+};
+
+export const AccessibilityKeyboardFocus: Story = {
+  name: 'Accessibility: Keyboard / Escape',
+  args: {
+    isOpen: true,
+    onClose: fn(),
+    title: 'Confirmar ação',
+    showCloseButton: true,
+    children: confirmContent(() => {}),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A11y check for dialog semantics and keyboard behavior: the modal is focusable and Escape triggers onClose.',
+      },
+    },
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(args.onClose).toHaveBeenCalled();
   },
 };

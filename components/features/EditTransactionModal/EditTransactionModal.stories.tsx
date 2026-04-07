@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { fn } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { EditTransactionModal } from './EditTransactionModal';
 
@@ -80,4 +80,28 @@ export const Submitting: Story = {
 export const Closed: Story = {
   name: 'Fechado',
   args: { transaction: null },
+};
+
+export const AccessibilityKeyboardFocus: Story = {
+  name: 'Accessibility: Keyboard / Escape',
+  args: {
+    transaction: DEPOSIT,
+    onConfirm: fn(),
+    onCancel: fn(),
+    isSubmitting: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A11y check: editing dialog supports keyboard interaction and Escape invokes cancel.',
+      },
+    },
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(args.onCancel).toHaveBeenCalled();
+  },
 };

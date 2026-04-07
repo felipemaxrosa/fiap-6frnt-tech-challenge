@@ -1,7 +1,7 @@
 'use client';
 
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { fn } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { ConfirmTransactionModal } from './ConfirmTransactionModal';
 
 const meta: Meta<typeof ConfirmTransactionModal> = {
@@ -60,5 +60,29 @@ export const Submitting: Story = {
     onConfirm: fn(),
     onCancel: fn(),
     isSubmitting: true,
+  },
+};
+
+export const AccessibilityKeyboardFocus: Story = {
+  name: 'Accessibility: Keyboard / Escape',
+  args: {
+    isOpen: true,
+    transaction: mockTransaction,
+    onConfirm: fn(),
+    onCancel: fn(),
+    isSubmitting: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A11y check: dialog is announced correctly and Escape closes via onCancel callback.',
+      },
+    },
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement.ownerDocument.body);
+    expect(canvas.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(args.onCancel).toHaveBeenCalled();
   },
 };
