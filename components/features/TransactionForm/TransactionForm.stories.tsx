@@ -29,6 +29,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
+  name: 'State: Empty',
   args: {},
   parameters: {
     docs: {
@@ -40,6 +41,7 @@ export const Empty: Story = {
 };
 
 export const PrefilledDeposit: Story = {
+  name: 'Variant: Prefilled Deposit',
   args: {
     initialValues: {
       type: 'deposit',
@@ -51,6 +53,7 @@ export const PrefilledDeposit: Story = {
 };
 
 export const PrefilledWithdrawal: Story = {
+  name: 'Variant: Prefilled Withdrawal',
   args: {
     initialValues: {
       type: 'withdrawal',
@@ -62,12 +65,14 @@ export const PrefilledWithdrawal: Story = {
 };
 
 export const Submitting: Story = {
+  name: 'State: Submitting',
   args: {
     isSubmitting: true,
   },
 };
 
 export const ValidationError: Story = {
+  name: 'State: Validation Error',
   args: {},
   parameters: {
     docs: {

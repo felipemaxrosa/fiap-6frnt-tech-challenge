@@ -31,6 +31,7 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
+  name: 'State: Default',
   args: { label: 'Description', placeholder: 'e.g. Salary' },
   parameters: {
     docs: {
@@ -41,6 +42,7 @@ export const Default: Story = {
   },
 };
 export const WithError: Story = {
+  name: 'State: Error',
   args: { label: 'Amount', error: true, helperText: 'This field is required', placeholder: '0.00' },
   parameters: {
     docs: {
@@ -51,9 +53,11 @@ export const WithError: Story = {
   },
 };
 export const WithSuccess: Story = {
+  name: 'State: Success',
   args: { label: 'Email', helperText: 'Valid email', value: 'user@email.com' },
 };
 export const Disabled: Story = {
+  name: 'State: Disabled',
   args: { label: 'ID', disabled: true, value: '00123' },
   parameters: {
     docs: {
@@ -63,9 +67,16 @@ export const Disabled: Story = {
     },
   },
 };
-export const TypeDate: Story = { args: { label: 'Date', type: 'date' } };
-export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } };
+export const TypeDate: Story = {
+  name: 'Variant: Type Date',
+  args: { label: 'Date', type: 'date' },
+};
+export const TypeNumber: Story = {
+  name: 'Variant: Type Number',
+  args: { label: 'Amount', type: 'number', placeholder: '0' },
+};
 export const WithLeftAddon: Story = {
+  name: 'Composition: Left Addon',
   args: {
     label: 'Amount',
     leftAddon: <DollarSign size={16} />,

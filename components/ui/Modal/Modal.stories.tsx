@@ -60,6 +60,7 @@ const confirmContent = (onClose: () => void) => (
 );
 
 export const WithTitle: Story = {
+  name: 'Variant: With Title',
   render: () => {
     const [open, setOpen] = useState(false);
     return (
@@ -74,6 +75,7 @@ export const WithTitle: Story = {
 };
 
 export const WithoutTitle: Story = {
+  name: 'Variant: Without Title',
   render: () => {
     const [open, setOpen] = useState(false);
     return (
@@ -88,6 +90,7 @@ export const WithoutTitle: Story = {
 };
 
 export const WithoutCloseButton: Story = {
+  name: 'State: Without Close Button',
   render: () => {
     const [open, setOpen] = useState(false);
     return (
@@ -107,7 +110,7 @@ export const WithoutCloseButton: Story = {
 };
 
 export const AccessibilityKeyboardFocus: Story = {
-  name: 'Accessibility: Keyboard / Escape',
+  name: 'State: Accessibility Keyboard / Escape',
   args: {
     isOpen: true,
     onClose: fn(),

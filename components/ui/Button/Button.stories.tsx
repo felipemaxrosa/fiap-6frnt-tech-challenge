@@ -25,13 +25,24 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = { args: { children: 'Confirm', variant: 'primary' } };
-export const Secondary: Story = { args: { children: 'Cancel', variant: 'secondary' } };
-export const Ghost: Story = { args: { children: 'View more', variant: 'ghost' } };
+export const Primary: Story = {
+  name: 'Variant: Primary',
+  args: { children: 'Confirm', variant: 'primary' },
+};
+export const Secondary: Story = {
+  name: 'Variant: Secondary',
+  args: { children: 'Cancel', variant: 'secondary' },
+};
+export const Ghost: Story = {
+  name: 'Variant: Ghost',
+  args: { children: 'View more', variant: 'ghost' },
+};
 export const WithIcon: Story = {
+  name: 'Composition: With Icon',
   args: { children: 'New transaction', leftIcon: <Plus size={16} /> },
 };
 export const Loading: Story = {
+  name: 'State: Loading',
   args: { children: 'Saving...', loading: true },
   parameters: {
     docs: {
@@ -42,6 +53,7 @@ export const Loading: Story = {
   },
 };
 export const Disabled: Story = {
+  name: 'State: Disabled',
   args: { children: 'Unavailable', disabled: true },
   parameters: {
     docs: {
@@ -51,8 +63,12 @@ export const Disabled: Story = {
     },
   },
 };
-export const FullWidth: Story = { args: { children: 'Sign in', fullWidth: true } };
+export const FullWidth: Story = {
+  name: 'Composition: Full Width',
+  args: { children: 'Sign in', fullWidth: true },
+};
 export const Sizes: Story = {
+  name: 'Variant: Sizes',
   render: () => (
     <div className="flex items-center gap-3">
       <Button size="sm">Small</Button>

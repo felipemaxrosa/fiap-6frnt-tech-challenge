@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof TransactionItem>;
 
 export const Deposit: Story = {
-  name: 'Deposit',
+  name: 'Variant: Deposit',
   args: {
     transaction: {
       id: '1',
@@ -44,7 +44,7 @@ export const Deposit: Story = {
 };
 
 export const Withdrawal: Story = {
-  name: 'Withdrawal',
+  name: 'Variant: Withdrawal',
   args: {
     transaction: {
       id: '2',
@@ -60,7 +60,7 @@ export const Withdrawal: Story = {
 };
 
 export const Transfer: Story = {
-  name: 'Transfer',
+  name: 'Variant: Transfer',
   args: {
     transaction: {
       id: '3',
@@ -76,7 +76,7 @@ export const Transfer: Story = {
 };
 
 export const LongDescription: Story = {
-  name: 'Long Description',
+  name: 'Composition: Long Description',
   args: {
     transaction: {
       id: '4',

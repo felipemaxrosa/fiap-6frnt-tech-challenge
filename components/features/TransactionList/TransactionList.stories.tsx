@@ -68,7 +68,7 @@ export default meta;
 type Story = StoryObj<typeof TransactionList>;
 
 export const Default: Story = {
-  name: 'Default',
+  name: 'State: Default',
   parameters: {
     docs: {
       description: { story: 'Full list with mixed transaction types.' },
@@ -77,7 +77,7 @@ export const Default: Story = {
 };
 
 export const ContextIntegration: Story = {
-  name: 'Context Integration Notes',
+  name: 'Composition: Context Integration',
   args: {
     transactions: MOCK_TRANSACTIONS,
   },
@@ -92,7 +92,7 @@ export const ContextIntegration: Story = {
 };
 
 export const Loading: Story = {
-  name: 'Loading',
+  name: 'State: Loading',
   args: { isLoading: true },
   parameters: {
     docs: {
@@ -102,7 +102,7 @@ export const Loading: Story = {
 };
 
 export const Empty: Story = {
-  name: 'Empty',
+  name: 'State: Empty',
   args: { transactions: [] },
   parameters: {
     docs: {
@@ -112,7 +112,7 @@ export const Empty: Story = {
 };
 
 export const EmptyWithCustomMessage: Story = {
-  name: 'Empty — Custom Message',
+  name: 'Composition: Empty Custom Message',
   args: {
     transactions: [],
     emptyState: (
@@ -131,7 +131,7 @@ export const EmptyWithCustomMessage: Story = {
 };
 
 export const WithTitle: Story = {
-  name: 'With Title (Sidebar)',
+  name: 'Composition: With Title Sidebar',
   args: {
     title: 'Extrato',
     className: 'lg:w-80 lg:shrink-0',
@@ -144,7 +144,7 @@ export const WithTitle: Story = {
 };
 
 export const FullWidth: Story = {
-  name: 'Full Width (Transactions Page)',
+  name: 'Composition: Full Width Transactions Page',
   args: {
     className: 'w-full overflow-y-auto max-h-[calc(100vh-300px)]',
   },

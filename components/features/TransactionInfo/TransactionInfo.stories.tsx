@@ -21,6 +21,7 @@ export default meta;
 type Story = StoryObj<typeof TransactionInfo>;
 
 export const Deposit: Story = {
+  name: 'Variant: Deposit',
   args: {
     transaction: {
       type: 'deposit',
@@ -32,6 +33,7 @@ export const Deposit: Story = {
 };
 
 export const Withdrawal: Story = {
+  name: 'Variant: Withdrawal',
   args: {
     transaction: {
       type: 'withdrawal',
@@ -43,6 +45,7 @@ export const Withdrawal: Story = {
 };
 
 export const Transfer: Story = {
+  name: 'Variant: Transfer',
   args: {
     transaction: {
       type: 'transfer',

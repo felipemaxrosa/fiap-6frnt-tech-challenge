@@ -31,7 +31,7 @@ function Controlled({ initialValue }: { initialValue: TransactionFiltersValue })
 }
 
 export const Default: Story = {
-  name: 'Default',
+  name: 'State: Default',
   render: () => <Controlled initialValue={DEFAULT_FILTERS} />,
   parameters: {
     docs: {
@@ -41,7 +41,7 @@ export const Default: Story = {
 };
 
 export const TypeFiltered: Story = {
-  name: 'Type — Deposit',
+  name: 'Variant: Type Deposit',
   render: () => <Controlled initialValue={{ ...DEFAULT_FILTERS, type: 'deposit' }} />,
   parameters: {
     docs: {
@@ -51,7 +51,7 @@ export const TypeFiltered: Story = {
 };
 
 export const DateRangeFiltered: Story = {
-  name: 'Date Range',
+  name: 'Variant: Date Range',
   render: () => (
     <Controlled
       initialValue={{ ...DEFAULT_FILTERS, dateFrom: '2025-01-01', dateTo: '2025-03-31' }}
@@ -65,7 +65,7 @@ export const DateRangeFiltered: Story = {
 };
 
 export const SortByAmount: Story = {
-  name: 'Sort by Amount',
+  name: 'Variant: Sort by Amount',
   render: () => (
     <Controlled initialValue={{ ...DEFAULT_FILTERS, sortBy: 'amount', sortOrder: 'desc' }} />
   ),
