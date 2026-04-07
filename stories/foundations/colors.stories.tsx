@@ -96,7 +96,7 @@ export const Palette: Story = {
                   style={{ background: `var(${color.token})` }}
                 />
                 <p className="text-sm mt-2 font-medium">{color.name}</p>
-                <p className="text-xs text-gray-500">{color.token}</p>
+                <p className="text-xs text-content-secondary">{color.token}</p>
               </div>
             ))}
           </div>

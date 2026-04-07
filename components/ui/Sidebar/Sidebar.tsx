@@ -32,8 +32,8 @@ export function Sidebar({ onLinkClick, activePath }: SidebarProps) {
                   'block rounded-default p-md',
                   isSelected ? 'body-semibold' : '',
                   isSelected
-                    ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-brand-primary'
-                    : 'text-content-inverse hover:text-content-inverse/80'
+                    ? 'border-l-2 border-brand-primary bg-badge-transfer-bg text-content-inverse'
+                    : 'text-content-inverse/80 hover:text-content-inverse/80'
                 )}
               >
                 {link.label}

@@ -10,6 +10,13 @@ const meta: Meta<typeof TransactionItem> = {
     onEdit: fn(),
     onDelete: fn(),
   },
+  decorators: [
+    (Story) => (
+      <ul className="list-none p-0 m-0">
+        <Story />
+      </ul>
+    ),
+  ],
   parameters: {
     docs: {
       description: {
