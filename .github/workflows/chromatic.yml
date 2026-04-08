@@ -3,7 +3,7 @@ name: Chromatic
 on:
   push:
     branches:
-      - master
+      - main
       - phase-1
 
 jobs:
