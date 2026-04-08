@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Eye, EyeOff } from 'lucide-react';
-import { formatCurrencyExact, formatTodayDate } from '@/lib/format';
-import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { formatCurrencyExact, formatTodayDate } from '@/lib/format';
+import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
 import type { BalanceCardProps } from './IBalanceCard';
 
 export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: BalanceCardProps) {
@@ -52,7 +52,8 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
             aria-hidden="true"
             width={283}
             height={229}
-            className="pointer-events-none select-none max-md:hidden"
+            priority
+            className="pointer-events-none select-none hidden md:block"
             alt=""
           />
         </div>
@@ -98,7 +99,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
           aria-hidden="true"
           width={283}
           height={229}
-          className="pointer-events-none select-none hidden max-md:block"
+          className="pointer-events-none select-none md:hidden"
           alt=""
         />
       </div>

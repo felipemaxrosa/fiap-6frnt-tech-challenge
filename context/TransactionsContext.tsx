@@ -1,9 +1,17 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from 'react';
-import type { Transaction, NewTransaction, UpdateTransaction } from '@/types';
-import { calculateBalance, getRecent, getAll } from '@/lib/transactions';
+import { calculateBalance, getAll } from '@/lib/transactions';
 import { TransactionService } from '@/services';
+import type { NewTransaction, Transaction, UpdateTransaction } from '@/types';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 interface TransactionsContextValue {
   transactions: Transaction[];
   balance: number;
@@ -42,40 +50,43 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     fetchTransactions();
   }, []);
 
-  const addTransaction = async (data: NewTransaction) => {
+  const addTransaction = useCallback(async (data: NewTransaction) => {
     const created = await TransactionService.create(data);
     setTransactionsMap((prev) => new Map(prev).set(created.id, created));
-  };
+  }, []);
 
-  const updateTransaction = async (id: string, data: UpdateTransaction) => {
+  const updateTransaction = useCallback(async (id: string, data: UpdateTransaction) => {
     const updated = await TransactionService.update(id, data);
     setTransactionsMap((prev) => new Map(prev).set(id, updated));
-  };
+  }, []);
 
-  const deleteTransaction = async (id: string) => {
+  const deleteTransaction = useCallback(async (id: string) => {
     await TransactionService.remove(id);
     setTransactionsMap((prev) => {
       const next = new Map(prev);
       next.delete(id);
       return next;
     });
-  };
+  }, []);
+
+  const sorted = useMemo(() => getAll(transactions), [transactions]);
+
+  const contextValue = useMemo(
+    () => ({
+      transactions: sorted,
+      balance: calculateBalance(transactions),
+      recentTransactions: sorted.slice(0, 5),
+      isLoading,
+      addTransaction,
+      updateTransaction,
+      deleteTransaction,
+      isError,
+    }),
+    [sorted, transactions, isLoading, isError, addTransaction, updateTransaction, deleteTransaction]
+  );
 
   return (
-    <TransactionsContext.Provider
-      value={{
-        transactions: getAll(transactions),
-        balance: calculateBalance(transactions),
-        recentTransactions: getRecent(transactions),
-        isLoading,
-        addTransaction,
-        updateTransaction,
-        deleteTransaction,
-        isError,
-      }}
-    >
-      {children}
-    </TransactionsContext.Provider>
+    <TransactionsContext.Provider value={contextValue}>{children}</TransactionsContext.Provider>
   );
 }
 

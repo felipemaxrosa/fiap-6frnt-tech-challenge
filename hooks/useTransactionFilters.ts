@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import type { Transaction } from '@/types';
-import { DEFAULT_FILTERS } from '@/components/features/TransactionFilters';
 import type { TransactionFiltersValue } from '@/components/features/TransactionFilters';
+import { DEFAULT_FILTERS } from '@/components/features/TransactionFilters';
+import type { Transaction } from '@/types';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo, useState } from 'react';
 
 function matchesType(t: Transaction, type: TransactionFiltersValue['type']) {
   return type === 'all' || t.type === type;
@@ -55,11 +55,15 @@ export function useTransactionFilters(transactions: Transaction[]) {
     [router]
   );
 
-  const filtered = transactions
-    .filter((t) => matchesType(t, filters.type))
-    .filter((t) => matchesDateFrom(t, filters.dateFrom))
-    .filter((t) => matchesDateTo(t, filters.dateTo))
-    .sort((a, b) => sortTransactions(a, b, filters));
+  const filtered = useMemo(
+    () =>
+      transactions
+        .filter((t) => matchesType(t, filters.type))
+        .filter((t) => matchesDateFrom(t, filters.dateFrom))
+        .filter((t) => matchesDateTo(t, filters.dateTo))
+        .sort((a, b) => sortTransactions(a, b, filters)),
+    [transactions, filters]
+  );
 
   const clearFilters = useCallback(() => setFilters(DEFAULT_FILTERS), [setFilters]);
 

@@ -14,9 +14,6 @@ export const Default: Story = { args: { label: 'Description', placeholder: 'e.g.
 export const WithError: Story = {
   args: { label: 'Amount', error: true, helperText: 'This field is required', placeholder: '0.00' },
 };
-export const WithSuccess: Story = {
-  args: { label: 'Email', success: true, helperText: 'Valid email', value: 'user@email.com' },
-};
 export const Disabled: Story = { args: { label: 'ID', disabled: true, value: '00123' } };
 export const TypeDate: Story = { args: { label: 'Date', type: 'date' } };
 export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } };

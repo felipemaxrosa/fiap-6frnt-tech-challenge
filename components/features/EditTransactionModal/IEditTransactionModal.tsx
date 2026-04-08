@@ -1,5 +1,5 @@
-import { Transaction } from '@/types';
-import { TransactionFormValues } from '../TransactionForm';
+import type { Transaction } from '@/types';
+import type { TransactionFormValues } from '../TransactionForm/ITransactionForm';
 
 export interface EditTransactionModalProps {
   transaction: Transaction | null;
