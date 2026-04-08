@@ -16,11 +16,19 @@ export function TransactionList({
 }: TransactionListProps) {
   const renderListContent = () => {
     if (isLoading) {
-      return <SkeletonList lines={5} showActions={showActions} />;
+      return (
+        <li className="list-none">
+          <SkeletonList lines={5} showActions={showActions} />
+        </li>
+      );
     }
 
     if (!transactions.length) {
-      return emptyState;
+      if (!emptyState) {
+        return null;
+      }
+
+      return <li className="list-none">{emptyState}</li>;
     }
 
     return transactions.map((transaction) => (

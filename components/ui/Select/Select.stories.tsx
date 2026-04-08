@@ -51,7 +51,6 @@ export default meta;
 type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
-  name: 'Default',
   args: { label: 'Transaction type', placeholder: 'Select the transaction type' },
   parameters: {
     docs: {
@@ -61,7 +60,6 @@ export const Default: Story = {
 };
 
 export const WithHelperText: Story = {
-  name: 'With Helper Text',
   args: {
     label: 'Transaction type',
     placeholder: 'Select the transaction type',
@@ -75,7 +73,6 @@ export const WithHelperText: Story = {
 };
 
 export const WithError: Story = {
-  name: 'With Error',
   args: {
     label: 'Transaction type',
     error: true,
@@ -90,7 +87,6 @@ export const WithError: Story = {
 };
 
 export const Disabled: Story = {
-  name: 'Disabled',
   args: { label: 'Transaction type', disabled: true, value: 'deposit' },
   parameters: {
     docs: {
@@ -100,7 +96,6 @@ export const Disabled: Story = {
 };
 
 export const NoLabel: Story = {
-  name: 'No Label',
   args: { placeholder: 'Select the transaction type' },
   parameters: {
     docs: {

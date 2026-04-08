@@ -38,7 +38,6 @@ export default meta;
 type Story = StoryObj<typeof BalanceCard>;
 
 export const Default: Story = {
-  name: 'Default',
   args: {},
   parameters: {
     docs: {
@@ -50,7 +49,6 @@ export const Default: Story = {
 };
 
 export const NegativeBalance: Story = {
-  name: 'Negative Balance',
   args: {
     balance: -350.75,
   },
@@ -62,7 +60,6 @@ export const NegativeBalance: Story = {
 };
 
 export const WithoutOwner: Story = {
-  name: 'Without Owner',
   args: {
     owner: undefined,
   },
@@ -74,7 +71,6 @@ export const WithoutOwner: Story = {
 };
 
 export const CustomLabel: Story = {
-  name: 'Custom Label',
   args: {
     label: 'Conta Poupança',
   },

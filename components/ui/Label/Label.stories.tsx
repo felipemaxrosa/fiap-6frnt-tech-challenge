@@ -5,6 +5,19 @@ const meta: Meta<typeof Label> = {
   title: 'UI/Label',
   component: Label,
   tags: ['autodocs'],
+  argTypes: {
+    children: { control: 'text' },
+    required: { control: 'boolean' },
+    htmlFor: { control: 'text' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Accessible form label component with optional required indicator for associated form controls.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Label>;

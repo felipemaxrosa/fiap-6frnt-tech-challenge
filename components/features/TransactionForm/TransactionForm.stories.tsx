@@ -1,14 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import type { TransactionFormValues } from './ITransactionForm';
+import { fn, userEvent, within } from 'storybook/test';
 import { TransactionForm } from './TransactionForm';
 
 const meta: Meta<typeof TransactionForm> = {
   component: TransactionForm,
   title: 'Features/TransactionForm',
   tags: ['autodocs'],
+  argTypes: {
+    initialValues: { control: 'object' },
+    isSubmitting: { control: 'boolean' },
+    onSubmit: { control: false },
+    onCancel: { control: false },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Form used to create or edit transactions, including type, amount, date, description, validation, and submitting state.',
+      },
+    },
+  },
   args: {
-    onSubmit: (data: TransactionFormValues) => console.log('Form submitted:', data),
-    onCancel: () => console.log('Form cancelled'),
+    onSubmit: fn(),
   },
 };
 
@@ -16,10 +29,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
+  name: 'State: Empty',
   args: {},
+  parameters: {
+    docs: {
+      description: {
+        story: 'Empty initial state for creating a new transaction.',
+      },
+    },
+  },
 };
 
 export const PrefilledDeposit: Story = {
+  name: 'Variant: Prefilled Deposit',
   args: {
     initialValues: {
       type: 'deposit',
@@ -31,6 +53,7 @@ export const PrefilledDeposit: Story = {
 };
 
 export const PrefilledWithdrawal: Story = {
+  name: 'Variant: Prefilled Withdrawal',
   args: {
     initialValues: {
       type: 'withdrawal',
@@ -42,7 +65,27 @@ export const PrefilledWithdrawal: Story = {
 };
 
 export const Submitting: Story = {
+  name: 'State: Submitting',
   args: {
     isSubmitting: true,
+  },
+};
+
+export const ValidationError: Story = {
+  name: 'State: Validation Error',
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Validation error state after attempting submit with missing required fields (date and amount).',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.type(canvas.getByLabelText('Descrição'), 'Teste');
+    await userEvent.click(canvas.getByRole('button', { name: /Concluir transação/i }));
   },
 };

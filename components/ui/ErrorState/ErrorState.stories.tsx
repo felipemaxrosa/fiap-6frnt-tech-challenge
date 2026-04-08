@@ -7,7 +7,21 @@ const meta: Meta<typeof ErrorState> = {
   title: 'UI/ErrorState',
   component: ErrorState,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  argTypes: {
+    icon: { control: false },
+    title: { control: 'text' },
+    description: { control: 'text' },
+    action: { control: false },
+  },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Reusable error feedback block with icon, title, description, and optional recovery action.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof ErrorState>;
@@ -22,5 +36,12 @@ export const Default: Story = {
         Tentar novamente
       </Button>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default error feedback with recovery action button for retry flows.',
+      },
+    },
   },
 };

@@ -5,6 +5,20 @@ const meta: Meta<typeof Card> = {
   title: 'UI/Card',
   component: Card,
   tags: ['autodocs'],
+  argTypes: {
+    as: { control: 'select', options: ['div', 'section', 'article'] },
+    padding: { control: 'select', options: ['sm', 'md', 'lg'] },
+    hoverable: { control: 'boolean' },
+    children: { control: false },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Surface container used to group related content, with configurable padding, semantic element, and hover behavior.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Card>;
@@ -12,6 +26,13 @@ type Story = StoryObj<typeof Card>;
 export const Default: Story = {
   args: {
     children: <p className="text-content-secondary">Card content goes here</p>,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default card rendering for grouped content without hover behavior.',
+      },
+    },
   },
 };
 export const Hoverable: Story = {
