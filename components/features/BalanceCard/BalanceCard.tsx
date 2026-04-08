@@ -61,6 +61,7 @@ export function BalanceCard({
             width={283}
             height={229}
             priority
+            sizes="(max-width: 767px) 0px, 283px"
             className="pointer-events-none select-none hidden md:block"
             alt=""
           />
@@ -112,6 +113,7 @@ export function BalanceCard({
           width={283}
           height={229}
           priority
+          sizes="(max-width: 767px) 283px, 0px"
           className="pointer-events-none select-none md:hidden"
           alt=""
         />
