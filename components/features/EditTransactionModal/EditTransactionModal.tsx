@@ -2,7 +2,7 @@
 
 import { Modal } from '@/components/ui';
 import { EditTransactionModalProps } from './IEditTransactionModal';
-import { TransactionForm } from '../TransactionForm';
+import { TransactionForm } from '../TransactionForm/TransactionForm';
 
 export function EditTransactionModal({
   transaction,

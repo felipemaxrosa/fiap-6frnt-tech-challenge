@@ -1,15 +1,19 @@
 'use client';
 import { BalanceCard } from '@/components/features/BalanceCard';
-import { NewTransaction } from '@/components/features/NewTransaction';
 import { TransactionList } from '@/components/features/TransactionList';
 import { Button } from '@/components/ui/Button/Button';
 import { EmptyState } from '@/components/ui/EmptyState/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState/ErrorState';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { useTransactions } from '@/context/TransactionsContext';
 import { ReceiptText } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useMemo } from 'react';
+
+const NewTransaction = dynamic(
+  () => import('@/components/features/NewTransaction').then((m) => m.NewTransaction),
+  { ssr: false }
+);
 
 export default function Home() {
   const { transactions, balance, isLoading, isError } = useTransactions();
@@ -27,11 +31,7 @@ export default function Home() {
         <h1 id="overview-heading" className="sr-only">
           Visão geral da conta
         </h1>
-        {isLoading ? (
-          <Skeleton className=" h-134.5 md:h-91 w-full rounded-xl" />
-        ) : (
-          <BalanceCard balance={balance} owner="Joana" />
-        )}
+        <BalanceCard balance={balance} owner="Joana" isLoading={isLoading} />
 
         <NewTransaction />
       </section>

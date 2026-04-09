@@ -1,19 +1,28 @@
 'use client';
 
-import { Suspense, useState } from 'react';
-import { TransactionList } from '@/components/features/TransactionList';
 import { TransactionFilters } from '@/components/features/TransactionFilters';
+import type { TransactionFormValues } from '@/components/features/TransactionForm/ITransactionForm';
+import { TransactionList } from '@/components/features/TransactionList';
+import { EmptyState, IconButton } from '@/components/ui';
+import { ErrorState } from '@/components/ui/ErrorState/ErrorState';
 import { SkeletonList } from '@/components/ui/Skeleton';
-import { DeleteTransactionModal } from '@/components/features/DeleteTransactionModal';
-import { useTransactions } from '@/context/TransactionsContext';
 import { useFeedback } from '@/context/FeedbackContext';
+import { useTransactions } from '@/context/TransactionsContext';
 import { useTransactionFilters } from '@/hooks';
 import type { Transaction } from '@/types';
-import { EditTransactionModal } from '@/components/features/EditTransactionModal';
-import { TransactionFormValues } from '@/components/features';
-import { EmptyState, IconButton } from '@/components/ui';
 import { Funnel, ReceiptText, SearchX } from 'lucide-react';
-import { ErrorState } from '@/components/ui/ErrorState/ErrorState';
+import dynamic from 'next/dynamic';
+import { Suspense, useState } from 'react';
+
+const DeleteTransactionModal = dynamic(
+  () =>
+    import('@/components/features/DeleteTransactionModal').then((m) => m.DeleteTransactionModal),
+  { ssr: false }
+);
+const EditTransactionModal = dynamic(
+  () => import('@/components/features/EditTransactionModal').then((m) => m.EditTransactionModal),
+  { ssr: false }
+);
 
 function TransactionsContent() {
   const { transactions, isLoading, deleteTransaction, updateTransaction, isError } =

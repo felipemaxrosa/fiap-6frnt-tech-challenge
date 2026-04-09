@@ -1,16 +1,16 @@
 'use client';
 
+import { ConfirmTransactionModal } from '@/components/features/ConfirmTransactionModal';
 import { Card } from '@/components/ui/Card';
 import { useFeedback } from '@/context/FeedbackContext';
 import { useTransactions } from '@/context/TransactionsContext';
 import type { ReactElement } from 'react';
 import { useRef, useState } from 'react';
-import {
-  TransactionForm,
-  type TransactionFormRef,
-  type TransactionFormValues,
-} from '../TransactionForm';
-import { ConfirmTransactionModal } from '@/components/features/ConfirmTransactionModal';
+import type {
+  TransactionFormRef,
+  TransactionFormValues,
+} from '../TransactionForm/ITransactionForm';
+import { TransactionForm } from '../TransactionForm/TransactionForm';
 
 const SUCCESS_FEEDBACK = {
   type: 'success' as const,
