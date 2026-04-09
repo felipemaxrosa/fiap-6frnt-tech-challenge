@@ -29,7 +29,7 @@ Frontend de gestão financeira pessoal construído com Next.js 16 e Design Syste
 ### 1. Clonar o repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone git@github.com:fiap-6frnt-tech-challenge/tech-challenge.git
 cd tech-challenge
 ```
 
