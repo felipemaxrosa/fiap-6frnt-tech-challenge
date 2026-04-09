@@ -9,7 +9,7 @@ Frontend de gestão financeira pessoal construído com Next.js 16 e Design Syste
 ## Funcionalidades
 
 - **Dashboard** — saldo da conta com toggle de visibilidade e lista das transações mais recentes
-- **Lista de transações** — filtros por tipo, intervalo de datas e ordenação; estado persiste na URL via query params
+- **Lista de transações** — filtros por tipo, intervalo de datas e ordenação; paginação server-side via json-server; estado persiste na URL via query params
 - **CRUD completo** — adicionar, editar e excluir transações com modais de confirmação e feedback visual
 - **Design System** — biblioteca de componentes documentada no Storybook com tokens de cor, tipografia e espaçamento
 
@@ -102,6 +102,7 @@ tech-challenge/
 │   │   ├── Select/
 │   │   ├── Modal/
 │   │   ├── FeedbackModal/
+│   │   ├── Pagination/
 │   │   └── ...
 │   └── features/                 # Componentes de feature compostos
 │       ├── TransactionForm/
@@ -116,7 +117,8 @@ tech-challenge/
 │   └── FeedbackContext.tsx       # Estado global do FeedbackModal
 │
 ├── hooks/
-│   └── useTransactionFilters.ts  # Filtro e ordenação com persistência em URL
+│   ├── useTransactionFilters.ts  # Filtro e ordenação com persistência em URL
+│   └── usePaginatedTransactions.ts # Paginação server-side via json-server
 │
 ├── lib/
 │   └── transactions.ts           # Helpers puros: getAll, calculateBalance, getRecent
