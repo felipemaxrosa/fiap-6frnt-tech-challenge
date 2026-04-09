@@ -6,7 +6,23 @@ const meta: Meta<typeof FeedbackModal> = {
   title: 'UI/FeedbackModal',
   component: FeedbackModal,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  argTypes: {
+    isOpen: { control: 'boolean' },
+    type: { control: 'select', options: ['success', 'error', 'info'] },
+    title: { control: 'text' },
+    message: { control: 'text' },
+    showCloseButton: { control: 'boolean' },
+    onClose: { control: false },
+  },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Modal used for success, error, and info feedback after user actions, with optional close button.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof FeedbackModal>;
@@ -53,6 +69,13 @@ export const Error: Story = {
         />
       </>
     );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error feedback scenario for failed operations with clear recovery messaging.',
+      },
+    },
   },
 };
 

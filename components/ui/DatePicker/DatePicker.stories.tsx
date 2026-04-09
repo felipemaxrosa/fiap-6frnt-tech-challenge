@@ -48,7 +48,6 @@ export default meta;
 type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {
-  name: 'Default',
   args: { label: 'Date' },
   parameters: {
     docs: {
@@ -58,7 +57,6 @@ export const Default: Story = {
 };
 
 export const WithValue: Story = {
-  name: 'With Value',
   args: { label: 'Date', defaultValue: '2025-03-08' },
   parameters: {
     docs: {
@@ -68,7 +66,6 @@ export const WithValue: Story = {
 };
 
 export const WithHelperText: Story = {
-  name: 'With Helper Text',
   args: {
     label: 'Date',
     helperText: 'Select the transaction date.',
@@ -81,7 +78,6 @@ export const WithHelperText: Story = {
 };
 
 export const WithError: Story = {
-  name: 'With Error',
   args: { label: 'Date', error: true, helperText: 'Please select a valid date.' },
   parameters: {
     docs: {
@@ -91,7 +87,6 @@ export const WithError: Story = {
 };
 
 export const Disabled: Story = {
-  name: 'Disabled',
   args: { label: 'Date', disabled: true, defaultValue: '2025-03-08' },
   parameters: {
     docs: {
@@ -101,7 +96,6 @@ export const Disabled: Story = {
 };
 
 export const WithRange: Story = {
-  name: 'With Range',
   args: {
     label: 'Date',
     min: '2025-01-01',

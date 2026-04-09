@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import { TransactionItem } from './TransactionItem';
 
 const meta: Meta<typeof TransactionItem> = {
@@ -6,9 +7,16 @@ const meta: Meta<typeof TransactionItem> = {
   component: TransactionItem,
   tags: ['autodocs'],
   args: {
-    onEdit: (id) => console.log('edit', id),
-    onDelete: (id) => console.log('delete', id),
+    onEdit: fn(),
+    onDelete: fn(),
   },
+  decorators: [
+    (Story) => (
+      <ul className="list-none p-0 m-0">
+        <Story />
+      </ul>
+    ),
+  ],
   parameters: {
     docs: {
       description: {
@@ -27,7 +35,7 @@ export default meta;
 type Story = StoryObj<typeof TransactionItem>;
 
 export const Deposit: Story = {
-  name: 'Deposit',
+  name: 'Variant: Deposit',
   args: {
     transaction: {
       id: '1',
@@ -43,7 +51,7 @@ export const Deposit: Story = {
 };
 
 export const Withdrawal: Story = {
-  name: 'Withdrawal',
+  name: 'Variant: Withdrawal',
   args: {
     transaction: {
       id: '2',
@@ -59,7 +67,7 @@ export const Withdrawal: Story = {
 };
 
 export const Transfer: Story = {
-  name: 'Transfer',
+  name: 'Variant: Transfer',
   args: {
     transaction: {
       id: '3',
@@ -75,7 +83,7 @@ export const Transfer: Story = {
 };
 
 export const LongDescription: Story = {
-  name: 'Long Description',
+  name: 'Composition: Long Description',
   args: {
     transaction: {
       id: '4',
@@ -88,5 +96,27 @@ export const LongDescription: Story = {
   },
   parameters: {
     docs: { description: { story: 'Long description truncates with ellipsis.' } },
+  },
+};
+
+export const WithoutActions: Story = {
+  name: 'State: Without Actions',
+  args: {
+    transaction: {
+      id: '5',
+      type: 'deposit',
+      description: 'Salário mensal',
+      amount: 5000,
+      date: '2025-03-01',
+    },
+    showActions: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Read-only transaction item variant used in compact contexts without edit/delete actions.',
+      },
+    },
   },
 };

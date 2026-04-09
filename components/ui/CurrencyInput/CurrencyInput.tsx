@@ -52,8 +52,8 @@ export function CurrencyInput({
         className={cn(
           'group relative flex items-center rounded-default border overflow-hidden',
           getInputBorderColor(error, { variant: 'focus-within' }),
-          disabled && 'opacity-50 cursor-not-allowed',
-          'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-primary'
+          disabled && 'opacity-60 cursor-not-allowed',
+          'has-focus-visible:ring-2 has-focus-visible:ring-brand-primary'
         )}
       >
         <span

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { fn } from 'storybook/test';
 import type { Transaction } from '@/types';
 import { TransactionList } from './TransactionList';
 import { ReceiptText } from 'lucide-react';
@@ -30,14 +31,14 @@ const meta: Meta<typeof TransactionList> = {
   tags: ['autodocs'],
   args: {
     transactions: MOCK_TRANSACTIONS,
-    onEdit: (id) => console.log('edit', id),
-    onDelete: (id) => console.log('delete', id),
+    onEdit: fn(),
+    onDelete: fn(),
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Renders a list of transactions using TransactionItem. Handles loading and empty states. Supports optional title and custom className for different layout contexts.',
+          'Renders a list of transactions using TransactionItem. Handles loading and empty states. Supports optional title and custom className for different layout contexts. Does not require providers directly; in app usage it is commonly wired with TransactionsContext data and filter state.',
       },
     },
   },
@@ -67,7 +68,7 @@ export default meta;
 type Story = StoryObj<typeof TransactionList>;
 
 export const Default: Story = {
-  name: 'Default',
+  name: 'State: Default',
   parameters: {
     docs: {
       description: { story: 'Full list with mixed transaction types.' },
@@ -75,8 +76,23 @@ export const Default: Story = {
   },
 };
 
+export const ContextIntegration: Story = {
+  name: 'Composition: Context Integration',
+  args: {
+    transactions: MOCK_TRANSACTIONS,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Integration reference: in production this component typically receives `transactions`, `onEdit`, and `onDelete` from TransactionsContext-driven containers.',
+      },
+    },
+  },
+};
+
 export const Loading: Story = {
-  name: 'Loading',
+  name: 'State: Loading',
   args: { isLoading: true },
   parameters: {
     docs: {
@@ -86,7 +102,7 @@ export const Loading: Story = {
 };
 
 export const Empty: Story = {
-  name: 'Empty',
+  name: 'State: Empty',
   args: { transactions: [] },
   parameters: {
     docs: {
@@ -96,7 +112,7 @@ export const Empty: Story = {
 };
 
 export const EmptyWithCustomMessage: Story = {
-  name: 'Empty — Custom Message',
+  name: 'Composition: Empty Custom Message',
   args: {
     transactions: [],
     emptyState: (
@@ -115,7 +131,7 @@ export const EmptyWithCustomMessage: Story = {
 };
 
 export const WithTitle: Story = {
-  name: 'With Title (Sidebar)',
+  name: 'Composition: With Title Sidebar',
   args: {
     title: 'Extrato',
     className: 'lg:w-80 lg:shrink-0',
@@ -128,7 +144,7 @@ export const WithTitle: Story = {
 };
 
 export const FullWidth: Story = {
-  name: 'Full Width (Transactions Page)',
+  name: 'Composition: Full Width Transactions Page',
   args: {
     className: 'w-full overflow-y-auto max-h-[calc(100vh-300px)]',
   },

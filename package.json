@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "api": "json-server --watch data/transactions.json --port 3001"
+    "api": "json-server --watch data/transactions.json --port 3001",
+    "chromatic": "npx chromatic --project-token=chpt_330cd685ba026e8"
   },
   "browserslist": [
     "last 2 Chrome versions",
@@ -44,12 +45,14 @@
     "@storybook/addon-onboarding": "^10.2.16",
     "@storybook/addon-vitest": "^10.2.16",
     "@storybook/nextjs-vite": "^10.2.16",
+    "@storybook/test-runner": "^0.24.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
+    "chromatic": "^16.1.0",
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",

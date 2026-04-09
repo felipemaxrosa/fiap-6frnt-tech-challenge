@@ -5,11 +5,23 @@ const meta: Meta<typeof TransactionInfo> = {
   title: 'Features/TransactionInfo',
   component: TransactionInfo,
   tags: ['autodocs'],
+  argTypes: {
+    transaction: { control: 'object' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Read-only transaction summary used in modal confirmations, showing type badge, amount, date, and description.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof TransactionInfo>;
 
 export const Deposit: Story = {
+  name: 'Variant: Deposit',
   args: {
     transaction: {
       type: 'deposit',
@@ -21,6 +33,7 @@ export const Deposit: Story = {
 };
 
 export const Withdrawal: Story = {
+  name: 'Variant: Withdrawal',
   args: {
     transaction: {
       type: 'withdrawal',
@@ -32,6 +45,7 @@ export const Withdrawal: Story = {
 };
 
 export const Transfer: Story = {
+  name: 'Variant: Transfer',
   args: {
     transaction: {
       type: 'transfer',

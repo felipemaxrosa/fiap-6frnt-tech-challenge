@@ -5,6 +5,19 @@ const meta: Meta<typeof Badge> = {
   title: 'UI/Badge',
   component: Badge,
   tags: ['autodocs'],
+  argTypes: {
+    variant: { control: 'select', options: ['income', 'expense', 'transfer'] },
+    size: { control: 'select', options: ['sm', 'md'] },
+    children: { control: 'text' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Compact status badge for transaction types, supporting visual variants, optional dot indicator, and size options.',
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Badge>;
