@@ -27,6 +27,10 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             disabled={disabled}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
+            onClick={(e) => {
+              e.currentTarget.showPicker?.();
+              props.onClick?.(e);
+            }}
             className={cn(
               'w-full rounded-default border bg-surface cursor-pointer',
               'px-lg py-md',
