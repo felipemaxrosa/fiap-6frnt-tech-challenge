@@ -45,8 +45,8 @@ export default function Home() {
         </h2>
         <TransactionList
           transactions={recentTransactions}
-          onEdit={(id) => console.log(id)}
-          onDelete={(id) => console.log(id)}
+          onEdit={() => {}}
+          onDelete={() => {}}
           title="Transações recentes"
           showActions={false}
           tooltipPosition="left"

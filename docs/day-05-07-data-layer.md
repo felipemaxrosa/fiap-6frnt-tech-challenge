@@ -23,7 +23,7 @@ export const TRANSACTION_TYPE = {
   DEPOSIT: 'deposit',
   WITHDRAWAL: 'withdrawal',
   TRANSFER: 'transfer',
-} as const
+} as const;
 ```
 
 > **Why `as const`?** It narrows the value types from `string` to their exact literal values (`'deposit'`, `'withdrawal'`, `'transfer'`). This lets TypeScript derive the `TransactionType` union directly from the object in the next step, keeping the single source of truth in one place.
@@ -37,28 +37,28 @@ Create the file `types/index.ts` with all shared types used across the app. `Tra
 ```ts
 // types/index.ts
 
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
 
-export type TransactionType = (typeof TRANSACTION_TYPE)[keyof typeof TRANSACTION_TYPE]
+export type TransactionType = (typeof TRANSACTION_TYPE)[keyof typeof TRANSACTION_TYPE];
 
 export interface Transaction {
-  id: string
-  type: TransactionType
-  amount: number // always positive; direction is determined by `type`
-  date: string // ISO 8601 format: "YYYY-MM-DD"
-  description: string
+  id: string;
+  type: TransactionType;
+  amount: number; // always positive; direction is determined by `type`
+  date: string; // ISO 8601 format: "YYYY-MM-DD"
+  description: string;
 }
 
 export interface Account {
-  id: string
-  owner: string
-  balance: number
-  transactions: Transaction[]
+  id: string;
+  owner: string;
+  balance: number;
+  transactions: Transaction[];
 }
 
 // Utility types used by forms and CRUD operations
-export type NewTransaction = Omit<Transaction, 'id'>
-export type UpdateTransaction = Partial<NewTransaction>
+export type NewTransaction = Omit<Transaction, 'id'>;
+export type UpdateTransaction = Partial<NewTransaction>;
 ```
 
 > **Why `amount` is always positive?**
@@ -287,19 +287,19 @@ Create `services/TransactionService.ts` to own every `fetch` call. This keeps th
 ```ts
 // services/TransactionService.ts
 
-import type { Transaction, NewTransaction, UpdateTransaction } from '@/types'
+import type { Transaction, NewTransaction, UpdateTransaction } from '@/types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 export const TransactionService = {
   async getAll(): Promise<Transaction[]> {
-    const res = await fetch(`${API_URL}/transactions`)
-    return res.json()
+    const res = await fetch(`${API_URL}/transactions`);
+    return res.json();
   },
 
   async getById(id: string): Promise<Transaction> {
-    const res = await fetch(`${API_URL}/transactions/${id}`)
-    return res.json()
+    const res = await fetch(`${API_URL}/transactions/${id}`);
+    return res.json();
   },
 
   async create(data: NewTransaction): Promise<Transaction> {
@@ -307,8 +307,8 @@ export const TransactionService = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    })
-    return res.json()
+    });
+    return res.json();
   },
 
   async update(id: string, data: UpdateTransaction): Promise<Transaction> {
@@ -316,14 +316,14 @@ export const TransactionService = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    })
-    return res.json()
+    });
+    return res.json();
   },
 
   async remove(id: string): Promise<void> {
-    await fetch(`${API_URL}/transactions/${id}`, { method: 'DELETE' })
+    await fetch(`${API_URL}/transactions/${id}`, { method: 'DELETE' });
   },
-}
+};
 ```
 
 > **Design decision:** `TransactionService` is a plain object of async functions — no class, no constructor. It holds the `API_URL` via module-level scope and stays simple to import and mock.
@@ -337,23 +337,23 @@ CRUD operations are now handled by the Context via `fetch` calls to json-server.
 ```ts
 // lib/transactions.ts
 
-import type { Transaction } from '@/types'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
+import type { Transaction } from '@/types';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
 
 export function getAll(transactions: Transaction[]): Transaction[] {
-  return [...transactions].sort((a, b) => (a.date < b.date ? 1 : -1))
+  return [...transactions].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export function calculateBalance(transactions: Transaction[]): number {
   return transactions.reduce((acc, t) => {
-    if (t.type === TRANSACTION_TYPE.DEPOSIT) return acc + t.amount
-    if (t.type === TRANSACTION_TYPE.WITHDRAWAL) return acc - t.amount
-    return acc // transfers are neutral (internal movement)
-  }, 0)
+    if (t.type === TRANSACTION_TYPE.DEPOSIT) return acc + t.amount;
+    if (t.type === TRANSACTION_TYPE.WITHDRAWAL) return acc - t.amount;
+    return acc; // transfers are neutral (internal movement)
+  }, 0);
 }
 
 export function getRecent(transactions: Transaction[], limit = 5): Transaction[] {
-  return getAll(transactions).slice(0, limit)
+  return getAll(transactions).slice(0, limit);
 }
 ```
 
@@ -367,49 +367,49 @@ Create `context/TransactionsContext.tsx`. The Context delegates all API calls to
 
 ```tsx
 // context/TransactionsContext.tsx
-'use client'
+'use client';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
-import type { Transaction, NewTransaction, UpdateTransaction } from '@/types'
-import { calculateBalance, getRecent, getAll } from '@/lib/transactions'
-import { TransactionService } from '@/services/TransactionService'
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import type { Transaction, NewTransaction, UpdateTransaction } from '@/types';
+import { calculateBalance, getRecent, getAll } from '@/lib/transactions';
+import { TransactionService } from '@/services/TransactionService';
 
 interface TransactionsContextValue {
-  transactions: Transaction[]
-  balance: number
-  recentTransactions: Transaction[]
-  isLoading: boolean
-  addTransaction: (data: NewTransaction) => Promise<void>
-  updateTransaction: (id: string, data: UpdateTransaction) => Promise<void>
-  deleteTransaction: (id: string) => Promise<void>
+  transactions: Transaction[];
+  balance: number;
+  recentTransactions: Transaction[];
+  isLoading: boolean;
+  addTransaction: (data: NewTransaction) => Promise<void>;
+  updateTransaction: (id: string, data: UpdateTransaction) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>;
 }
 
-const TransactionsContext = createContext<TransactionsContextValue | null>(null)
+const TransactionsContext = createContext<TransactionsContextValue | null>(null);
 
 export function TransactionsProvider({ children }: { children: ReactNode }) {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     TransactionService.getAll()
       .then(setTransactions)
-      .finally(() => setIsLoading(false))
-  }, [])
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const addTransaction = async (data: NewTransaction) => {
-    const created = await TransactionService.create(data)
-    setTransactions((prev) => [...prev, created])
-  }
+    const created = await TransactionService.create(data);
+    setTransactions((prev) => [...prev, created]);
+  };
 
   const updateTransaction = async (id: string, data: UpdateTransaction) => {
-    const updated = await TransactionService.update(id, data)
-    setTransactions((prev) => prev.map((t) => (t.id === id ? updated : t)))
-  }
+    const updated = await TransactionService.update(id, data);
+    setTransactions((prev) => prev.map((t) => (t.id === id ? updated : t)));
+  };
 
   const deleteTransaction = async (id: string) => {
-    await TransactionService.remove(id)
-    setTransactions((prev) => prev.filter((t) => t.id !== id))
-  }
+    await TransactionService.remove(id);
+    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  };
 
   return (
     <TransactionsContext.Provider
@@ -425,13 +425,13 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     >
       {children}
     </TransactionsContext.Provider>
-  )
+  );
 }
 
 export function useTransactions(): TransactionsContextValue {
-  const ctx = useContext(TransactionsContext)
-  if (!ctx) throw new Error('useTransactions must be used inside <TransactionsProvider>')
-  return ctx
+  const ctx = useContext(TransactionsContext);
+  if (!ctx) throw new Error('useTransactions must be used inside <TransactionsProvider>');
+  return ctx;
 }
 ```
 
@@ -445,14 +445,14 @@ Wrap the app with `TransactionsProvider` so all pages and components can consume
 
 ```tsx
 // app/layout.tsx
-import type { Metadata } from 'next'
-import { TransactionsProvider } from '@/context/TransactionsContext'
-import './globals.css'
+import type { Metadata } from 'next';
+import { TransactionsProvider } from '@/context/TransactionsContext';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'FinTrack',
   description: 'Personal financial management app',
-}
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -461,7 +461,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <TransactionsProvider>{children}</TransactionsProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
@@ -471,12 +471,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ```tsx
 // Example: display balance and recent transactions
-'use client'
+'use client';
 
-import { useTransactions } from '@/context/TransactionsContext'
+import { useTransactions } from '@/context/TransactionsContext';
 
 export function BalanceSummary() {
-  const { balance, recentTransactions } = useTransactions()
+  const { balance, recentTransactions } = useTransactions();
 
   return (
     <div>
@@ -491,19 +491,19 @@ export function BalanceSummary() {
         ))}
       </ul>
     </div>
-  )
+  );
 }
 ```
 
 ```tsx
 // Example: add a new transaction (note: addTransaction is async)
-'use client'
+'use client';
 
-import { useTransactions } from '@/context/TransactionsContext'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
+import { useTransactions } from '@/context/TransactionsContext';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
 
 export function QuickAdd() {
-  const { addTransaction } = useTransactions()
+  const { addTransaction } = useTransactions();
 
   const handleSubmit = async () => {
     await addTransaction({
@@ -511,10 +511,10 @@ export function QuickAdd() {
       amount: 100,
       date: new Date().toISOString().split('T')[0],
       description: 'Quick deposit',
-    })
-  }
+    });
+  };
 
-  return <button onClick={handleSubmit}>Add</button>
+  return <button onClick={handleSubmit}>Add</button>;
 }
 ```
 

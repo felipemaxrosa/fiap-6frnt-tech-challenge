@@ -66,12 +66,12 @@ Single transaction row displaying the type badge, description, date, amount, and
 
 ```ts
 // components/features/TransactionItem/TransactionItem.tsx
-import type { Transaction } from '@/types'
+import type { Transaction } from '@/types';
 
 export interface TransactionItemProps {
-  transaction: Transaction
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
+  transaction: Transaction;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 ```
 
@@ -79,49 +79,49 @@ export interface TransactionItemProps {
 
 ```tsx
 // components/features/TransactionItem/TransactionItem.tsx
-'use client'
+'use client';
 
-import { Pencil, Trash2 } from 'lucide-react'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import { cn } from '@/lib/utils'
-import type { Transaction, TransactionType } from '@/types'
+import { Pencil, Trash2 } from 'lucide-react';
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
+import { cn } from '@/lib/utils';
+import type { Transaction, TransactionType } from '@/types';
 
 export interface TransactionItemProps {
-  transaction: Transaction
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
+  transaction: Transaction;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
 const badgeVariantMap: Record<TransactionType, 'income' | 'expense' | 'transfer'> = {
   [TRANSACTION_TYPE.DEPOSIT]: 'income',
   [TRANSACTION_TYPE.WITHDRAWAL]: 'expense',
   [TRANSACTION_TYPE.TRANSFER]: 'transfer',
-}
+};
 
 const amountColorMap: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: 'text-income',
   [TRANSACTION_TYPE.WITHDRAWAL]: 'text-expense',
   [TRANSACTION_TYPE.TRANSFER]: 'text-transfer',
-}
+};
 
 const amountPrefixMap: Record<TransactionType, string> = {
   [TRANSACTION_TYPE.DEPOSIT]: '+',
   [TRANSACTION_TYPE.WITHDRAWAL]: '-',
   [TRANSACTION_TYPE.TRANSFER]: '↔',
-}
+};
 
 function formatCurrency(value: number): string {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function formatDate(dateStr: string): string {
-  return new Date(`${dateStr}T00:00:00`).toLocaleDateString('pt-BR')
+  return new Date(`${dateStr}T00:00:00`).toLocaleDateString('pt-BR');
 }
 
 export function TransactionItem({ transaction, onEdit, onDelete }: TransactionItemProps) {
-  const { id, type, description, amount, date } = transaction
+  const { id, type, description, amount, date } = transaction;
 
   return (
     <li className="flex items-center justify-between gap-4 rounded-lg border border-border bg-surface px-4 py-3 shadow-card transition-shadow hover:shadow-card-hover">
@@ -160,7 +160,7 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
         )}
       </div>
     </li>
-  )
+  );
 }
 ```
 
@@ -172,19 +172,19 @@ export function TransactionItem({ transaction, onEdit, onDelete }: TransactionIt
 
 ```tsx
 // components/features/TransactionItem/TransactionItem.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { TransactionItem } from './TransactionItem'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { TransactionItem } from './TransactionItem';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
 
 const meta: Meta<typeof TransactionItem> = {
   title: 'Features/TransactionItem',
   component: TransactionItem,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof TransactionItem>
+};
+export default meta;
+type Story = StoryObj<typeof TransactionItem>;
 
-const base = { id: 'txn-001', date: '2025-03-08', amount: 500 }
+const base = { id: 'txn-001', date: '2025-03-08', amount: 500 };
 
 export const Deposit: Story = {
   args: {
@@ -192,7 +192,7 @@ export const Deposit: Story = {
     onEdit: (id) => console.log('edit', id),
     onDelete: (id) => console.log('delete', id),
   },
-}
+};
 
 export const Withdrawal: Story = {
   args: {
@@ -200,7 +200,7 @@ export const Withdrawal: Story = {
     onEdit: (id) => console.log('edit', id),
     onDelete: (id) => console.log('delete', id),
   },
-}
+};
 
 export const Transfer: Story = {
   args: {
@@ -208,13 +208,13 @@ export const Transfer: Story = {
     onEdit: (id) => console.log('edit', id),
     onDelete: (id) => console.log('delete', id),
   },
-}
+};
 
 export const WithoutActions: Story = {
   args: {
     transaction: { ...base, type: TRANSACTION_TYPE.DEPOSIT, description: 'Read-only entry' },
   },
-}
+};
 
 export const LongDescription: Story = {
   args: {
@@ -227,7 +227,7 @@ export const LongDescription: Story = {
     onEdit: (id) => console.log('edit', id),
     onDelete: (id) => console.log('delete', id),
   },
-}
+};
 ```
 
 ---
@@ -249,10 +249,10 @@ Ordered list of `TransactionItem`s. Renders an empty state when there are no tra
 
 ```ts
 export interface TransactionListProps {
-  transactions: Transaction[]
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
-  emptyMessage?: string
+  transactions: Transaction[];
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
+  emptyMessage?: string;
 }
 ```
 
@@ -260,15 +260,15 @@ export interface TransactionListProps {
 
 ```tsx
 // components/features/TransactionList/TransactionList.tsx
-import { ReceiptText } from 'lucide-react'
-import { TransactionItem } from '@/components/features/TransactionItem'
-import type { Transaction } from '@/types'
+import { ReceiptText } from 'lucide-react';
+import { TransactionItem } from '@/components/features/TransactionItem';
+import type { Transaction } from '@/types';
 
 export interface TransactionListProps {
-  transactions: Transaction[]
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
-  emptyMessage?: string
+  transactions: Transaction[];
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
+  emptyMessage?: string;
 }
 
 export function TransactionList({
@@ -283,7 +283,7 @@ export function TransactionList({
         <ReceiptText size={32} className="text-text-muted" />
         <p className="text-sm">{emptyMessage}</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -297,7 +297,7 @@ export function TransactionList({
         />
       ))}
     </ul>
-  )
+  );
 }
 ```
 
@@ -309,18 +309,18 @@ export function TransactionList({
 
 ```tsx
 // components/features/TransactionList/TransactionList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { TransactionList } from './TransactionList'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import type { Transaction } from '@/types'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { TransactionList } from './TransactionList';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
+import type { Transaction } from '@/types';
 
 const meta: Meta<typeof TransactionList> = {
   title: 'Features/TransactionList',
   component: TransactionList,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof TransactionList>
+};
+export default meta;
+type Story = StoryObj<typeof TransactionList>;
 
 const mockTransactions: Transaction[] = [
   {
@@ -351,7 +351,7 @@ const mockTransactions: Transaction[] = [
     date: '2025-03-12',
     description: 'Streaming services',
   },
-]
+];
 
 export const Default: Story = {
   args: {
@@ -359,19 +359,19 @@ export const Default: Story = {
     onEdit: (id) => console.log('edit', id),
     onDelete: (id) => console.log('delete', id),
   },
-}
+};
 
 export const Empty: Story = {
   args: { transactions: [] },
-}
+};
 
 export const EmptyWithCustomMessage: Story = {
   args: { transactions: [], emptyMessage: 'No transactions match your filters.' },
-}
+};
 
 export const ReadOnly: Story = {
   args: { transactions: mockTransactions },
-}
+};
 ```
 
 ---
@@ -392,9 +392,9 @@ Displays the current account balance prominently. Used on the Home page.
 
 ```ts
 export interface BalanceCardProps {
-  balance: number
-  owner?: string
-  label?: string
+  balance: number;
+  owner?: string;
+  label?: string;
 }
 ```
 
@@ -402,18 +402,18 @@ export interface BalanceCardProps {
 
 ```tsx
 // components/features/BalanceCard/BalanceCard.tsx
-import { TrendingUp, TrendingDown } from 'lucide-react'
-import { Card } from '@/components/ui/Card'
-import { cn } from '@/lib/utils'
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 
 export interface BalanceCardProps {
-  balance: number
-  owner?: string
-  label?: string
+  balance: number;
+  owner?: string;
+  label?: string;
 }
 
 export function BalanceCard({ balance, owner, label = 'Current balance' }: BalanceCardProps) {
-  const isPositive = balance >= 0
+  const isPositive = balance >= 0;
 
   return (
     <Card padding="lg" className="bg-primary text-text-inverse border-0 shadow-modal">
@@ -430,7 +430,7 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
         </span>
       </div>
     </Card>
-  )
+  );
 }
 ```
 
@@ -450,8 +450,8 @@ export function BalanceCard({ balance, owner, label = 'Current balance' }: Balan
 
 ```tsx
 // components/features/BalanceCard/BalanceCard.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { BalanceCard } from './BalanceCard'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { BalanceCard } from './BalanceCard';
 
 const meta: Meta<typeof BalanceCard> = {
   title: 'Features/BalanceCard',
@@ -460,29 +460,29 @@ const meta: Meta<typeof BalanceCard> = {
   parameters: {
     backgrounds: { default: 'page' },
   },
-}
-export default meta
-type Story = StoryObj<typeof BalanceCard>
+};
+export default meta;
+type Story = StoryObj<typeof BalanceCard>;
 
 export const Positive: Story = {
   args: { balance: 8420.5, owner: 'Felipe' },
-}
+};
 
 export const Negative: Story = {
   args: { balance: -350.0, label: 'Current balance' },
-}
+};
 
 export const Zero: Story = {
   args: { balance: 0 },
-}
+};
 
 export const WithoutOwner: Story = {
   args: { balance: 3200.75 },
-}
+};
 
 export const CustomLabel: Story = {
   args: { balance: 15000, label: 'Available balance' },
-}
+};
 ```
 
 ---
@@ -502,16 +502,16 @@ Form card that lets the user add a new transaction. Composed from the atomic `Se
 
 ```ts
 // components/features/NewTransaction/NewTransaction.tsx
-import type { TransactionType } from '@/types'
+import type { TransactionType } from '@/types';
 
 export interface NewTransactionData {
-  type: TransactionType
-  amount: number
+  type: TransactionType;
+  amount: number;
 }
 
 export interface NewTransactionProps {
-  onSubmit: (data: NewTransactionData) => void | Promise<void>
-  loading?: boolean
+  onSubmit: (data: NewTransactionData) => void | Promise<void>;
+  loading?: boolean;
 }
 ```
 
@@ -519,40 +519,40 @@ export interface NewTransactionProps {
 
 ```tsx
 // components/features/NewTransaction/NewTransaction.tsx
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Card } from '@/components/ui/Card'
-import { Select } from '@/components/ui/Select'
-import { CurrencyInput } from '@/components/ui/CurrencyInput'
-import { Button } from '@/components/ui/Button'
-import { TRANSACTION_TYPE } from '@/shared/constants/transaction'
-import type { TransactionType } from '@/types'
+import { useState } from 'react';
+import { Card } from '@/components/ui/Card';
+import { Select } from '@/components/ui/Select';
+import { CurrencyInput } from '@/components/ui/CurrencyInput';
+import { Button } from '@/components/ui/Button';
+import { TRANSACTION_TYPE } from '@/shared/constants/transaction';
+import type { TransactionType } from '@/types';
 
 export interface NewTransactionData {
-  type: TransactionType
-  amount: number
+  type: TransactionType;
+  amount: number;
 }
 
 export interface NewTransactionProps {
-  onSubmit: (data: NewTransactionData) => void | Promise<void>
-  loading?: boolean
+  onSubmit: (data: NewTransactionData) => void | Promise<void>;
+  loading?: boolean;
 }
 
 const TRANSACTION_TYPE_OPTIONS = [
   { label: 'Depósito', value: TRANSACTION_TYPE.DEPOSIT },
   { label: 'Saque', value: TRANSACTION_TYPE.WITHDRAWAL },
   { label: 'Transferência', value: TRANSACTION_TYPE.TRANSFER },
-]
+];
 
 export function NewTransaction({ onSubmit, loading = false }: NewTransactionProps) {
-  const [type, setType] = useState<TransactionType | ''>('')
-  const [amount, setAmount] = useState(0)
+  const [type, setType] = useState<TransactionType | ''>('');
+  const [amount, setAmount] = useState(0);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!type || amount <= 0) return
-    await onSubmit({ type: type as TransactionType, amount })
+    e.preventDefault();
+    if (!type || amount <= 0) return;
+    await onSubmit({ type: type as TransactionType, amount });
   }
 
   return (
@@ -581,7 +581,7 @@ export function NewTransaction({ onSubmit, loading = false }: NewTransactionProp
         </Button>
       </form>
     </Card>
-  )
+  );
 }
 ```
 
@@ -605,8 +605,8 @@ export function NewTransaction({ onSubmit, loading = false }: NewTransactionProp
 
 ```tsx
 // components/features/NewTransaction/NewTransaction.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { NewTransaction } from './NewTransaction'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { NewTransaction } from './NewTransaction';
 
 const meta: Meta<typeof NewTransaction> = {
   title: 'Features/NewTransaction',
@@ -615,22 +615,22 @@ const meta: Meta<typeof NewTransaction> = {
   parameters: {
     layout: 'centered',
   },
-}
-export default meta
-type Story = StoryObj<typeof NewTransaction>
+};
+export default meta;
+type Story = StoryObj<typeof NewTransaction>;
 
 export const Default: Story = {
   args: {
     onSubmit: (data) => console.log('submit', data),
   },
-}
+};
 
 export const Loading: Story = {
   args: {
     loading: true,
     onSubmit: (data) => console.log('submit', data),
   },
-}
+};
 ```
 
 ---
@@ -641,36 +641,36 @@ Each component has an `index.ts` for clean imports:
 
 ```ts
 // components/features/TransactionItem/index.ts
-export { TransactionItem } from './TransactionItem'
-export type { TransactionItemProps } from './TransactionItem'
+export { TransactionItem } from './TransactionItem';
+export type { TransactionItemProps } from './TransactionItem';
 ```
 
 ```ts
 // components/features/TransactionList/index.ts
-export { TransactionList } from './TransactionList'
-export type { TransactionListProps } from './TransactionList'
+export { TransactionList } from './TransactionList';
+export type { TransactionListProps } from './TransactionList';
 ```
 
 ```ts
 // components/features/BalanceCard/index.ts
-export { BalanceCard } from './BalanceCard'
-export type { BalanceCardProps } from './BalanceCard'
+export { BalanceCard } from './BalanceCard';
+export type { BalanceCardProps } from './BalanceCard';
 ```
 
 ```ts
 // components/features/NewTransaction/index.ts
-export { NewTransaction } from './NewTransaction'
-export type { NewTransactionProps, NewTransactionData } from './NewTransaction'
+export { NewTransaction } from './NewTransaction';
+export type { NewTransactionProps, NewTransactionData } from './NewTransaction';
 ```
 
 And a global barrel at `components/features/index.ts`:
 
 ```ts
 // components/features/index.ts
-export * from './TransactionItem'
-export * from './TransactionList'
-export * from './BalanceCard'
-export * from './NewTransaction'
+export * from './TransactionItem';
+export * from './TransactionList';
+export * from './BalanceCard';
+export * from './NewTransaction';
 ```
 
 ---

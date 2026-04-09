@@ -66,16 +66,16 @@ Dropdown used to pick the transaction type (`income`, `expense`, `transfer`). Bu
 ```ts
 // components/ui/Select/types.ts
 export interface SelectOption {
-  label: string
-  value: string
+  label: string;
+  value: string;
 }
 
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  options: SelectOption[]
-  placeholder?: string
-  label?: string
-  helperText?: string
-  error?: boolean
+  options: SelectOption[];
+  placeholder?: string;
+  label?: string;
+  helperText?: string;
+  error?: boolean;
 }
 ```
 
@@ -83,9 +83,9 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
 
 ```tsx
 // components/ui/Select/Select.tsx
-import { cn } from '@/lib/utils'
-import { ChevronDown } from 'lucide-react'
-import { SelectProps } from './types'
+import { cn } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
+import { SelectProps } from './types';
 
 export function Select({
   options,
@@ -98,7 +98,7 @@ export function Select({
   id,
   ...props
 }: SelectProps) {
-  const selectId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
+  const selectId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -143,7 +143,7 @@ export function Select({
         </p>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -155,32 +155,32 @@ export function Select({
 
 ```tsx
 // components/ui/Select/Select.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Select } from './Select'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Select } from './Select';
 
 const TRANSACTION_TYPE_OPTIONS = [
   { label: 'Income', value: 'income' },
   { label: 'Expense', value: 'expense' },
   { label: 'Transfer', value: 'transfer' },
-]
+];
 
 const meta: Meta<typeof Select> = {
   title: 'UI/Select',
   component: Select,
   tags: ['autodocs'],
   args: { options: TRANSACTION_TYPE_OPTIONS },
-}
-export default meta
-type Story = StoryObj<typeof Select>
+};
+export default meta;
+type Story = StoryObj<typeof Select>;
 
-export const Default: Story = { args: { label: 'Transaction type', placeholder: 'Select a type' } }
+export const Default: Story = { args: { label: 'Transaction type', placeholder: 'Select a type' } };
 export const WithError: Story = {
   args: { label: 'Transaction type', error: true, helperText: 'Please select a type' },
-}
+};
 export const Disabled: Story = {
   args: { label: 'Transaction type', disabled: true, value: 'income' },
-}
-export const NoLabel: Story = { args: { placeholder: 'Select a type' } }
+};
+export const NoLabel: Story = { args: { placeholder: 'Select a type' } };
 ```
 
 ---
@@ -214,12 +214,12 @@ export interface CurrencyInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'onChange' | 'value'
 > {
-  value?: number
-  onValueChange?: (value: number) => void
-  currency?: string
-  label?: string
-  helperText?: string
-  error?: boolean
+  value?: number;
+  onValueChange?: (value: number) => void;
+  currency?: string;
+  label?: string;
+  helperText?: string;
+  error?: boolean;
 }
 ```
 
@@ -227,12 +227,12 @@ export interface CurrencyInputProps extends Omit<
 
 ```tsx
 // components/ui/CurrencyInput/CurrencyInput.tsx
-import { cn } from '@/lib/utils'
-import { useState, useEffect } from 'react'
-import { CurrencyInputProps } from './types'
+import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
+import { CurrencyInputProps } from './types';
 
 function formatDisplay(value: number): string {
-  return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export function CurrencyInput({
@@ -247,26 +247,26 @@ export function CurrencyInput({
   id,
   ...props
 }: CurrencyInputProps) {
-  const [display, setDisplay] = useState(formatDisplay(value))
-  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
+  const [display, setDisplay] = useState(formatDisplay(value));
+  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
   useEffect(() => {
-    setDisplay(formatDisplay(value))
-  }, [value])
+    setDisplay(formatDisplay(value));
+  }, [value]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     // Strip everything except digits and dots
-    const raw = e.target.value.replace(/[^0-9.]/g, '')
-    const numeric = parseFloat(raw) || 0
-    setDisplay(raw)
-    onValueChange?.(numeric)
+    const raw = e.target.value.replace(/[^0-9.]/g, '');
+    const numeric = parseFloat(raw) || 0;
+    setDisplay(raw);
+    onValueChange?.(numeric);
   }
 
   function handleBlur() {
     // Re-format on blur for a clean display
-    const numeric = parseFloat(display.replace(/[^0-9.]/g, '')) || 0
-    setDisplay(formatDisplay(numeric))
-    onValueChange?.(numeric)
+    const numeric = parseFloat(display.replace(/[^0-9.]/g, '')) || 0;
+    setDisplay(formatDisplay(numeric));
+    onValueChange?.(numeric);
   }
 
   return (
@@ -304,7 +304,7 @@ export function CurrencyInput({
         </p>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -316,41 +316,41 @@ export function CurrencyInput({
 
 ```tsx
 // components/ui/CurrencyInput/CurrencyInput.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { useState } from 'react'
-import { CurrencyInput } from './CurrencyInput'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import { CurrencyInput } from './CurrencyInput';
 
 const meta: Meta<typeof CurrencyInput> = {
   title: 'UI/CurrencyInput',
   component: CurrencyInput,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof CurrencyInput>
+};
+export default meta;
+type Story = StoryObj<typeof CurrencyInput>;
 
 export const Default: Story = {
   args: { label: 'Amount', value: 0 },
-}
+};
 export const WithValue: Story = {
   args: { label: 'Amount', value: 1250.5 },
-}
+};
 export const WithError: Story = {
   args: { label: 'Amount', value: 0, error: true, helperText: 'Amount must be greater than zero' },
-}
+};
 export const Disabled: Story = {
   args: { label: 'Amount', value: 500, disabled: true },
-}
+};
 export const Controlled: Story = {
   render: () => {
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(0);
     return (
       <div className="flex flex-col gap-2">
         <CurrencyInput label="Amount" value={amount} onValueChange={setAmount} />
         <p className="text-sm text-text-secondary">Raw value: {amount}</p>
       </div>
-    )
+    );
   },
-}
+};
 ```
 
 ---
@@ -377,9 +377,9 @@ A styled wrapper around the native `<input type="date">` that applies the design
 ```ts
 // components/ui/DatePicker/types.ts
 export interface DatePickerProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  helperText?: string
-  error?: boolean
+  label?: string;
+  helperText?: string;
+  error?: boolean;
 }
 ```
 
@@ -387,9 +387,9 @@ export interface DatePickerProps extends React.InputHTMLAttributes<HTMLInputElem
 
 ```tsx
 // components/ui/DatePicker/DatePicker.tsx
-import { cn } from '@/lib/utils'
-import { Calendar } from 'lucide-react'
-import { DatePickerProps } from './types'
+import { cn } from '@/lib/utils';
+import { Calendar } from 'lucide-react';
+import { DatePickerProps } from './types';
 
 export function DatePicker({
   label,
@@ -400,7 +400,7 @@ export function DatePicker({
   id,
   ...props
 }: DatePickerProps) {
-  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
+  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -432,7 +432,7 @@ export function DatePicker({
         </p>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -444,23 +444,23 @@ export function DatePicker({
 
 ```tsx
 // components/ui/DatePicker/DatePicker.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { DatePicker } from './DatePicker'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { DatePicker } from './DatePicker';
 
 const meta: Meta<typeof DatePicker> = {
   title: 'UI/DatePicker',
   component: DatePicker,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof DatePicker>
+};
+export default meta;
+type Story = StoryObj<typeof DatePicker>;
 
-export const Default: Story = { args: { label: 'Date' } }
-export const WithValue: Story = { args: { label: 'Date', value: '2025-03-08' } }
+export const Default: Story = { args: { label: 'Date' } };
+export const WithValue: Story = { args: { label: 'Date', value: '2025-03-08' } };
 export const WithError: Story = {
   args: { label: 'Date', error: true, helperText: 'Please select a valid date' },
-}
-export const Disabled: Story = { args: { label: 'Date', disabled: true, value: '2025-03-08' } }
+};
+export const Disabled: Story = { args: { label: 'Date', disabled: true, value: '2025-03-08' } };
 export const WithRange: Story = {
   args: {
     label: 'Date',
@@ -468,7 +468,7 @@ export const WithRange: Story = {
     max: '2025-12-31',
     helperText: 'Only dates within 2025 are allowed',
   },
-}
+};
 ```
 
 ---
@@ -500,13 +500,13 @@ A layout wrapper that composes a `label`, any input element (passed as `children
 ```ts
 // components/ui/FormField/types.ts
 export interface FormFieldProps {
-  label: string
-  htmlFor: string
-  helperText?: string
-  error?: string
-  required?: boolean
-  className?: string
-  children: React.ReactNode
+  label: string;
+  htmlFor: string;
+  helperText?: string;
+  error?: string;
+  required?: boolean;
+  className?: string;
+  children: React.ReactNode;
 }
 ```
 
@@ -514,8 +514,8 @@ export interface FormFieldProps {
 
 ```tsx
 // components/ui/FormField/FormField.tsx
-import { cn } from '@/lib/utils'
-import { FormFieldProps } from './types'
+import { cn } from '@/lib/utils';
+import { FormFieldProps } from './types';
 
 export function FormField({
   label,
@@ -526,7 +526,7 @@ export function FormField({
   className,
   children,
 }: FormFieldProps) {
-  const message = error ?? helperText
+  const message = error ?? helperText;
 
   return (
     <div className={cn('flex flex-col gap-1.5', className)}>
@@ -551,7 +551,7 @@ export function FormField({
         </p>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -605,20 +605,20 @@ The `FullTransactionForm` story uses a hardcoded `w-96` wrapper for Storybook pr
 
 ```tsx
 // components/ui/FormField/FormField.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Input } from '../Input'
-import { Select } from '../Select'
-import { CurrencyInput } from '../CurrencyInput'
-import { DatePicker } from '../DatePicker'
-import { FormField } from './FormField'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Input } from '../Input';
+import { Select } from '../Select';
+import { CurrencyInput } from '../CurrencyInput';
+import { DatePicker } from '../DatePicker';
+import { FormField } from './FormField';
 
 const meta: Meta<typeof FormField> = {
   title: 'UI/FormField',
   component: FormField,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof FormField>
+};
+export default meta;
+type Story = StoryObj<typeof FormField>;
 
 export const WithInput: Story = {
   render: () => (
@@ -630,21 +630,21 @@ export const WithInput: Story = {
       <Input id="description" placeholder="e.g. Grocery shopping" />
     </FormField>
   ),
-}
+};
 export const WithError: Story = {
   render: () => (
     <FormField label="Description" htmlFor="description-err" error="This field is required">
       <Input id="description-err" error placeholder="e.g. Grocery shopping" />
     </FormField>
   ),
-}
+};
 export const Required: Story = {
   render: () => (
     <FormField label="Amount" htmlFor="amount-req" required>
       <CurrencyInput id="amount-req" value={0} />
     </FormField>
   ),
-}
+};
 export const WithSelect: Story = {
   render: () => (
     <FormField label="Transaction type" htmlFor="type-field" required>
@@ -659,7 +659,7 @@ export const WithSelect: Story = {
       />
     </FormField>
   ),
-}
+};
 export const FullTransactionForm: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-96 p-6 rounded-lg border border-border bg-surface shadow-card">
@@ -686,7 +686,7 @@ export const FullTransactionForm: Story = {
       </FormField>
     </div>
   ),
-}
+};
 ```
 
 ---
@@ -695,34 +695,34 @@ export const FullTransactionForm: Story = {
 
 ```ts
 // components/ui/Select/index.ts
-export { Select } from './Select'
-export type { SelectProps, SelectOption } from './types'
+export { Select } from './Select';
+export type { SelectProps, SelectOption } from './types';
 
 // components/ui/CurrencyInput/index.ts
-export { CurrencyInput } from './CurrencyInput'
-export type { CurrencyInputProps } from './types'
+export { CurrencyInput } from './CurrencyInput';
+export type { CurrencyInputProps } from './types';
 
 // components/ui/DatePicker/index.ts
-export { DatePicker } from './DatePicker'
-export type { DatePickerProps } from './types'
+export { DatePicker } from './DatePicker';
+export type { DatePickerProps } from './types';
 
 // components/ui/FormField/index.ts
-export { FormField } from './FormField'
-export type { FormFieldProps } from './types'
+export { FormField } from './FormField';
+export type { FormFieldProps } from './types';
 ```
 
 Update the global barrel export:
 
 ```ts
 // components/ui/index.ts
-export * from './Button'
-export * from './Input'
-export * from './Badge'
-export * from './Card'
-export * from './Select' // ← new
-export * from './CurrencyInput' // ← new
-export * from './DatePicker' // ← new
-export * from './FormField' // ← new
+export * from './Button';
+export * from './Input';
+export * from './Badge';
+export * from './Card';
+export * from './Select'; // ← new
+export * from './CurrencyInput'; // ← new
+export * from './DatePicker'; // ← new
+export * from './FormField'; // ← new
 ```
 
 ---

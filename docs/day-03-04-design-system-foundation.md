@@ -191,8 +191,8 @@ Edit `.storybook/preview.ts` to import `globals.css` so all stories render with 
 
 ```ts
 // .storybook/preview.ts
-import '../app/globals.css'
-import type { Preview } from '@storybook/nextjs-vite'
+import '../app/globals.css';
+import type { Preview } from '@storybook/nextjs-vite';
 
 const preview: Preview = {
   parameters: {
@@ -205,9 +205,9 @@ const preview: Preview = {
       ],
     },
   },
-}
+};
 
-export default preview
+export default preview;
 ```
 
 ---

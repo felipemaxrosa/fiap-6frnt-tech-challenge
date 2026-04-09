@@ -33,11 +33,11 @@ npm install clsx tailwind-merge
 
 ```ts
 // lib/utils.ts
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 ```
 
@@ -45,10 +45,10 @@ export function cn(...inputs: ClassValue[]): string {
 
 ```tsx
 // Conditionals
-cn('px-3 py-2', isActive && 'bg-primary', className)
+cn('px-3 py-2', isActive && 'bg-primary', className);
 
 // Conflict resolution — twMerge keeps 'p-4', drops 'p-2'
-cn('p-2', 'p-4') // → 'p-4'
+cn('p-2', 'p-4'); // → 'p-4'
 ```
 
 > If the project was bootstrapped with **shadcn/ui**, `lib/utils.ts` is already created automatically. Verify it exists before reinstalling.
@@ -103,12 +103,12 @@ components/
 ```ts
 // types/index.ts or Button.tsx
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  loading?: boolean
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  fullWidth?: boolean
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
 }
 ```
 
@@ -116,22 +116,22 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 ```tsx
 // components/ui/Button/Button.tsx
-import { cn } from '@/lib/utils'
-import { Loader2 } from 'lucide-react'
-import { ButtonProps } from './types'
+import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
+import { ButtonProps } from './types';
 
 const variantStyles = {
   primary: 'bg-primary text-text-inverse hover:bg-primary-hover',
   secondary: 'bg-surface text-text-primary border border-border hover:bg-surface-hover',
   danger: 'bg-expense text-text-inverse hover:bg-red-700',
   ghost: 'text-text-primary hover:bg-surface-hover',
-}
+};
 
 const sizeStyles = {
   sm: 'h-8  px-3 text-sm  gap-1.5',
   md: 'h-10 px-4 text-base gap-2',
   lg: 'h-12 px-6 text-lg  gap-2',
-}
+};
 
 export function Button({
   variant = 'primary',
@@ -163,7 +163,7 @@ export function Button({
       {children}
       {!loading && rightIcon}
     </button>
-  )
+  );
 }
 ```
 
@@ -185,9 +185,9 @@ export function Button({
 
 ```tsx
 // components/ui/Button/Button.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Plus } from 'lucide-react'
-import { Button } from './Button'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Plus } from 'lucide-react';
+import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
@@ -200,20 +200,20 @@ const meta: Meta<typeof Button> = {
     disabled: { control: 'boolean' },
     fullWidth: { control: 'boolean' },
   },
-}
-export default meta
-type Story = StoryObj<typeof Button>
+};
+export default meta;
+type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = { args: { children: 'Confirm', variant: 'primary' } }
-export const Secondary: Story = { args: { children: 'Cancel', variant: 'secondary' } }
-export const Danger: Story = { args: { children: 'Delete', variant: 'danger' } }
-export const Ghost: Story = { args: { children: 'View more', variant: 'ghost' } }
+export const Primary: Story = { args: { children: 'Confirm', variant: 'primary' } };
+export const Secondary: Story = { args: { children: 'Cancel', variant: 'secondary' } };
+export const Danger: Story = { args: { children: 'Delete', variant: 'danger' } };
+export const Ghost: Story = { args: { children: 'View more', variant: 'ghost' } };
 export const WithIcon: Story = {
   args: { children: 'New transaction', leftIcon: <Plus size={16} /> },
-}
-export const Loading: Story = { args: { children: 'Saving...', loading: true } }
-export const Disabled: Story = { args: { children: 'Unavailable', disabled: true } }
-export const FullWidth: Story = { args: { children: 'Sign in', fullWidth: true } }
+};
+export const Loading: Story = { args: { children: 'Saving...', loading: true } };
+export const Disabled: Story = { args: { children: 'Unavailable', disabled: true } };
+export const FullWidth: Story = { args: { children: 'Sign in', fullWidth: true } };
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-3">
@@ -222,7 +222,7 @@ export const Sizes: Story = {
       <Button size="lg">Large</Button>
     </div>
   ),
-}
+};
 ```
 
 ---
@@ -244,12 +244,12 @@ export const Sizes: Story = {
 
 ```ts
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  helperText?: string
-  error?: boolean
-  success?: boolean
-  leftAddon?: React.ReactNode
-  rightAddon?: React.ReactNode
+  label?: string;
+  helperText?: string;
+  error?: boolean;
+  success?: boolean;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
 }
 ```
 
@@ -257,8 +257,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 
 ```tsx
 // components/ui/Input/Input.tsx
-import { cn } from '@/lib/utils'
-import { InputProps } from './types'
+import { cn } from '@/lib/utils';
+import { InputProps } from './types';
 
 export function Input({
   label,
@@ -271,7 +271,7 @@ export function Input({
   id,
   ...props
 }: InputProps) {
-  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
+  const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -306,7 +306,7 @@ export function Input({
         </p>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -318,28 +318,28 @@ export function Input({
 
 ```tsx
 // components/ui/Input/Input.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { DollarSign } from 'lucide-react'
-import { Input } from './Input'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { DollarSign } from 'lucide-react';
+import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof Input>
+};
+export default meta;
+type Story = StoryObj<typeof Input>;
 
-export const Default: Story = { args: { label: 'Description', placeholder: 'e.g. Salary' } }
+export const Default: Story = { args: { label: 'Description', placeholder: 'e.g. Salary' } };
 export const WithError: Story = {
   args: { label: 'Amount', error: true, helperText: 'This field is required', placeholder: '0.00' },
-}
+};
 export const WithSuccess: Story = {
   args: { label: 'Email', success: true, helperText: 'Valid email', value: 'user@email.com' },
-}
-export const Disabled: Story = { args: { label: 'ID', disabled: true, value: '00123' } }
-export const TypeDate: Story = { args: { label: 'Date', type: 'date' } }
-export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } }
+};
+export const Disabled: Story = { args: { label: 'ID', disabled: true, value: '00123' } };
+export const TypeDate: Story = { args: { label: 'Date', type: 'date' } };
+export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } };
 export const WithLeftAddon: Story = {
   args: {
     label: 'Amount',
@@ -347,7 +347,7 @@ export const WithLeftAddon: Story = {
     placeholder: '0.00',
     type: 'number',
   },
-}
+};
 ```
 
 ---
@@ -368,11 +368,11 @@ Used to indicate the **transaction type** and other statuses.
 
 ```ts
 export interface BadgeProps {
-  variant?: 'income' | 'expense' | 'transfer' | 'neutral'
-  size?: 'sm' | 'md'
-  dot?: boolean
-  children: React.ReactNode
-  className?: string
+  variant?: 'income' | 'expense' | 'transfer' | 'neutral';
+  size?: 'sm' | 'md';
+  dot?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }
 ```
 
@@ -380,22 +380,22 @@ export interface BadgeProps {
 
 ```tsx
 // components/ui/Badge/Badge.tsx
-import { cn } from '@/lib/utils'
-import { BadgeProps } from './types'
+import { cn } from '@/lib/utils';
+import { BadgeProps } from './types';
 
 const variantStyles = {
   income: 'bg-income-bg   text-income   border-green-200',
   expense: 'bg-expense-bg  text-expense  border-red-200',
   transfer: 'bg-transfer-bg text-transfer border-yellow-200',
   neutral: 'bg-gray-100    text-gray-600  border-gray-200',
-}
+};
 
 const dotColors = {
   income: 'bg-income',
   expense: 'bg-expense',
   transfer: 'bg-transfer',
   neutral: 'bg-gray-400',
-}
+};
 
 export function Badge({
   variant = 'neutral',
@@ -416,7 +416,7 @@ export function Badge({
       {dot && <span className={cn('h-1.5 w-1.5 rounded-full', dotColors[variant])} />}
       {children}
     </span>
-  )
+  );
 }
 ```
 
@@ -428,24 +428,24 @@ export function Badge({
 
 ```tsx
 // components/ui/Badge/Badge.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Badge } from './Badge'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Badge } from './Badge';
 
 const meta: Meta<typeof Badge> = {
   title: 'UI/Badge',
   component: Badge,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof Badge>
+};
+export default meta;
+type Story = StoryObj<typeof Badge>;
 
-export const Income: Story = { args: { variant: 'income', children: 'Income', dot: true } }
-export const Expense: Story = { args: { variant: 'expense', children: 'Expense', dot: true } }
-export const Transfer: Story = { args: { variant: 'transfer', children: 'Transfer', dot: true } }
-export const Neutral: Story = { args: { variant: 'neutral', children: 'Pending' } }
+export const Income: Story = { args: { variant: 'income', children: 'Income', dot: true } };
+export const Expense: Story = { args: { variant: 'expense', children: 'Expense', dot: true } };
+export const Transfer: Story = { args: { variant: 'transfer', children: 'Transfer', dot: true } };
+export const Neutral: Story = { args: { variant: 'neutral', children: 'Pending' } };
 export const Small: Story = {
   args: { variant: 'income', children: 'Income', size: 'sm', dot: true },
-}
+};
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
@@ -461,7 +461,7 @@ export const AllVariants: Story = {
       <Badge variant="neutral">Pending</Badge>
     </div>
   ),
-}
+};
 ```
 
 ---
@@ -482,11 +482,11 @@ Base surface component used to group and contain content.
 
 ```ts
 export interface CardProps {
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-  hoverable?: boolean
-  as?: 'div' | 'article' | 'section'
-  className?: string
-  children: React.ReactNode
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  hoverable?: boolean;
+  as?: 'div' | 'article' | 'section';
+  className?: string;
+  children: React.ReactNode;
 }
 ```
 
@@ -494,15 +494,15 @@ export interface CardProps {
 
 ```tsx
 // components/ui/Card/Card.tsx
-import { cn } from '@/lib/utils'
-import { CardProps } from './types'
+import { cn } from '@/lib/utils';
+import { CardProps } from './types';
 
 const paddingStyles = {
   none: '',
   sm: 'p-3',
   md: 'p-5',
   lg: 'p-6',
-}
+};
 
 export function Card({
   padding = 'md',
@@ -522,7 +522,7 @@ export function Card({
     >
       {children}
     </Tag>
-  )
+  );
 }
 ```
 
@@ -534,28 +534,28 @@ export function Card({
 
 ```tsx
 // components/ui/Card/Card.stories.tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Card } from './Card'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Card } from './Card';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
   component: Card,
   tags: ['autodocs'],
-}
-export default meta
-type Story = StoryObj<typeof Card>
+};
+export default meta;
+type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
   args: {
     children: <p className="text-text-secondary">Card content goes here</p>,
   },
-}
+};
 export const Hoverable: Story = {
   args: {
     hoverable: true,
     children: <p className="text-text-secondary">Hover over me</p>,
   },
-}
+};
 export const Padding: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -570,13 +570,13 @@ export const Padding: Story = {
       </Card>
     </div>
   ),
-}
+};
 export const AsArticle: Story = {
   args: {
     as: 'article',
     children: <p className="text-text-secondary">Semantic article tag</p>,
   },
-}
+};
 ```
 
 ---
@@ -587,18 +587,18 @@ Each component should have an `index.ts` for clean imports:
 
 ```ts
 // components/ui/Button/index.ts
-export { Button } from './Button'
-export type { ButtonProps } from './types'
+export { Button } from './Button';
+export type { ButtonProps } from './types';
 ```
 
 And a global barrel export at `components/ui/index.ts`:
 
 ```ts
 // components/ui/index.ts
-export * from './Button'
-export * from './Input'
-export * from './Badge'
-export * from './Card'
+export * from './Button';
+export * from './Input';
+export * from './Badge';
+export * from './Card';
 ```
 
 ---
