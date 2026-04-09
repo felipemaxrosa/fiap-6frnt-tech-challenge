@@ -75,8 +75,6 @@ export const TypeDate: Story = {
   name: 'Variant: Type Date',
   args: { label: 'Date', type: 'date' },
 };
-export const Disabled: Story = { args: { label: 'ID', disabled: true, value: '00123' } };
-export const TypeDate: Story = { args: { label: 'Date', type: 'date' } };
 export const TypeNumber: Story = { args: { label: 'Amount', type: 'number', placeholder: '0' } };
 export const WithLeftAddon: Story = {
   name: 'Composition: Left Addon',
