@@ -2,13 +2,19 @@
 
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { formatCurrencyExact, formatTodayDate } from '@/lib/format';
 import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import type { BalanceCardProps } from './IBalanceCard';
 
-export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: BalanceCardProps) {
+export function BalanceCard({
+  balance,
+  owner,
+  label = 'Conta Corrente',
+  isLoading = false,
+}: BalanceCardProps) {
   const isPositive = balance >= 0;
   const [visible, setVisible] = useState(false);
 
@@ -19,6 +25,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
         aria-hidden="true"
         width={168}
         height={168}
+        loading="lazy"
         className="absolute bottom-0 left-0 w-42 h-auto pointer-events-none select-none"
         alt=""
       />
@@ -27,6 +34,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
         aria-hidden="true"
         width={168}
         height={168}
+        loading="lazy"
         className="absolute top-0 right-0 w-42 h-auto pointer-events-none select-none rotate-180"
         alt=""
       />
@@ -53,6 +61,7 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
             width={283}
             height={229}
             priority
+            sizes="(max-width: 767px) 0px, 283px"
             className="pointer-events-none select-none hidden md:block"
             alt=""
           />
@@ -89,9 +98,13 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
             <p className="text-base">{label}</p>
           </div>
 
-          <span className={`text-xl font-bold ${!isPositive ? 'text-feedback-danger' : ''}`}>
-            {visible ? formatCurrencyExact(balance) : 'R$ ••••••'}
-          </span>
+          {isLoading ? (
+            <Skeleton className="h-7 w-32" />
+          ) : (
+            <span className={`text-xl font-bold ${!isPositive ? 'text-feedback-danger' : ''}`}>
+              {visible ? formatCurrencyExact(balance) : 'R$ ••••••'}
+            </span>
+          )}
         </div>
 
         <Image
@@ -99,6 +112,8 @@ export function BalanceCard({ balance, owner, label = 'Conta Corrente' }: Balanc
           aria-hidden="true"
           width={283}
           height={229}
+          priority
+          sizes="(max-width: 767px) 283px, 0px"
           className="pointer-events-none select-none md:hidden"
           alt=""
         />

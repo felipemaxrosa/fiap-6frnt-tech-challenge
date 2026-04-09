@@ -4,7 +4,6 @@ import { TransactionList } from '@/components/features/TransactionList';
 import { Button } from '@/components/ui/Button/Button';
 import { EmptyState } from '@/components/ui/EmptyState/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState/ErrorState';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { useTransactions } from '@/context/TransactionsContext';
 import { ReceiptText } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -32,11 +31,7 @@ export default function Home() {
         <h1 id="overview-heading" className="sr-only">
           Visão geral da conta
         </h1>
-        {isLoading ? (
-          <Skeleton className=" h-134.5 md:h-91 w-full rounded-xl" />
-        ) : (
-          <BalanceCard balance={balance} owner="Joana" />
-        )}
+        <BalanceCard balance={balance} owner="Joana" isLoading={isLoading} />
 
         <NewTransaction />
       </section>

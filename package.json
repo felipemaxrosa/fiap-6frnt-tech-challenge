@@ -13,6 +13,12 @@
     "build-storybook": "storybook build",
     "api": "json-server --watch data/transactions.json --port 3001"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
