@@ -142,6 +142,7 @@ export const TransactionForm = forwardRef<TransactionFormRef, TransactionFormPro
                 error={!!errors.description}
                 maxLength={80}
                 onClear={clearField(field)}
+                className="pr-15"
               />
             )}
           />
