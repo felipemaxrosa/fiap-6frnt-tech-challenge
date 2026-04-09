@@ -126,8 +126,11 @@ function TransactionsContent() {
 
   return (
     <>
-      <section aria-labelledby="transactions-heading" className="flex flex-col gap-lg h-full px-1">
-        <div className="sticky top-0 flex flex-col">
+      <section
+        aria-labelledby="transactions-heading"
+        className="flex flex-col gap-lg overflow-hidden h-full px-1"
+      >
+        <div className="flex flex-col">
           <h1
             id="transactions-heading"
             className="py-lg w-full heading text-content-primary bg-background z-20 text-xl flex justify-between items-center"
@@ -152,7 +155,7 @@ function TransactionsContent() {
           onEdit={handleEditRequest}
           onDelete={handleDeleteRequest}
           emptyState={renderEmptyState()}
-          className="w-full overflow-y-auto h-full"
+          className="w-full overflow-y-auto flex-1 min-h-0"
         />
       </section>
       <DeleteTransactionModal
