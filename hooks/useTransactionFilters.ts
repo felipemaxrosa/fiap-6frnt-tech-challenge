@@ -1,26 +1,7 @@
 import type { TransactionFiltersValue } from '@/components/features/TransactionFilters';
 import { DEFAULT_FILTERS } from '@/components/features/TransactionFilters';
-import type { Transaction } from '@/types';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useMemo, useState } from 'react';
-
-function matchesType(t: Transaction, type: TransactionFiltersValue['type']) {
-  return type === 'all' || t.type === type;
-}
-
-function matchesDateFrom(t: Transaction, dateFrom: string) {
-  return !dateFrom || t.date.slice(0, 10) >= dateFrom;
-}
-
-function matchesDateTo(t: Transaction, dateTo: string) {
-  return !dateTo || t.date.slice(0, 10) <= dateTo;
-}
-
-function sortTransactions(a: Transaction, b: Transaction, filters: TransactionFiltersValue) {
-  const dir = filters.sortOrder === 'asc' ? 1 : -1;
-  if (filters.sortBy === 'amount') return (a.amount - b.amount) * dir;
-  return (a.date < b.date ? -1 : 1) * dir;
-}
+import { useCallback, useState } from 'react';
 
 function parseFiltersFromParams(params: URLSearchParams): TransactionFiltersValue {
   return {
@@ -34,41 +15,51 @@ function parseFiltersFromParams(params: URLSearchParams): TransactionFiltersValu
   };
 }
 
-export function useTransactionFilters(transactions: Transaction[]) {
+function buildFilterParams(filters: TransactionFiltersValue): URLSearchParams {
+  const params = new URLSearchParams();
+  if (filters.type !== DEFAULT_FILTERS.type) params.set('type', filters.type);
+  if (filters.dateFrom) params.set('dateFrom', filters.dateFrom);
+  if (filters.dateTo) params.set('dateTo', filters.dateTo);
+  if (filters.sortBy !== DEFAULT_FILTERS.sortBy) params.set('sortBy', filters.sortBy);
+  if (filters.sortOrder !== DEFAULT_FILTERS.sortOrder) params.set('sortOrder', filters.sortOrder);
+  return params;
+}
+
+export function useTransactionFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const filters = parseFiltersFromParams(searchParams);
+  const page = Math.max(1, Number(searchParams.get('page') ?? '1'));
 
   const setFilters = useCallback(
     (next: TransactionFiltersValue) => {
-      const params = new URLSearchParams();
-      if (next.type !== DEFAULT_FILTERS.type) params.set('type', next.type);
-      if (next.dateFrom) params.set('dateFrom', next.dateFrom);
-      if (next.dateTo) params.set('dateTo', next.dateTo);
-      if (next.sortBy !== DEFAULT_FILTERS.sortBy) params.set('sortBy', next.sortBy);
-      if (next.sortOrder !== DEFAULT_FILTERS.sortOrder) params.set('sortOrder', next.sortOrder);
-
-      const query = params.toString();
-      router.replace(query ? `?${query}` : '?', { scroll: false });
+      // Filter changes always reset to page 1 (page param omitted)
+      const params = buildFilterParams(next);
+      router.replace(params.toString() ? `?${params.toString()}` : '?', { scroll: false });
     },
     [router]
   );
 
-  const filtered = useMemo(
-    () =>
-      transactions
-        .filter((t) => matchesType(t, filters.type))
-        .filter((t) => matchesDateFrom(t, filters.dateFrom))
-        .filter((t) => matchesDateTo(t, filters.dateTo))
-        .sort((a, b) => sortTransactions(a, b, filters)),
-    [transactions, filters]
+  const setPage = useCallback(
+    (nextPage: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (nextPage <= 1) {
+        params.delete('page');
+      } else {
+        params.set('page', String(nextPage));
+      }
+      router.replace(params.toString() ? `?${params.toString()}` : '?', { scroll: false });
+    },
+    [router, searchParams]
   );
 
-  const clearFilters = useCallback(() => setFilters(DEFAULT_FILTERS), [setFilters]);
+  const clearFilters = useCallback(() => {
+    router.replace('?', { scroll: false });
+  }, [router]);
 
   const hasActiveFilters = searchParams.toString() !== '';
   const [isFilterVisible, setIsFilterVisible] = useState(hasActiveFilters);
 
-  return { filters, setFilters, clearFilters, filtered, isFilterVisible, setIsFilterVisible };
+  return { filters, setFilters, clearFilters, page, setPage, isFilterVisible, setIsFilterVisible };
 }
