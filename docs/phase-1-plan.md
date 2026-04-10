@@ -141,20 +141,20 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 **Day 49-50: Visual Consistency & UX** — see `docs/day-49-50-visual-consistency-ux.md`
 
 - [x] Consistent use of design tokens
-- [ ] Task 1: Wire `EmptyState` component in `TransactionList` (remove hardcoded colors)
-- [ ] Task 2: Add `isError` to `TransactionsContext` + error UI in both pages
-- [ ] Task 3: Modal action buttons stacked on mobile (`ConfirmTransactionModal`, `DeleteTransactionModal`)
-- [ ] Task 4: Modal enter animation — backdrop fade + panel scale-fade (`globals.css` keyframes)
-- [ ] Task 5: Mobile nav drawer slide-in animation
+- [x] Task 1: Wire `EmptyState` component in `TransactionList` (remove hardcoded colors)
+- [x] Task 2: Add `isError` to `TransactionsContext` + error UI in both pages
+- [x] Task 3: Modal action buttons stacked on mobile (`ConfirmTransactionModal`, `DeleteTransactionModal`)
+- [x] Task 4: Modal enter animation — backdrop fade + panel scale-fade (`globals.css` keyframes)
+- [x] Task 5: Mobile nav drawer slide-in animation
 
 **Day 51-52: Performance** — see `docs/day-51-52-performance.md`
 
-- [ ] Task 1: Memoize context derived values (`sorted`, `contextValue`) in `TransactionsContext`
-- [ ] Task 2: Wrap mutation functions in `useCallback` in `TransactionsContext`
-- [ ] Task 3: Memoize `filtered` in `useTransactionFilters`
-- [ ] Task 4: Lazy-load modals with `next/dynamic` (`EditTransactionModal`, `DeleteTransactionModal`, `NewTransaction`)
-- [ ] Task 5: Image audit — verify `priority` placement, grep for raw `<img>` tags
-- [ ] Task 6: React DevTools Profiler run — verify no unexpected re-renders
+- [x] Task 1: Memoize context derived values (`sorted`, `contextValue`) in `TransactionsContext`
+- [x] Task 2: Wrap mutation functions in `useCallback` in `TransactionsContext`
+- [x] Task 3: Memoize `filtered` in `useTransactionFilters`
+- [x] Task 4: Lazy-load modals with `next/dynamic` (`EditTransactionModal`, `DeleteTransactionModal`, `NewTransaction`)
+- [x] Task 5: Image audit — verify `priority` placement, grep for raw `<img>` tags
+- [x] Task 6: React DevTools Profiler run — verify no unexpected re-renders
 
 ---
 
@@ -162,19 +162,19 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 53-54: Storybook finalization** — see `docs/day-53-54-storybook.md`
 
-- [ ] Task 1: Fix broken `WithSuccess` story in `Input.stories.tsx` (Input has no `success` prop)
-- [ ] Task 2: Add `IconButton` stories to `Button.stories.tsx`
-- [ ] Task 3: Add component-level `docs.description` to `Button`, `Input`, `Modal`, `Badge`, `TransactionForm`, `FeedbackModal`
-- [ ] Task 4: Add `WithoutDot` to `Badge.stories.tsx` · `WithoutActions` to `TransactionItem.stories.tsx`
-- [ ] Task 5: Upgrade `a11y` test mode `'todo'` → `'error'` in `preview.ts`
-- [ ] Task 6: Smoke test every story in Storybook (`npm run storybook`)
-- [ ] Task 7: a11y panel audit — confirm no red violations
-- [ ] Task 8: Publish (Chromatic or GitHub Pages) · add URL to README
+- [x] Task 1: Fix broken `WithSuccess` story in `Input.stories.tsx` (Input has no `success` prop)
+- [x] Task 2: Add `IconButton` stories to `Button.stories.tsx`
+- [x] Task 3: Add component-level `docs.description` to `Button`, `Input`, `Modal`, `Badge`, `TransactionForm`, `FeedbackModal`
+- [x] Task 4: Add `WithoutDot` to `Badge.stories.tsx` · `WithoutActions` to `TransactionItem.stories.tsx`
+- [x] Task 5: Upgrade `a11y` test mode `'todo'` → `'error'` in `preview.ts`
+- [x] Task 6: Smoke test every story in Storybook (`npm run storybook`)
+- [x] Task 7: a11y panel audit — confirm no red violations
+- [x] Task 8: Publish (Chromatic or GitHub Pages) · add URL to README
 
 **Day 55-56: README** — see `docs/day-55-56-readme.md`
 
-- [ ] Day 55: Replace boilerplate README with complete project-specific documentation (purpose, prerequisites, installation, env vars, structure, tech stack, Design System section with Storybook URL)
-- [ ] Day 56: Take screenshots (home desktop, home mobile, transactions page, new transaction modal, success FeedbackModal) · save to `docs/screenshots/` · drop into README · final review checklist
+- [x] Day 55: Replace boilerplate README with complete project-specific documentation (purpose, prerequisites, installation, env vars, structure, tech stack, Design System section with Storybook URL)
+- [x] Day 56: Take screenshots (home desktop, home mobile, transactions page, new transaction modal, success FeedbackModal) · save to `docs/screenshots/` · drop into README · final review checklist
 
 **Day 57: Code cleanup** — see `docs/day-57-code-cleanup.md`
 

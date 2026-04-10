@@ -12,6 +12,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+
 interface TransactionsContextValue {
   transactions: Transaction[];
   balance: number;
@@ -24,6 +25,11 @@ interface TransactionsContextValue {
 }
 
 const TransactionsContext = createContext<TransactionsContextValue | null>(null);
+
+// Module-level flag — survives component remounts within the same browser session.
+// This prevents duplicate getAll() calls when Next.js remounts the provider during
+// navigation (e.g. due to RSC reconciliation or StrictMode in development).
+let initialFetchDone = false;
 
 export function TransactionsProvider({ children }: { children: ReactNode }) {
   const [transactionsMap, setTransactionsMap] = useState<Map<string, Transaction>>(new Map());
@@ -47,6 +53,8 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
+    if (initialFetchDone) return;
+    initialFetchDone = true;
     fetchTransactions();
   }, []);
 

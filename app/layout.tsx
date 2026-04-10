@@ -32,15 +32,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-hidden">
                 {/* Desktop + content area */}
-                <div className="mx-auto flex max-w-300 flex-col lg:flex-row px-lg gap-lg w-full">
+                <div className="mx-auto flex max-w-300 flex-col lg:flex-row px-lg gap-lg w-full h-full">
                   {/* Desktop: vertical sidebar */}
                   <div className="hidden lg:block w-48 shrink-0 sticky top-0 self-start">
                     <Sidebar />
                   </div>
 
-                  <main className="w-full py-lg">{children}</main>
+                  <main className="w-full py-lg h-full overflow-y-auto">{children}</main>
                 </div>
               </div>
             </div>

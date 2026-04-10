@@ -67,12 +67,12 @@ All components in this project follow a **mobile-first** approach: the default (
 {
   /* visible only on sm+ */
 }
-;<nav className="hidden sm:flex gap-6">…</nav>
+<nav className="hidden sm:flex gap-6">…</nav>;
 
 {
   /* visible only on mobile */
 }
-;<button className="sm:hidden">…</button>
+<button className="sm:hidden">…</button>;
 ```
 
 ### 5 — Responsive text size
@@ -147,13 +147,13 @@ export const Mobile: Story = {
   parameters: {
     viewport: { defaultViewport: 'mobile1' }, // 320px
   },
-}
+};
 
 export const Tablet: Story = {
   parameters: {
     viewport: { defaultViewport: 'tablet' }, // 768px
   },
-}
+};
 ```
 
 ---
