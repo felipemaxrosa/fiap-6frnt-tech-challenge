@@ -178,10 +178,10 @@ Build a **financial management frontend** using **Next.js** and a **Design Syste
 
 **Day 57: Code cleanup** — see `docs/day-57-code-cleanup.md`
 
-- [ ] Task 1: Remove `console.log` from `app/page.tsx` `onEdit`/`onDelete` callbacks (dead code — `showActions={false}`)
-- [ ] Task 2: Replace raw `<input>` elements with `<Input>` DS component in `FormField.stories.tsx` (3 stories with TODO comments)
-- [ ] Task 3: Remove 33 redundant `name:` annotations from 8 story files (`storybook/no-redundant-story-name`)
-- [ ] Task 4: `npm run lint` → 0 warnings · `npm run format` → clean
+- [x] Task 1: Remove `console.log` from `app/page.tsx` `onEdit`/`onDelete` callbacks (dead code — `showActions={false}`)
+- [x] Task 2: Replace raw `<input>` elements with `<Input>` DS component in `FormField.stories.tsx` (3 stories with TODO comments)
+- [x] Task 3: Remove 33 redundant `name:` annotations from 8 story files (`storybook/no-redundant-story-name`)
+- [x] Task 4: `npm run lint` → 0 warnings · `npm run format` → clean
 
 ---
 
