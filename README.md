@@ -155,7 +155,7 @@ tech-challenge/
 
 Biblioteca de componentes documentada com variantes, props, acessibilidade e exemplos interativos.
 
-📖 **[Acessar Storybook →](https://69d58ff921fbab085884a584-uvvpaaggjo.chromatic.com)**
+📖 **[Acessar Storybook →](https://phase-1--69d58ff921fbab085884a584.chromatic.com/)**
 
 Destaques:
 
