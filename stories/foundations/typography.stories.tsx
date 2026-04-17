@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-const meta: Meta = {
+import { cn } from '@/lib/classes';
+
+import { FoundationSection } from './_shared/foundation-section';
+import { FoundationsPage } from './_shared/foundations-page';
+import { getClassUsageSnippet } from './_shared/snippets';
+import { TokenCard } from './_shared/token-card';
+import { TokenPreviewFrame } from './_shared/token-preview-frame';
+
+const meta = {
   title: 'Foundations/Typography',
   tags: ['autodocs'],
   parameters: {
@@ -12,10 +20,10 @@ const meta: Meta = {
       },
     },
   },
-};
+} satisfies Meta;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof meta>;
 
 const fontFamilyTokens = [{ name: 'Sans', token: '--font-sans', utilityClass: 'font-sans' }];
 
@@ -48,87 +56,64 @@ const fontSizeTokens = [
 
 export const Reference: Story = {
   render: () => (
-    <div className="flex flex-col gap-6 p-6">
-      <section className="flex flex-col gap-4">
-        <h3 className="text-lg font-semibold">Font Family</h3>
-        <div className="grid gap-4">
-          {fontFamilyTokens.map((item) => (
-            <div
-              key={item.token}
-              className="rounded-default border overflow-hidden border-border bg-surface flex flex-col justify-between items-stretch"
-            >
-              <div className="p-4 flex justify-center">
-                <div className="w-full rounded-default p-lg">
-                  <p className={`text-content-primary ${item.utilityClass}`}>
-                    The quick brown fox jumps over the lazy dog.
-                  </p>
-                </div>
-              </div>
-              <div className="p-4 border-t border-border flex flex-col gap-1 items-start">
-                <p className="text-sm font-semibold text-content-primary">{item.name}</p>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  {item.token}
-                </code>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  {item.utilityClass}
-                </code>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  <span className="text-neutral-400/70">&lt;</span>
-                  <span className="text-pink-700">p</span>
-                  <span className="text-cyan-800"> className</span>=
-                  <span className="text-amber-700/90">&quot;{item.utilityClass}&quot;</span>
-                  <span className="text-neutral-400/70">&gt;</span>
-                  <span>Sample text</span>
-                  <span className="text-neutral-400/70">&lt;/</span>
-                  <span className="text-pink-700">p</span>
-                  <span className="text-neutral-400/70">&gt;</span>
-                </code>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+    <FoundationsPage>
+      <FoundationSection
+        title="Font Family"
+        description="Use the default sans family for all product UI text unless a dedicated display style is introduced."
+        columnsClassName="md:grid-cols-1"
+      >
+        {fontFamilyTokens.map((item) => (
+          <TokenCard
+            key={item.token}
+            title={item.name}
+            metaItems={[
+              { label: 'Token', value: item.token },
+              { label: 'Class', value: item.utilityClass },
+            ]}
+            snippet={getClassUsageSnippet({
+              element: 'p',
+              className: item.utilityClass,
+              content: 'Sample text',
+            })}
+            preview={
+              <TokenPreviewFrame>
+                <p className={cn('text-content-primary', item.utilityClass)}>
+                  The quick brown fox jumps over the lazy dog.
+                </p>
+              </TokenPreviewFrame>
+            }
+          />
+        ))}
+      </FoundationSection>
 
-      <section className="flex flex-col gap-4">
-        <h3 className="text-lg font-semibold">Font Sizes</h3>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          {fontSizeTokens.map((item) => (
-            <div
-              key={item.token}
-              className="rounded-default border overflow-hidden border-border bg-surface flex flex-col justify-between items-stretch"
-            >
-              <div className="p-4 flex justify-center">
-                <div className="w-full rounded-default p-lg">
-                  <p className={`text-content-primary ${item.utilityClass}`}>
-                    Token preview sample text
-                  </p>
-                </div>
-              </div>
-              <div className="p-4 border-t border-border flex flex-col gap-1 items-start">
-                <p className="text-sm font-semibold text-content-primary">{item.name}</p>
-                <p className="text-xs text-content-secondary">{item.value}</p>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  {item.token}
-                </code>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  {item.utilityClass}
-                </code>
-                <code className="inline-block rounded-md bg-background/80 px-2 py-1 text-xs text-content-secondary">
-                  <span className="text-neutral-400/70">&lt;</span>
-                  <span className="text-pink-700">p</span>
-                  <span className="text-cyan-800"> className</span>=
-                  <span className="text-amber-700/90">&quot;{item.utilityClass}&quot;</span>
-                  <span className="text-neutral-400/70">&gt;</span>
-                  <span>{item.value}</span>
-                  <span className="text-neutral-400/70">&lt;/</span>
-                  <span className="text-pink-700">p</span>
-                  <span className="text-neutral-400/70">&gt;</span>
-                </code>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+      <FoundationSection
+        title="Font Sizes"
+        description="Use semantic text utilities so copy scales consistently across components and marketing surfaces."
+      >
+        {fontSizeTokens.map((item) => (
+          <TokenCard
+            key={item.token}
+            title={item.name}
+            subtitle={item.value}
+            metaItems={[
+              { label: 'Token', value: item.token },
+              { label: 'Class', value: item.utilityClass },
+            ]}
+            snippet={getClassUsageSnippet({
+              element: 'p',
+              className: item.utilityClass,
+              content: 'Token preview sample text',
+            })}
+            preview={
+              <TokenPreviewFrame>
+                <p className={cn('text-content-primary', item.utilityClass)}>
+                  Token preview sample text
+                </p>
+              </TokenPreviewFrame>
+            }
+          />
+        ))}
+      </FoundationSection>
+    </FoundationsPage>
   ),
 };
