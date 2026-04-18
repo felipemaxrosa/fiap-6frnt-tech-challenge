@@ -16,8 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Preload LCP image */}
         <link rel="preload" as="image" href="/piggy-bank.png" type="image/png" />
-        {/* Preconnect to API */}
-        <link rel="preconnect" href="http://localhost:3001" />
       </head>
       <body suppressHydrationWarning>
         <FeedbackProvider>
