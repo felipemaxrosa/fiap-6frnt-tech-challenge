@@ -1,9 +1,7 @@
 import type { Transaction, NewTransaction } from '@/types';
-import seedData from '@/data/transactions.json';
 
-// Initialized from seed data on first load.
 // Mutations are in-memory only — they reset on serverless cold starts.
-const store: Transaction[] = [...(seedData.transactions as Transaction[])];
+const store: Transaction[] = [];
 
 export function getAll(): Transaction[] {
   return store;
