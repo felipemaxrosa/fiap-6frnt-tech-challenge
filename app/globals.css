@@ -34,6 +34,13 @@ html {
   overflow: hidden;
 }
 
+/* Prevent iOS Safari from zooming on input focus (requires font-size >= 16px absolute) */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-content-primary);
