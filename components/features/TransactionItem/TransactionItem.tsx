@@ -50,7 +50,7 @@ export function TransactionItem({
         )}
       </div>
 
-      <div className="w-full flex justify-between h-[-webkit-fill-available] items-end gap-2 shrink-0 @md:contents">
+      <div className="w-full flex justify-between items-end gap-2 shrink-0 @md:contents">
         <div className="flex flex-1 min-w-0 @md:order-2">
           <div className="min-w-0 w-full">
             <Tooltip content={description} position={tooltipPosition}>
