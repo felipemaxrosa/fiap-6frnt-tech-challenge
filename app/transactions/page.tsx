@@ -141,7 +141,7 @@ function TransactionsContent() {
         <div className="flex flex-col">
           <h1
             id="transactions-heading"
-            className="py-lg w-full heading text-content-primary bg-background z-20 text-xl flex justify-between items-center"
+            className="py-lg w-full heading text-content-primary bg-background text-xl flex justify-between items-center"
           >
             Transações
             <IconButton
