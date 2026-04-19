@@ -37,7 +37,7 @@ export function formatCurrencyExact(value: number): string {
 
 export function formatDate(dateStr: string | Date): string {
   if (typeof dateStr === 'string') {
-    dateStr = `${dateStr}T00:00:00Z`;
+    dateStr = `${dateStr}T00:00:00`;
   }
 
   return new Date(dateStr).toLocaleDateString('pt-BR');
