@@ -22,10 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ViewportFix />
         <FeedbackProvider>
           <TransactionsProvider>
-            <div
-              className="flex flex-col overflow-hidden"
-              style={{ height: 'var(--app-height, 100dvh)' }}
-            >
+            <div className="flex h-dvh flex-col overflow-hidden">
               <Header />
 
               {/* Tablet: horizontal nav (full width, above content) */}

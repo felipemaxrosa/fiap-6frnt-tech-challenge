@@ -2,24 +2,18 @@
 
 import { useEffect } from 'react';
 
-// iOS Safari doesn't recalculate layout after the soft keyboard closes,
-// leaving a blank space. dvh units don't update reliably — we use a CSS
-// variable driven by visualViewport instead.
+// When the iOS soft keyboard closes, Safari leaves a ghost scroll offset on the
+// window that causes a blank space at the bottom. Resetting it on every
+// visualViewport resize (which fires reliably on keyboard open/close) clears it.
 export function ViewportFix() {
   useEffect(() => {
-    const update = () => {
-      const vh = window.visualViewport?.height ?? window.innerHeight;
-      document.documentElement.style.setProperty('--app-height', `${vh}px`);
-    };
+    const viewport = window.visualViewport;
+    if (!viewport) return;
 
-    update();
-    window.visualViewport?.addEventListener('resize', update);
-    window.addEventListener('resize', update);
+    const onResize = () => window.scrollTo(0, 0);
 
-    return () => {
-      window.visualViewport?.removeEventListener('resize', update);
-      window.removeEventListener('resize', update);
-    };
+    viewport.addEventListener('resize', onResize);
+    return () => viewport.removeEventListener('resize', onResize);
   }, []);
 
   return null;
