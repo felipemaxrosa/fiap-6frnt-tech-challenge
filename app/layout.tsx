@@ -3,7 +3,7 @@ import { TransactionsProvider } from '@/context/TransactionsContext';
 import { FeedbackProvider } from '@/context/FeedbackContext';
 import { Header } from '@/components/ui/Header';
 import { Sidebar } from '@/components/ui/Sidebar';
-import { ViewportFix } from '@/components/ui/ViewportFix/ViewportFix';
+// import { ViewportFix } from '@/components/ui/ViewportFix/ViewportFix';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" as="image" href="/piggy-bank.png" type="image/png" />
       </head>
       <body suppressHydrationWarning>
-        <ViewportFix />
+        {/* <ViewportFix /> */}
         <FeedbackProvider>
           <TransactionsProvider>
             <div className="flex h-dvh flex-col overflow-hidden">
