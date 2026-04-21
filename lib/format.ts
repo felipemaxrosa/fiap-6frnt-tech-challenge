@@ -2,7 +2,7 @@ const ABBREVIATIONS = [
   { threshold: 1e12, suffix: ' tri' },
   { threshold: 1e9, suffix: ' bi' },
   { threshold: 1e6, suffix: ' mi' },
-  { threshold: 1e4, suffix: ' mil' },
+  { threshold: 1e3, suffix: ' mil' },
 ];
 
 export function formatCurrency(value: number, showSuffix = false): string {
@@ -37,7 +37,7 @@ export function formatCurrencyExact(value: number): string {
 
 export function formatDate(dateStr: string | Date): string {
   if (typeof dateStr === 'string') {
-    dateStr = `${dateStr}T00:00:00Z`;
+    dateStr = `${dateStr}T00:00:00`;
   }
 
   return new Date(dateStr).toLocaleDateString('pt-BR');

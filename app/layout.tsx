@@ -3,6 +3,7 @@ import { TransactionsProvider } from '@/context/TransactionsContext';
 import { FeedbackProvider } from '@/context/FeedbackContext';
 import { Header } from '@/components/ui/Header';
 import { Sidebar } from '@/components/ui/Sidebar';
+import { ViewportFix } from '@/components/ui/ViewportFix/ViewportFix';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -16,10 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Preload LCP image */}
         <link rel="preload" as="image" href="/piggy-bank.png" type="image/png" />
-        {/* Preconnect to API */}
-        <link rel="preconnect" href="http://localhost:3001" />
       </head>
       <body suppressHydrationWarning>
+        <ViewportFix />
         <FeedbackProvider>
           <TransactionsProvider>
             <div className="flex h-dvh flex-col overflow-hidden">

@@ -10,7 +10,20 @@ import { IconButton } from '../Button';
 import { X } from 'lucide-react';
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ label, helperText, error, disabled, className, onClear, id, ...props }, ref) => {
+  (
+    {
+      label,
+      helperText,
+      error,
+      disabled,
+      className,
+      onClear,
+      id,
+      max = new Date().toISOString().split('T')[0],
+      ...props
+    },
+    ref
+  ) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const helperId = helperText ? `${inputId}-helper` : undefined;
@@ -24,6 +37,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             ref={ref}
             id={inputId}
             type="date"
+            max={max}
             disabled={disabled}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
