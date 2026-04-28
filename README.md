@@ -2,6 +2,8 @@
 
 Frontend de gestão financeira pessoal construído com Next.js 16 e Design System próprio, desenvolvido como tech challenge da pós-graduação FIAP Frontend Engineering.
 
+🚀 **[Acessar aplicação →](https://fiap-6frnt-tech-challenge.vercel.app/)**
+
 ![Home — desktop](docs/screenshots/home-desktop.png)
 
 ---
