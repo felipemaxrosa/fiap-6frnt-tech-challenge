@@ -2,6 +2,8 @@
 
 Frontend de gestão financeira pessoal construído com Next.js 16 e Design System próprio, desenvolvido como tech challenge da pós-graduação FIAP Frontend Engineering.
 
+🚀 **[Acessar aplicação →](https://fiap-6frnt-tech-challenge.vercel.app/)**
+
 ![Home — desktop](docs/screenshots/home-desktop.png)
 
 ---
@@ -9,7 +11,7 @@ Frontend de gestão financeira pessoal construído com Next.js 16 e Design Syste
 ## Funcionalidades
 
 - **Dashboard** — saldo da conta com toggle de visibilidade e lista das transações mais recentes
-- **Lista de transações** — filtros por tipo, intervalo de datas e ordenação; paginação server-side via json-server; estado persiste na URL via query params
+- **Lista de transações** — filtros por tipo, intervalo de datas e ordenação; paginação server-side via Next.js API Routes; estado persiste na URL via query params
 - **CRUD completo** — adicionar, editar e excluir transações com modais de confirmação e feedback visual
 - **Design System** — biblioteca de componentes documentada no Storybook com tokens de cor, tipografia e espaçamento
 
@@ -44,7 +46,7 @@ npm install
 Crie o arquivo `.env.local` na raiz do projeto:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=/api
 ```
 
 ### 4. Iniciar o servidor de desenvolvimento
@@ -53,12 +55,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 npm run dev
 ```
 
-Este comando inicia simultaneamente:
-
-- **Next.js** em `http://localhost:3000`
-- **json-server** (mock API) em `http://localhost:3001`
-
-> O json-server assiste o arquivo `data/transactions.json` e expõe uma REST API completa. A aplicação não funciona sem ele rodando.
+Inicia o Next.js em `http://localhost:3000`. A API é servida pelo próprio Next.js em `/api/transactions`.
 
 ---
 
@@ -66,10 +63,9 @@ Este comando inicia simultaneamente:
 
 | Comando                   | Descrição                                            |
 | ------------------------- | ---------------------------------------------------- |
-| `npm run dev`             | Inicia Next.js + json-server simultaneamente         |
+| `npm run dev`             | Inicia o Next.js em `http://localhost:3000`          |
 | `npm run build`           | Build de produção                                    |
 | `npm start`               | Inicia o servidor de produção (requer `build` antes) |
-| `npm run api`             | Inicia apenas o json-server                          |
 | `npm run storybook`       | Abre o Storybook em `http://localhost:6006`          |
 | `npm run build-storybook` | Gera o Storybook estático em `storybook-static/`     |
 | `npm run lint`            | Executa o ESLint                                     |
@@ -79,9 +75,9 @@ Este comando inicia simultaneamente:
 
 ## Variáveis de ambiente
 
-| Variável              | Obrigatória | Descrição                          | Valor padrão            |
-| --------------------- | ----------- | ---------------------------------- | ----------------------- |
-| `NEXT_PUBLIC_API_URL` | Sim         | URL base da API mock (json-server) | `http://localhost:3001` |
+| Variável              | Obrigatória | Descrição       | Valor padrão |
+| --------------------- | ----------- | --------------- | ------------ |
+| `NEXT_PUBLIC_API_URL` | Não         | URL base da API | `/api`       |
 
 ---
 
@@ -118,14 +114,16 @@ tech-challenge/
 │
 ├── hooks/
 │   ├── useTransactionFilters.ts  # Filtro e ordenação com persistência em URL
-│   └── usePaginatedTransactions.ts # Paginação server-side via json-server
+│   └── usePaginatedTransactions.ts # Paginação server-side via Next.js API Routes
 │
 ├── lib/
 │   └── transactions.ts           # Helpers puros: getAll, calculateBalance, getRecent
 │
-├── services/                     # TransactionService — chamadas HTTP ao json-server
+├── services/                     # TransactionService — chamadas HTTP à API interna
+├── app/api/
+│   └── transactions/             # Next.js API Routes (GET, POST, PATCH, DELETE)
 ├── data/
-│   └── transactions.json         # Dados mock (lidos e escritos pelo json-server)
+│   └── transactions.json         # Seed data inicial
 ├── types/
 │   └── index.ts                  # Transaction, TransactionType, Account
 ├── shared/                       # Constantes e utilitários de formatação
@@ -144,7 +142,7 @@ tech-challenge/
 | Design System        | Custom + Storybook      | Exigência do challenge; tokens CSS para consistência visual         |
 | Gerenciamento estado | React Context API       | Escopo adequado ao app; sem dependências extras                     |
 | Formulários          | React Hook Form + Zod   | Validação leve com inferência de tipos a partir do schema           |
-| Mock backend         | json-server             | REST API zero-config sobre arquivo JSON                             |
+| API                  | Next.js API Routes      | REST API integrada ao Next.js, sem servidor externo                 |
 | Ícones               | Lucide React            | Consistente, tree-shakeable                                         |
 | Testes               | Vitest + Playwright     | Testes de componente via addon Storybook                            |
 | Commit hooks         | Husky + lint-staged     | Garante lint e formatação em todo commit                            |
